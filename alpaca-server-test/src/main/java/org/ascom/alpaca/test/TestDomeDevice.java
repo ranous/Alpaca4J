@@ -178,7 +178,7 @@ public class TestDomeDevice extends BaseDevice implements DomeDevice {
     @Override
     public void slewToAzimuth(int clientID, double azimuth) {
         this.azimuth = azimuth;
-        startSlewing(4);
+        startSlewing(5);
     }
 
     @Override

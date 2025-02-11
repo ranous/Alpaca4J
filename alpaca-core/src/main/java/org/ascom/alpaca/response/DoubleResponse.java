@@ -1,7 +1,8 @@
 package org.ascom.alpaca.response;
 
 public class DoubleResponse extends ValueResponse<Double> {
-    public DoubleResponse() {
+    @SuppressWarnings("unused")
+    DoubleResponse() {
         super();
     }
 

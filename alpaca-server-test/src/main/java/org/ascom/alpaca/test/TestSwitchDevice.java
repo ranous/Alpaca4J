@@ -16,6 +16,7 @@ public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
             new Switch("Switch3", "Test Switch 3", true, 2, 0, 1, false, true),
             new Switch("Switch4", "Test Switch 4", true, 2, 0, 5, true, false));
 
+    @SuppressWarnings("CanBeFinal")
     private static class Switch {
         public String name;
         public String description;

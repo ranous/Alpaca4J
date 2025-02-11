@@ -1,7 +1,8 @@
 package org.ascom.alpaca.response;
 
 public class IntResponse extends ValueResponse<Integer> {
-    public IntResponse() {
+    @SuppressWarnings("unused")
+    IntResponse() {
         super();
     }
 

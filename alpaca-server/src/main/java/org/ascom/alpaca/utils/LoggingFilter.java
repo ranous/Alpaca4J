@@ -24,7 +24,6 @@ import java.util.Map;
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
     private static final Logger log = LoggerFactory.getLogger(LoggingFilter.class);
     private static final String START_TIME = "LoggingFilter.START_TIME";
-    private static final String SERVER_TRANS_ID = "LoggingFilter.SERVER_TRANS_ID";
 
     @Inject
     RoutingContext routingContext;

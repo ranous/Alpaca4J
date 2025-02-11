@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ClientTest {
-    private static final Logger log = LoggerFactory.getLogger(ClientTest.class);
     public static void main(String[] args) {
         ClientManager manager = new ClientManager();
         manager.discoverDevices();

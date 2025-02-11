@@ -1,7 +1,8 @@
 package org.ascom.alpaca.response;
 
 public class StringResponse extends ValueResponse<String> {
-    public StringResponse() {
+    @SuppressWarnings("unused")
+    StringResponse() {
         super();
     }
 

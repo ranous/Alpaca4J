@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
  * This filter preprocesses the client request and extracts the ClientID and ClientTransactionID from the request
  * and validates them.
  */
+@SuppressWarnings("RedundantThrows")
 @Provider
 @Priority(10) // Ensures this runs before resource methods
 public class ParameterValidationFilter implements ContainerRequestFilter, ContainerResponseFilter {
@@ -53,8 +54,7 @@ public class ParameterValidationFilter implements ContainerRequestFilter, Contai
     }
 
     @Override
-    public void filter(ContainerRequestContext requestContext,
-                       ContainerResponseContext responseContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         if (responseContext.getEntity() instanceof AlpacaResponse response) {
             response.setServerTransactionID(ClientContext.getContext().getServerTransactionID());
             if (response.getClientTransactionID() == 0) {

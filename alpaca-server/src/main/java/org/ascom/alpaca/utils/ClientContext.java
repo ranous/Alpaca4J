@@ -1,5 +1,6 @@
 package org.ascom.alpaca.utils;
 
+@SuppressWarnings("unused")
 public class ClientContext {
     private static final ThreadLocal<ClientContext> threadLocal = ThreadLocal.withInitial(ClientContext::new);
 
