@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
+import org.ascom.alpaca.response.ServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SpellCheckingInspection"})
@@ -125,8 +127,9 @@ public class ClientManager {
             URI uri = new URI("http", null, address.getHostAddress(), port, null, null, null);
             ManagementClient managementClient = new ManagementClient(uri);
             List<Integer> versions = managementClient.getApiVersions();
+            ServerInfo serverInfo = managementClient.getDescription();
             List<DeviceDescriptor> descriptors = managementClient.getConfiguredDevices();
-            log.info("Received {} devices", descriptors.size());
+            log.info("Received {} devices from server {} running on {}", descriptors.size(), serverInfo.getServerName(), address.getHostAddress());
 
             for (DeviceDescriptor descriptor : descriptors) {
                 DeviceType type = descriptor.getDeviceType();
@@ -142,15 +145,15 @@ public class ClientManager {
                     case SafetyMonitor -> client = new SafetyMonitorClient(uri, descriptor, currentClientID);
                     case Switch -> client = new SwitchClient(uri, descriptor, currentClientID);
                     case Telescope -> client = new TelescopeClient(uri, descriptor, currentClientID);
-                    default -> log.warn("Received a unknown client type: {}", type);
-                }
+                    case Unknown -> log.warn("Received a unknown client type: {} during discovery from server {}", type, uri);
+                    default -> log.error("Received a client of type {} during discovery from server {} which is unimplemented", type, uri);
+                 }
                 if (client != null) {
                     clients.add(client);
                 }
             }
         } catch (Exception e) {
-            System.out.println("Problem with Alpaca discovery socket" + e);
-            log.warn("Problem interrogating alpaca server", e);
+            log.warn("Problem interrogating Alpaca server running at {}", address, e);
         }
     }
 }
