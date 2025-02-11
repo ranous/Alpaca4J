@@ -153,20 +153,4 @@ public class ClientManager {
             log.warn("Problem interrogating alpaca server", e);
         }
     }
-
-    public static void main(String[] args) {
-        ClientManager manager = new ClientManager();
-        manager.discoverDevices();
-
-        ObservingConditionsClient client = manager.getClient(ObservingConditionsClient.class);
-        List<ObservingConditionsClient> clients = manager.getClients(ObservingConditionsClient.class);
-        List<CommonClient> allClients = manager.getClients();
-        if (client == null) {
-            System.err.println("Cannot find a observing conditions device");
-            System.exit(1);
-        }
-        client.connect();
-        double temp = client.getTemperature();
-        System.out.println("Temperature is " + temp);
-    }
 }

@@ -65,8 +65,7 @@ public class CommonClient {
             case 1036 -> throw new ActionNotImplementedException(response.getClientTransactionID(), response.getErrorMessage());
             default -> {
                 log.warn("Received an unknown error type of {} with message: {}", response.getErrorNumber(), response.getErrorMessage());
-                // TODO: define a new exception in this case
-                throw new RuntimeException(response.getErrorMessage());
+                throw new UnknownErrorException(response.getClientTransactionID(), response.getErrorNumber(), response.getErrorMessage());
             }
         }
     }
