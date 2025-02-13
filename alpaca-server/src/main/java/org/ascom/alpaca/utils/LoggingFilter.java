@@ -1,11 +1,11 @@
 package org.ascom.alpaca.utils;
+
 import io.vertx.core.http.HttpServerRequest;
-import io.vertx.ext.web.RoutingContext;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.ext.Provider;
 import org.ascom.alpaca.response.AlpacaResponse;
@@ -25,8 +25,13 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
     private static final Logger log = LoggerFactory.getLogger(LoggingFilter.class);
     private static final String START_TIME = "LoggingFilter.START_TIME";
 
-    @Inject
-    RoutingContext routingContext;
+    // Ugh, this is the only way I've been able to figure out how to get the client IP address while using Quarkus is
+    // to use the Vert.X HttpServerRequest object.  In the past when using Jersey, which ran in a Servlet environment,
+    // I was using HttpServletRequest, which is more common and would be more portable.  Not available with Quarkus,
+    // so here we are.  If this needs porting to another microprofile implementation, then this would be code
+    // that would need changing
+    @Context
+    HttpServerRequest serverRequest;
 
     @Override
     public void filter(ContainerRequestContext request) {
@@ -61,6 +66,8 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
                 try {
                     sb.append(", error=").append(ErrorCode.fromCode(errorNum));
                 } catch (IllegalArgumentException e) {
+                    // shouldn't ever happen as there's no reason for the server to return an error code that
+                    // isn't already defined in ErrorCode
                     sb.append(", error=").append(errorNum);
                 }
             }
@@ -90,7 +97,6 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
             return "client_ip=" + ipAddress;
         }
 
-        HttpServerRequest serverRequest = routingContext.request();
         ipAddress = serverRequest.remoteAddress().host();
         return "client_ip=" + ipAddress;
     }
