@@ -15,7 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Base class for devices to subclass which provides the functions common to all ASCOM devices.
+ * The BaseDevice implements the functionality common to all Alpaca devices.  Implementers of
+ * new devices should subclass this. The BaseDevice implements client based connection management.
+ * If your driver needs to manage connections to what it is managing, then you'll to manage that
+ * separately.
  */
 @SuppressWarnings("unused")
 public class BaseDevice implements Device {
@@ -108,6 +111,7 @@ public class BaseDevice implements Device {
         }
     }
 
+    // The following methods implement the operations common to all Alpaca devices.
     /**
      * Checks if the client is connected to this device.  If not, a NotConnectedException is thrown.
      *
