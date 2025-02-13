@@ -13,6 +13,7 @@ public class ClientTest {
             System.err.println("Cannot find a observing conditions device");
             System.exit(1);
         }
+        client.connect();
         double temp = client.getTemperature();
         System.out.println("Temperature is " + temp);
     }
