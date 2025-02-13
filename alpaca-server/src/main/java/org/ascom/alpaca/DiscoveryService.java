@@ -76,7 +76,6 @@ public class DiscoveryService {
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
             log.info("Discovery Listener started on port {}", discoveryPort);
             while (!shouldExit) {
-                log.info("Discovery listener Waiting");
                 socket.receive(packet);
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
@@ -97,7 +96,7 @@ public class DiscoveryService {
             byte[] responseBuffer = responseMessage.getBytes(StandardCharsets.UTF_8);
             DatagramPacket packet = new DatagramPacket(responseBuffer, responseBuffer.length, address, port);
             socket.send(packet);
-            log.info("Sent discovery response \"{}\" to {}", responseMessage, address.getHostAddress());
+            log.info("Sent discovery response {} to {}", responseMessage, address.getHostAddress());
         } catch (Exception e) {
             log.warn("Problem sending response in discovery listener{}", String.valueOf(e));
         }
