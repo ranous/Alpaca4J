@@ -33,7 +33,7 @@ public class ManagementClient {
                         .baseUri(serverAddress)
                         .build(Management.class);
                 return client;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.warn("Problem constructing the client", e);
                 throw new RuntimeException("Cannot build a client for Management - " + e.getMessage());
             }
