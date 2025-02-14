@@ -16,5 +16,6 @@ public class ClientTest {
         client.connect();
         double temp = client.getTemperature();
         System.out.println("Temperature is " + temp);
+        System.exit(0);
     }
 }
