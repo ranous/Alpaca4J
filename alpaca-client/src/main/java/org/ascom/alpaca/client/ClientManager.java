@@ -9,10 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.ServiceLoader;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SpellCheckingInspection"})
@@ -22,7 +23,8 @@ public class ClientManager {
     private final String broadcastMessage = "alpacadiscovery1";
     private final int discoveryPort = 32227;
     private final int currentClientID = new Random().nextInt(Integer.MAX_VALUE);
-    private final List<CommonClient> clients = new ArrayList<>();
+    private final List<CommonClient> clients = Collections.synchronizedList(new ArrayList<>());
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
     private int responseTimeout = 5; // 5 seconds
 
     record AlpacaDiscoveryResponse(@JsonProperty("AlpacaPort") int alpacaPort) {}
@@ -84,6 +86,7 @@ public class ClientManager {
                 InetAddress broadcastAddress = InetAddress.getByName("255.255.255.255");
 
                 DatagramPacket sendPacket = new DatagramPacket(buffer, buffer.length, broadcastAddress, discoveryPort);
+                log.info("Sending broadcast message");
                 socket.send(sendPacket);
             } catch (Exception e) {
                 log.warn("Problem sending the Alpaca discovery request", e);
@@ -109,9 +112,19 @@ public class ClientManager {
 
                     log.info("received a discovery response from {}, port {}", address.getHostAddress(), response.alpacaPort);
                     int port = 11111;
-
-                    interrogateAlpacaServer(address, port);
+                    // let's interogate the server in a separate thread as to not delay hearing from other servers
+                    executor.submit(() -> interrogateAlpacaServer(address, port));
                 }
+
+                executor.shutdown();
+                // Wait for the interogation of alpaca servers for a while to finish up
+                if (!executor.awaitTermination(500000, TimeUnit.SECONDS)) {
+                    log.warn("Alpaca discovery thread timed out - killing");
+                    // Shoot any straglers in the head
+                    executor.shutdownNow();
+                }
+
+                log.info("Discovery Listener stopped");
             } catch (SocketTimeoutException e) {
                 log.info("Alpaca discovery request timed out");
             } catch (Exception e) {
