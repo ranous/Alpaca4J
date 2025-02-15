@@ -13,8 +13,8 @@ import java.util.List;
 public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
     private final List<Switch> switches = List.of(new Switch("Switch1", "Test Switch 1", false, 0, 0, 1, true, true),
             new Switch("Switch2", "Test Switch 2", true, 2, 0, 5, true, true),
-            new Switch("Switch3", "Test Switch 3", true, 2, 0, 1, false, true),
-            new Switch("Switch4", "Test Switch 4", true, 2, 0, 5, true, false));
+            new Switch("Switch3", "Test Switch 3", true, 1, 0, 1, false, true),
+            new Switch("Switch4", "Test Switch 4", true, 3, 0, 4, false, false));
 
     @SuppressWarnings("CanBeFinal")
     private static class Switch {
