@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -23,11 +22,13 @@ public class ClientManager {
     private final String broadcastMessage = "alpacadiscovery1";
     private final int discoveryPort = 32227;
     private final int currentClientID = new Random().nextInt(Integer.MAX_VALUE);
-    private final List<CommonClient> clients = Collections.synchronizedList(new ArrayList<>());
     ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+    private final Map<AlpacaServerInfo, List<CommonClient>> servers = Collections.synchronizedMap(new HashMap<>());
     private int responseTimeout = 5; // 5 seconds
 
     record AlpacaDiscoveryResponse(@JsonProperty("AlpacaPort") int alpacaPort) {}
+
+    record AlpacaServerInfo(InetAddress address, int alpacaPort, ServerInfo serverInfo) {}
 
     /**
      * The amount of time the client will wait for responses to the discovery broadcast for Alpaca devices.
@@ -50,7 +51,7 @@ public class ClientManager {
      * @return a list of the devices known via the discovery protocol
      */
     public List<CommonClient> getClients() {
-        return clients;
+        return servers.values().stream().flatMap(List::stream).collect(Collectors.toList());
     }
 
     /**
@@ -60,7 +61,7 @@ public class ClientManager {
      */
     @SuppressWarnings("unchecked") // Suppress warning since we ensure type safety
     public <T extends CommonClient> T getClient(Class<T> type) {
-        return (T) clients.stream().filter(type::isInstance).findFirst().orElse(null);
+        return (T) servers.values().stream().flatMap(List::stream).filter(type::isInstance).findFirst().orElse(null);
     }
 
     /**
@@ -70,7 +71,7 @@ public class ClientManager {
      */
     @SuppressWarnings("unchecked") // Suppress warning since we ensure type safety
     public <T extends CommonClient> List<T> getClients(Class<T> type) {
-        return (List<T>) clients.stream().filter(type::isInstance).collect(Collectors.toList());
+        return (List<T>) servers.values().stream().flatMap(List::stream).filter(type::isInstance).collect(Collectors.toList());
     }
 
     /**
@@ -141,6 +142,9 @@ public class ClientManager {
             ManagementClient managementClient = new ManagementClient(uri);
             List<Integer> versions = managementClient.getApiVersions();
             ServerInfo serverInfo = managementClient.getDescription();
+            AlpacaServerInfo server = new AlpacaServerInfo(address, port, serverInfo);
+            List<CommonClient> clients = new ArrayList<>();
+
             List<DeviceDescriptor> descriptors = managementClient.getConfiguredDevices();
             log.info("Received {} devices from server {} running on {}", descriptors.size(), serverInfo.getServerName(), address.getHostAddress());
 
@@ -164,6 +168,7 @@ public class ClientManager {
                 if (client != null) {
                     clients.add(client);
                 }
+                servers.put(server, clients);
             }
         } catch (Exception e) {
             log.warn("Problem interrogating Alpaca server running at {}", address, e);
