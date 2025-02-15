@@ -28,10 +28,16 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
     private final double windDirection = 33.0;
     private final double windGust = 11.3;
     private final double windSpeed = 3.0;
+    private final double cloudCoverage = 52;
+    private final double skyBrightness = 0.00693304;
+    private final double skyQuality =17.88;
+    private final double skyTemperature = -6;
+    private final double starFWHM = 2.2;
+    private long lastUpdate = System.currentTimeMillis();
 
 
-    private final List<String> supportedMethods = List.of("averageperiod", "dewpoint", "humidity", "pressure", "rainrate",
-            "temperature", "winddirection", "windgust", "windspeed");
+    private final List<String> supportedMethods = List.of("averageperiod", "cloudcover", "dewpoint", "humidity", "pressure", "rainrate",
+            "skybrightness", "skyquality", "skytemperature", "starfwhm", "temperature", "winddirection", "windgust", "windspeed");
 
     public TestObservingConditionsDevice() {
         super(DeviceType.ObservingConditions, "Test Observing Conditions", 2);
@@ -66,7 +72,7 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
 
     @Override
     public double getCloudCover(int clientID) {
-        throw new PropertyNotImplementedException("The cloudcover method is not implemented");
+        return cloudCoverage;
     }
 
     @Override
@@ -91,22 +97,22 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
 
     @Override
     public double getSkyBrightness(int clientID) {
-        throw new PropertyNotImplementedException("The skybrightness method is not implemented");
+        return skyBrightness;
     }
 
     @Override
     public double getSkyQuality(int clientID) {
-        throw new PropertyNotImplementedException("The skyquality method is not implemented");
+        return skyQuality;
     }
 
     @Override
     public double getSkyTemperature(int clientID) {
-        throw new PropertyNotImplementedException("The skytemperature method is not implemented");
+        return skyTemperature;
     }
 
     @Override
     public double getStarFWHM(int clientID) {
-        throw new PropertyNotImplementedException("The starfwhm method is not implemented");
+        return starFWHM;
     }
 
     @Override
@@ -147,6 +153,11 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
 
     @Override
     public double getTimeSinceLastUpdate(int clientID, String sensorName) {
-        throw new PropertyNotImplementedException("The time since last update was not supplied");
+        long curTime = System.currentTimeMillis();
+        long duration = (curTime - lastUpdate)/1000;
+        if (duration > 300) {
+            lastUpdate = curTime;
+        }
+        return duration;
     }
 }

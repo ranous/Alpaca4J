@@ -75,6 +75,9 @@ public class TestRotatorDevice extends BaseDevice implements RotatorDevice {
         if (this.position > 360) {
             this.position = this.position % 360;
         }
+        if (this.position < 0) {
+            this.position = 360 + this.position;
+        }
         this.targetPosition+=this.position;
         this.mechanicalPosition+=this.position + offset;
         if (this.mechanicalPosition > 360) {
