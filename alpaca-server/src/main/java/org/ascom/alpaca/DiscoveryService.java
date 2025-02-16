@@ -21,9 +21,9 @@ public class DiscoveryService {
 
     private Thread listenerThread;
     private boolean shouldExit = false;
-    @Inject @ConfigProperty(name = "alpaca.discovery.port")
+    @Inject @ConfigProperty(name = "alpaca.discovery.port", defaultValue = "32227")
     int discoveryPort;
-    @Inject @ConfigProperty(name = "alpaca.http.port")
+    @Inject @ConfigProperty(name = "alpaca.http.port", defaultValue = "11111")
     int alpacaPort;
 
     // Should be magically called on server startup
