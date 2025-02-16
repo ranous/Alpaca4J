@@ -75,6 +75,18 @@ public class ClientManager {
     }
 
     /**
+     * Returns all the clients associated with a given address
+     */
+    public List<CommonClient> getClients(InetAddress address) {
+        for (AlpacaServerInfo info: servers.keySet()) {
+            if (info.address.equals(address)) {
+                return servers.get(info);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Broadcasts on the local network for any Alpaca devices
      */
     public void discoverDevices() {
@@ -127,7 +139,7 @@ public class ClientManager {
 
                 log.info("Discovery Listener stopped");
             } catch (SocketTimeoutException e) {
-                log.info("Alpaca discovery request timed out");
+                log.debug("Alpaca discovery request timed out");
             } catch (Exception e) {
                 log.warn("Problem receiving Alpaca discovery responses");
             }
