@@ -458,6 +458,8 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
         exposureStartTime = System.currentTimeMillis();
         exposureDuration = duration* 1000L;
         imageReady = false;
+        lastExposureStartTime = 0;
+        lastExposureDuration = 0;
         log.info("Starting exposure of {} seconds", duration);
     }
 
