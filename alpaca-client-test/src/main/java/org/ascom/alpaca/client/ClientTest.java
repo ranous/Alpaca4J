@@ -1,8 +1,5 @@
 package org.ascom.alpaca.client;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class ClientTest {
     public static void main(String[] args) {
         ClientManager manager = new ClientManager();
