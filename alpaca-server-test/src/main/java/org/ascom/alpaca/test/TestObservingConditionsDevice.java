@@ -1,6 +1,5 @@
 package org.ascom.alpaca.test;
 
-import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.ObservingConditionsDevice;
@@ -11,7 +10,6 @@ import org.ascom.alpaca.response.PropertyNotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -31,8 +31,10 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     boolean imageReady = false;
     int subframeStartX = 0;
     int subframeStartY = 0;
-    int sensorWidth = 5;
-    int sensorHeight = 5;
+    final int sensorWidth = 5;
+    final int sensorHeight = 5;
+    final int maxBinX = 1;
+    final int maxBinY = 1;
     int numX = sensorWidth;
     int numY = sensorHeight;
     int startx = 0;
@@ -42,7 +44,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     long exposureDuration = 0;
     long lastExposureDuration = 0;
     long lastExposureStartTime = 0;
-    int maxDuration = 300;
+    final int maxDuration = 300;
     double subExposureDuration = 0;
     int readoutMode = 0;
 
@@ -292,12 +294,12 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
 
     @Override
     public int getMaxBinX(int clientID) {
-        return 1;
+        return maxBinX;
     }
 
     @Override
     public int getMaxBinY(int clientID) {
-        return 1;
+        return maxBinY;
     }
 
     @Override
@@ -404,6 +406,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
             throw new InvalidValueException("Invalid temperature");
         }
         this.setCCDTemp = setCCDTemperature;
+        this.ccdTemp = setCCDTemp + .01;
     }
 
     @Override
@@ -453,6 +456,24 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     public void startExposure(int clientID, int duration, boolean light) {
         if (duration < 0 || duration > this.maxDuration) {
             throw new InvalidValueException("invalid duration");
+        }
+        if (binx > maxBinX) {
+            throw new InvalidValueException("invalid binX");
+        }
+        if (biny > maxBinY) {
+            throw new InvalidValueException("invalid binY");
+        }
+        if (startx > sensorWidth) {
+            throw new InvalidValueException("invalid startX");
+        }
+        if (starty > sensorHeight) {
+            throw new InvalidValueException("invalid startY");
+        }
+        if (numX > sensorWidth - startx) {
+            throw new InvalidValueException("invalid numX");
+        }
+        if (numY > sensorHeight - starty) {
+            throw new InvalidValueException("invalid numX");
         }
         state = CameraState.CameraExposing;
         exposureStartTime = System.currentTimeMillis();

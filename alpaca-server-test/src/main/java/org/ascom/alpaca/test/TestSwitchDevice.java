@@ -19,13 +19,13 @@ public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
     @SuppressWarnings("CanBeFinal")
     private static class Switch {
         public String name;
-        public String description;
+        public final String description;
         public boolean state;
         public double value;
-        public double minSwitchValue;
-        public double maxSwitchValue;
-        public boolean canAsync;
-        public boolean canWrite;
+        public final double minSwitchValue;
+        public final double maxSwitchValue;
+        public final boolean canAsync;
+        public final boolean canWrite;
         public Switch(String name, String description, boolean state, double value, double minSwitchValue, double maxSwitchValue, boolean canAsync, boolean canWrite) {
             this.name = name;
             this.description = description;
