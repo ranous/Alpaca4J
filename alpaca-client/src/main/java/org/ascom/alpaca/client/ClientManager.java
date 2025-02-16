@@ -22,7 +22,7 @@ public class ClientManager {
     private final String broadcastMessage = "alpacadiscovery1";
     private final int discoveryPort = 32227;
     private final int currentClientID = new Random().nextInt(Integer.MAX_VALUE);
-    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+    private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
     private final Map<AlpacaServerInfo, List<CommonClient>> servers = Collections.synchronizedMap(new HashMap<>());
     private int responseTimeout = 5; // 5 seconds
 
