@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
-import org.ascom.alpaca.response.ServerInfo;
+import org.ascom.alpaca.model.ServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

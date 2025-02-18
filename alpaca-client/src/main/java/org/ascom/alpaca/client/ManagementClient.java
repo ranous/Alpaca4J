@@ -4,7 +4,7 @@ import org.ascom.alpaca.api.Management;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.ListResponse;
-import org.ascom.alpaca.response.ServerInfo;
+import org.ascom.alpaca.model.ServerInfo;
 import org.ascom.alpaca.response.ServerInfoResponse;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.slf4j.Logger;
