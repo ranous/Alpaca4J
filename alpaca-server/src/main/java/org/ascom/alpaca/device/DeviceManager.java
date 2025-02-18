@@ -1,8 +1,8 @@
 package org.ascom.alpaca.device;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import jakarta.ws.rs.BadRequestException;
 import org.ascom.alpaca.model.DeviceType;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-@Singleton
+@ApplicationScoped
 public class DeviceManager {
     private static final Logger log = LoggerFactory.getLogger(DeviceManager.class);
     private final List<Device> deviceList = new ArrayList<>();
