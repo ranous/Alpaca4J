@@ -1,5 +1,7 @@
 package org.ascom.alpaca.response;
 
+import org.ascom.alpaca.model.ServerInfo;
+
 @SuppressWarnings("unused")
 public class ServerInfoResponse extends ValueResponse<ServerInfo> {
     ServerInfoResponse() {

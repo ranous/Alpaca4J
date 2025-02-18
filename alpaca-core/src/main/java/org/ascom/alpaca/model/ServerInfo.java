@@ -1,4 +1,4 @@
-package org.ascom.alpaca.response;
+package org.ascom.alpaca.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

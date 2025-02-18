@@ -9,6 +9,7 @@ import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.api.Management;
 import org.ascom.alpaca.device.Device;
 import org.ascom.alpaca.model.DeviceDescriptor;
+import org.ascom.alpaca.model.ServerInfo;
 import org.ascom.alpaca.response.*;
 
 import jakarta.enterprise.context.ApplicationScoped;
