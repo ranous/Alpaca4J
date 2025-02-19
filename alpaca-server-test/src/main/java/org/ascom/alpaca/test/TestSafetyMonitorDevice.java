@@ -1,6 +1,6 @@
 package org.ascom.alpaca.test;
 
-import jakarta.inject.Singleton;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.SafetyMonitorDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -8,7 +8,7 @@ import org.ascom.alpaca.response.ActionNotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Singleton
+@ApplicationScoped
 public class TestSafetyMonitorDevice extends BaseDevice implements SafetyMonitorDevice {
     private static final Logger log = LoggerFactory.getLogger(TestSafetyMonitorDevice.class);
 
