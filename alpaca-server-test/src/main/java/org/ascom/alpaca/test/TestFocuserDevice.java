@@ -16,6 +16,7 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
     private final int maxPosition = 10000;
     private boolean isTemperatureCompensating = true;
     private boolean isMoving = false;
+    private long moveStartTime = 0;
 
     public TestFocuserDevice() {
         super(DeviceType.Focuser, "Test Focuser Driver", 4);
@@ -42,6 +43,9 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
 
     @Override
     public boolean isMoving(int clientID) {
+        if (isMoving && System.currentTimeMillis() - moveStartTime > 1000) {
+            isMoving = false;
+        }
         return isMoving;
     }
 
@@ -99,5 +103,7 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
         if (position > maxPosition) {
             this.position = maxPosition;
         }
+        isMoving = true;
+        moveStartTime = System.currentTimeMillis();
     }
 }
