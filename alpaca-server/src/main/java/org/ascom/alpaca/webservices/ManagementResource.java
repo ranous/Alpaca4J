@@ -1,25 +1,26 @@
 package org.ascom.alpaca.webservices;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.api.Management;
 import org.ascom.alpaca.device.Device;
+import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.ServerInfo;
-import org.ascom.alpaca.response.*;
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import org.ascom.alpaca.response.ListResponse;
+import org.ascom.alpaca.response.ServerInfoResponse;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.List;
 
 @Path("/management")
-@Produces(MediaType.APPLICATION_JSON)@ApplicationScoped
+@Produces(MediaType.APPLICATION_JSON)
+@ApplicationScoped
 public class ManagementResource implements Management {
     @Inject
     DeviceManager deviceManager;

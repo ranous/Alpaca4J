@@ -1,18 +1,23 @@
 package org.ascom.alpaca.webservices;
 
-import org.ascom.alpaca.device.DeviceManager;
-import org.ascom.alpaca.api.ObservingConditions;
-import org.ascom.alpaca.device.ObservingConditionsDevice;
-import org.ascom.alpaca.response.AlpacaResponse;
-import org.ascom.alpaca.model.DeviceType;
-import org.ascom.alpaca.response.DoubleResponse;
-import org.ascom.alpaca.response.StringResponse;
-import org.ascom.alpaca.response.InvalidValueException;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import org.ascom.alpaca.api.ObservingConditions;
+import org.ascom.alpaca.device.DeviceManager;
+import org.ascom.alpaca.device.ObservingConditionsDevice;
+import org.ascom.alpaca.model.DeviceType;
+import org.ascom.alpaca.response.AlpacaResponse;
+import org.ascom.alpaca.response.DoubleResponse;
+import org.ascom.alpaca.response.InvalidValueException;
+import org.ascom.alpaca.response.StringResponse;
 
-@Singleton
+
+@Path("api/v1/")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+@ApplicationScoped
 public class ObservingConditionsResource implements ObservingConditions {
     @Inject
     DeviceManager deviceManager;
@@ -24,16 +29,21 @@ public class ObservingConditionsResource implements ObservingConditions {
         return device;
     }
 
-    public DoubleResponse getAveragePeriod(int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/averageperiod")
+    public DoubleResponse getAveragePeriod(@PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getAveragePeriod(clientID));
     }
 
-    public AlpacaResponse setAveragePeriod(int deviceNumber,
-                                           double averagePeriod,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @PUT
+    @Path("observingconditions/{deviceNumber}/averageperiod")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public AlpacaResponse setAveragePeriod(@PathParam("deviceNumber") int deviceNumber,
+                                           @FormParam("AveragePeriod") double averagePeriod,
+                                           @FormParam("ClientID") int clientID,
+                                           @FormParam("ClientTransactionID") long clientTransactionID) {
         if (averagePeriod < 0) {
             throw new InvalidValueException("The average period must be greater than 0");
         }
@@ -41,102 +51,134 @@ public class ObservingConditionsResource implements ObservingConditions {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public DoubleResponse getCloudCover(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/cloudcover")
+    public DoubleResponse getCloudCover(@PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getCloudCover(clientID));
     }
 
-    public DoubleResponse getDewPoint(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/dewpoint")
+    public DoubleResponse getDewPoint(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getDewPoint(clientID));
     }
 
-    public DoubleResponse getHumidity(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/humidity")
+    public DoubleResponse getHumidity(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getHumidity(clientID));
     }
 
-    public DoubleResponse getPressure(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/pressure")
+    public DoubleResponse getPressure(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getPressure(clientID));
     }
 
-    public DoubleResponse getRainRate(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/rainrate")
+    public DoubleResponse getRainRate(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getRainRate(clientID));
     }
 
-    public DoubleResponse getSkyBrightness(int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/skybrightness")
+    public DoubleResponse getSkyBrightness(@PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyBrightness(clientID));
     }
 
-    public DoubleResponse getSkyQuality(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/skyquality")
+    public DoubleResponse getSkyQuality(@PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyQuality(clientID));
     }
 
-    public DoubleResponse getSkyTemperature(int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/skytemperature")
+    public DoubleResponse getSkyTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                            @QueryParam("ClientID") int clientID,
+                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyTemperature(clientID));
     }
 
-    public DoubleResponse getStarFWHM(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/starfwhm")
+    public DoubleResponse getStarFWHM(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getStarFWHM(clientID));
     }
 
-    public DoubleResponse getTemperature(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/temperature")
+    public DoubleResponse getTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                         @QueryParam("ClientID") int clientID,
+                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getTemperature(clientID));
     }
 
-    public DoubleResponse getWindDirection(int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/winddirection")
+    public DoubleResponse getWindDirection(@PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getWindDirection(clientID));
     }
 
-    public DoubleResponse getWindGust(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/windgust")
+    public DoubleResponse getWindGust(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getWindGust(clientID));
     }
 
-    public DoubleResponse getWindSpeed(int deviceNumber,
-                                       int clientID,
-                                       long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/windspeed")
+    public DoubleResponse getWindSpeed(@PathParam("deviceNumber") int deviceNumber,
+                                       @QueryParam("ClientID") int clientID,
+                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getWindSpeed(clientID));
     }
 
-    public AlpacaResponse refresh(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @PUT
+    @Path("observingconditions/{deviceNumber}/refresh")
+    public AlpacaResponse refresh(@PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID) {
         getDevice(deviceNumber, clientID).refresh(clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public StringResponse getSensorDescription(int deviceNumber,
-                                               String sensorName,
-                                               int clientID,
-                                               long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/sensordescription")
+    public StringResponse getSensorDescription(@PathParam("deviceNumber") int deviceNumber,
+                                               @QueryParam("SensorName") String sensorName,
+                                               @QueryParam("ClientID") int clientID,
+                                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new StringResponse(getDevice(deviceNumber, clientID).getSensorDescription(clientID, sensorName));
     }
 
-    public DoubleResponse getTimeSinceLastUpdate(int deviceNumber,
-                                                 String sensorName,
-                                                 int clientID,
-                                                 long clientTransactionID) {
+    @GET
+    @Path("observingconditions/{deviceNumber}/timesincelastupdate")
+    public DoubleResponse getTimeSinceLastUpdate(@PathParam("deviceNumber") int deviceNumber,
+                                                 @QueryParam("SensorName") String sensorName,
+                                                 @QueryParam("ClientID") int clientID,
+                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getTimeSinceLastUpdate(clientID, sensorName));
     }
 }

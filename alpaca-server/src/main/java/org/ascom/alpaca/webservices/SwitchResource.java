@@ -1,168 +1,207 @@
 package org.ascom.alpaca.webservices;
 
 
-import org.ascom.alpaca.device.DeviceManager;
-import org.ascom.alpaca.api.Switch;
-import org.ascom.alpaca.device.SwitchDevice;
-import org.ascom.alpaca.model.*;
-import org.ascom.alpaca.response.*;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import org.ascom.alpaca.api.Switch;
+import org.ascom.alpaca.device.DeviceManager;
+import org.ascom.alpaca.device.SwitchDevice;
+import org.ascom.alpaca.model.DeviceType;
+import org.ascom.alpaca.response.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Path("/api/v1")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
 public class SwitchResource implements Switch {
     private static final Logger log = LoggerFactory.getLogger(SwitchResource.class);
     @Inject
     DeviceManager deviceManager;
 
-    private SwitchDevice getDevice(int deviceID, int clientID) {
+    private SwitchDevice getDevice(int deviceID,
+                                   int clientID) {
         SwitchDevice device = deviceManager.getDevice(deviceID, DeviceType.Switch);
         device.checkConnectionStatus(clientID);
         return device;
     }
 
-    private void checkSwitchID(int id, int deviceNumber, int clientID) {
-        if (id < 0 || id > getDevice(deviceNumber, clientID).getMaxSwitch(clientID)-1) {
+    private void checkSwitchID(int id,
+                               int deviceNumber,
+                               int clientID) {
+        if (id < 0 || id > getDevice(deviceNumber, clientID).getMaxSwitch(clientID) - 1) {
             throw new InvalidValueException("The switch id value of " + id + " is invalid");
         }
     }
 
-    public BooleanResponse canAsync(Integer deviceNumber,
-                                    Integer id,
-                                    Integer clientID,
-                                    Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/canasync")
+    public BooleanResponse canAsync(@PathParam("deviceNumber") Integer deviceNumber,
+                                    @QueryParam("Id") Integer id,
+                                    @QueryParam("ClientID") Integer clientID,
+                                    @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).canAsync(id, clientID));
     }
 
-    public BooleanResponse canWrite(Integer deviceNumber,
-                                    Integer id,
-                                    Integer clientID,
-                                    Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/canwrite")
+    public BooleanResponse canWrite(@PathParam("deviceNumber") Integer deviceNumber,
+                                    @QueryParam("Id") Integer id,
+                                    @QueryParam("ClientID") Integer clientID,
+                                    @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).canWrite(id, clientID));
     }
 
-    public StringResponse getSwitchDescription(Integer deviceNumber,
-                                               Integer id,
-                                               Integer clientID,
-                                               Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/getswitchdescription")
+    public StringResponse getSwitchDescription(@PathParam("deviceNumber") Integer deviceNumber,
+                                               @QueryParam("Id") Integer id,
+                                               @QueryParam("ClientID") Integer clientID,
+                                               @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new StringResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchDescription(id, clientID));
     }
 
-    public BooleanResponse getSwitchState(Integer deviceNumber,
-                                                         Integer id,
-                                                         Integer clientID,
-                                                         Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/getswitch")
+    public BooleanResponse getSwitchState(@PathParam("deviceNumber") Integer deviceNumber,
+                                          @QueryParam("Id") Integer id,
+                                          @QueryParam("ClientID") Integer clientID,
+                                          @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchState(id, clientID));
     }
 
-    public StringResponse getSwitchName(Integer deviceNumber,
-                                        Integer id,
-                                        Integer clientID,
-                                        Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/getswitchname")
+    public StringResponse getSwitchName(@PathParam("deviceNumber") Integer deviceNumber,
+                                        @QueryParam("Id") Integer id,
+                                        @QueryParam("ClientID") Integer clientID,
+                                        @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new StringResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchName(id, clientID));
     }
 
-    public IntResponse getMaxSwitch(Integer deviceNumber,
-                                    Integer clientID,
-                                    Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/maxswitch")
+    public IntResponse getMaxSwitch(@PathParam("deviceNumber") Integer deviceNumber,
+                                    @QueryParam("ClientID") Integer clientID,
+                                    @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         return new IntResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMaxSwitch(clientID));
     }
 
-    public DoubleResponse getSwitchValue(Integer deviceNumber,
-                                         Integer id,
-                                         Integer clientID,
-                                         Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/getswitchvalue")
+    public DoubleResponse getSwitchValue(@PathParam("deviceNumber") Integer deviceNumber,
+                                         @QueryParam("Id") Integer id,
+                                         @QueryParam("ClientID") Integer clientID,
+                                         @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchValue(id, clientID));
     }
 
-    public DoubleResponse getMinSwitchValue(Integer deviceNumber,
-                                            Integer id,
-                                            Integer clientID,
-                                            Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/minswitchvalue")
+    public DoubleResponse getMinSwitchValue(@PathParam("deviceNumber") Integer deviceNumber,
+                                            @QueryParam("Id") Integer id,
+                                            @QueryParam("ClientID") Integer clientID,
+                                            @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMinSwitchValue(id, clientID));
     }
 
-    public DoubleResponse getMaxSwitchValue(Integer deviceNumber,
-                                            Integer id,
-                                            Integer clientID,
-                                            Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/maxswitchvalue")
+    public DoubleResponse getMaxSwitchValue(@PathParam("deviceNumber") Integer deviceNumber,
+                                            @QueryParam("Id") Integer id,
+                                            @QueryParam("ClientID") Integer clientID,
+                                            @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMaxSwitchValue(id, clientID));
 
     }
 
-    public BooleanResponse isStateChangeComplete(Integer deviceNumber,
-                                                 Integer id,
-                                                 Integer clientID,
-                                                 Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/statechangecomplete")
+    public BooleanResponse isStateChangeComplete(@PathParam("deviceNumber") Integer deviceNumber,
+                                                 @QueryParam("Id") Integer id,
+                                                 @QueryParam("ClientID") Integer clientID,
+                                                 @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).isStateChangeComplete(id, clientID));
     }
 
-    public AlpacaResponse cancelAsync(Integer deviceNumber,
-                                      int id,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @PUT
+    @Path("/switch/{deviceNumber}/cancelasync")
+    public AlpacaResponse cancelAsync(@PathParam("deviceNumber") Integer deviceNumber,
+                                      @FormParam("Id") int id,
+                                      @FormParam("ClientID") int clientID,
+                                      @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         getDevice(deviceNumber, clientID).cancelAsync(id, clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public AlpacaResponse setAsync(Integer deviceNumber,
-                                   int id,
-                                   boolean state,
-                                   int clientID,
-                                   long clientTransactionID) {
+    @PUT
+    @Path("/switch/{deviceNumber}/setasync")
+    public AlpacaResponse setAsync(@PathParam("deviceNumber") Integer deviceNumber,
+                                   @FormParam("Id") int id,
+                                   @FormParam("State") boolean state,
+                                   @FormParam("ClientID") int clientID,
+                                   @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         getDevice(deviceNumber, clientID).setAsync(id, state, clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public AlpacaResponse setAsyncValue(Integer deviceNumber,
-                                        int id,
-                                        int value,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @PUT
+    @Path("/switch/{deviceNumber}/setasyncvalue")
+    public AlpacaResponse setAsyncValue(@PathParam("deviceNumber") Integer deviceNumber,
+                                        @FormParam("Id") int id,
+                                        @FormParam("Value") int value,
+                                        @FormParam("ClientID") int clientID,
+                                        @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         getDevice(deviceNumber, clientID).setAsyncValue(id, value, clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public AlpacaResponse setSwitchName(Integer deviceNumber,
-                                        Integer id,
-                                        String name,
-                                        Integer clientID,
-                                        Integer clientTransactionID) {
+    @PUT
+    @Path("/switch/{deviceNumber}/setswitchname")
+    public AlpacaResponse setSwitchName(@PathParam("deviceNumber") Integer deviceNumber,
+                                        @FormParam("Id") Integer id,
+                                        @FormParam("Name") String name,
+                                        @FormParam("ClientID") Integer clientID,
+                                        @FormParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         getDevice(deviceNumber, clientID).setSwitchName(id, name, clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public AlpacaResponse setSwitchState(Integer deviceNumber,
-                                         int id,
-                                         boolean state,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @PUT
+    @Path("/switch/{deviceNumber}/setswitch")
+    public AlpacaResponse setSwitchState(@PathParam("deviceNumber") Integer deviceNumber,
+                                         @FormParam("Id") int id,
+                                         @FormParam("State") boolean state,
+                                         @FormParam("ClientID") int clientID,
+                                         @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         getDevice(deviceNumber, clientID).setSwitchState(id, state, clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public AlpacaResponse setSwitchValue(Integer deviceNumber,
-                                         int id,
-                                         double value,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @PUT
+    @Path("/switch/{deviceNumber}/setswitchvalue")
+    public AlpacaResponse setSwitchValue(@PathParam("deviceNumber") Integer deviceNumber,
+                                         @FormParam("Id") int id,
+                                         @FormParam("Value") double value,
+                                         @FormParam("ClientID") int clientID,
+                                         @FormParam("ClientTransactionID") long clientTransactionID) {
         log.info("Setting switch value for device {}, id {} to {}", deviceNumber, id, value);
         checkSwitchID(id, deviceNumber, clientID);
         if (value < getDevice(deviceNumber, clientID).getMinSwitchValue(id, clientID) || value > getDevice(deviceNumber, clientID).getMaxSwitchValue(id, clientID)) {
@@ -172,10 +211,12 @@ public class SwitchResource implements Switch {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    public DoubleResponse getSwitchStep(Integer deviceNumber,
-                                        Integer id,
-                                        Integer clientID,
-                                        Integer clientTransactionID) {
+    @GET
+    @Path("/switch/{deviceNumber}/switchstep")
+    public DoubleResponse getSwitchStep(@PathParam("deviceNumber") Integer deviceNumber,
+                                        @QueryParam("Id") Integer id,
+                                        @QueryParam("ClientID") Integer clientID,
+                                        @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
         return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchStep(id, clientID));
     }

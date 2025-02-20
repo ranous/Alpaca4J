@@ -1,11 +1,12 @@
 package org.ascom.alpaca.webservices;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-import jakarta.ws.rs.BadRequestException;
-import org.ascom.alpaca.device.DeviceManager;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import org.ascom.alpaca.api.Common;
 import org.ascom.alpaca.device.Device;
+import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
 import org.ascom.alpaca.response.*;
@@ -13,7 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
-@Singleton
+@Path("api/v1")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+@ApplicationScoped
 public class CommonDeviceResource implements Common {
     private static final Logger log = LoggerFactory.getLogger(CommonDeviceResource.class);
 
@@ -41,61 +45,73 @@ public class CommonDeviceResource implements Common {
     }
 
     @Override
-    public StringResponse executeAction(String deviceType,
-                                        int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID,
-                                        String action,
-                                        String parameters) {
+    @PUT
+    @Path("{deviceType}/{deviceNumber}/action")
+    public StringResponse executeAction(@PathParam("deviceType") String deviceType,
+                                        @PathParam("deviceNumber") int deviceNumber,
+                                        @FormParam("ClientID") int clientID,
+                                        @FormParam("ClientTransactionID") long clientTransactionID,
+                                        @FormParam("Action") String action,
+                                        @FormParam("Parameters") String parameters) {
         String response = getDevice(deviceNumber, deviceType).executeAction(clientID, action, parameters);
         return new StringResponse(clientTransactionID, response);
     }
 
     @Override
-    public AlpacaResponse connect(String deviceType,
-                                  int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @PUT
+    @Path("{deviceType}/{deviceNumber}/connect")
+    public AlpacaResponse connect(@PathParam("deviceType") String deviceType,
+                                  @PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID) {
         log.info("Connecting device to client {}", clientID);
         getDevice(deviceNumber, deviceType).connect(clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public AlpacaResponse disconnect(String deviceType,
-                                     int deviceNumber,
-                                     int clientID,
-                                     long clientTransactionID) {
+    @PUT
+    @Path("{deviceType}/{deviceNumber}/disconnect")
+    public AlpacaResponse disconnect(@PathParam("deviceType") String deviceType,
+                                     @PathParam("deviceNumber") int deviceNumber,
+                                     @FormParam("ClientID") int clientID,
+                                     @FormParam("ClientTransactionID") long clientTransactionID) {
         log.info("Disconnecting device from client {}", clientID);
         getDevice(deviceNumber, deviceType).disconnect(clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public BooleanResponse isConnecting(String deviceType,
-                                        int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/connecting")
+    public BooleanResponse isConnecting(@PathParam("deviceType") String deviceType,
+                                        @PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         Device device = getDevice(deviceNumber, deviceType);
         return new BooleanResponse(clientTransactionID, device.isConnecting(clientID));
     }
 
     @Override
-    public BooleanResponse isConnected(String deviceType,
-                                       int deviceNumber,
-                                       int clientID,
-                                       long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/connected")
+    public BooleanResponse isConnected(@PathParam("deviceType") String deviceType,
+                                       @PathParam("deviceNumber") int deviceNumber,
+                                       @QueryParam("ClientID") int clientID,
+                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         return new BooleanResponse(clientTransactionID, device.isConnected(clientID));
     }
 
     @Override
-    public AlpacaResponse setConnectedState(String deviceType,
-                                            int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID,
-                                            Boolean connectedState) {
+    @PUT
+    @Path("{deviceType}/{deviceNumber}/connected")
+    public AlpacaResponse setConnectedState(@PathParam("deviceType") String deviceType,
+                                            @PathParam("deviceNumber") int deviceNumber,
+                                            @FormParam("ClientID") int clientID,
+                                            @FormParam("ClientTransactionID") long clientTransactionID,
+                                            @FormParam("Connected") Boolean connectedState) {
         if (connectedState == null) {
             throw new BadRequestException("The Connected parameter missing");
         }
@@ -106,10 +122,12 @@ public class CommonDeviceResource implements Common {
     }
 
     @Override
-    public StringResponse getDescription(String deviceType,
-                                         int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/description")
+    public StringResponse getDescription(@PathParam("deviceType") String deviceType,
+                                         @PathParam("deviceNumber") int deviceNumber,
+                                         @QueryParam("ClientID") int clientID,
+                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         device.checkConnectionStatus(clientID);
@@ -117,59 +135,71 @@ public class CommonDeviceResource implements Common {
     }
 
     @Override
-    public ListResponse<StateValue> getDeviceState(String deviceType,
-                                                   int deviceNumber,
-                                                   int clientID,
-                                                   long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/devicestate")
+    public ListResponse<StateValue> getDeviceState(@PathParam("deviceType") String deviceType,
+                                                   @PathParam("deviceNumber") int deviceNumber,
+                                                   @QueryParam("ClientID") int clientID,
+                                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
         Device device = getDevice(deviceNumber, deviceType);
         return new ListResponse<>(clientTransactionID, device.getDeviceState(clientID));
     }
 
     @Override
-    public StringResponse getDriverInfo(String deviceType,
-                                        int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/driverinfo")
+    public StringResponse getDriverInfo(@PathParam("deviceType") String deviceType,
+                                        @PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         return new StringResponse(clientTransactionID, device.getDriverInfo(clientID));
     }
 
     @Override
-    public StringResponse getDriverVersion(String deviceType,
-                                           int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/driverversion")
+    public StringResponse getDriverVersion(@PathParam("deviceType") String deviceType,
+                                           @PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         return new StringResponse(clientTransactionID, device.getDriverVersion(clientID));
     }
 
     @Override
-    public IntResponse getInterfaceVersion(String deviceType,
-                                           int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/interfaceversion")
+    public IntResponse getInterfaceVersion(@PathParam("deviceType") String deviceType,
+                                           @PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         return new IntResponse(clientTransactionID, device.getInterfaceVersion(clientID));
     }
 
     @Override
-    public StringResponse getName(String deviceType,
-                                  int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/name")
+    public StringResponse getName(@PathParam("deviceType") String deviceType,
+                                  @PathParam("deviceNumber") int deviceNumber,
+                                  @QueryParam("ClientID") int clientID,
+                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         return new StringResponse(clientTransactionID, device.getName(clientID));
     }
 
     @Override
-    public ListResponse<String> getSupportedActions(String deviceType,
-                                                  int deviceNumber,
-                                                  int clientID,
-                                                  long clientTransactionID) {
+    @GET
+    @Path("{deviceType}/{deviceNumber}/supportedactions")
+    public ListResponse<String> getSupportedActions(@PathParam("deviceType") String deviceType,
+                                                    @PathParam("deviceNumber") int deviceNumber,
+                                                    @QueryParam("ClientID") int clientID,
+                                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
         return new ListResponse<>(clientTransactionID, device.getSupportedActions(clientID));

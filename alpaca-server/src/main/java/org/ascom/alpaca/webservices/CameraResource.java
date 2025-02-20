@@ -1,15 +1,20 @@
 package org.ascom.alpaca.webservices;
 
-import org.ascom.alpaca.device.DeviceManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import org.ascom.alpaca.api.Camera;
 import org.ascom.alpaca.device.CameraDevice;
-import org.ascom.alpaca.model.*;
+import org.ascom.alpaca.device.DeviceManager;
+import org.ascom.alpaca.model.DeviceType;
+import org.ascom.alpaca.model.ImageArray;
 import org.ascom.alpaca.response.*;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-
-@Singleton
+@Path("api/v1/")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+@ApplicationScoped
 public class CameraResource implements Camera {
     @Inject
     DeviceManager deviceManager;
@@ -21,31 +26,39 @@ public class CameraResource implements Camera {
     }
 
     @Override
-    public IntResponse getBayerOffsetX(int deviceNumber,
-                                       int clientID,
-                                       long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/bayeroffsetx")
+    public IntResponse getBayerOffsetX(@PathParam("deviceNumber") int deviceNumber,
+                                       @QueryParam("ClientID") int clientID,
+                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetX(clientID));
     }
 
     @Override
-    public IntResponse getBayerOffsetY(int deviceNumber,
-                                       int clientID,
-                                       long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/bayeroffsety")
+    public IntResponse getBayerOffsetY(@PathParam("deviceNumber") int deviceNumber,
+                                       @QueryParam("ClientID") int clientID,
+                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetY(clientID));
     }
 
     @Override
-    public IntResponse getBinX(int deviceNumber,
-                               int clientID,
-                               long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/binx")
+    public IntResponse getBinX(@PathParam("deviceNumber") int deviceNumber,
+                               @QueryParam("ClientID") int clientID,
+                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getBinX(clientID));
     }
 
     @Override
-    public AlpacaResponse setBinX(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID,
-                                  int binX) {
+    @PUT
+    @Path("camera/{deviceNumber}/binx")
+    public AlpacaResponse setBinX(@PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID,
+                                  @FormParam("BinX") int binX) {
         if (binX < 1 || binX > getDevice(deviceNumber, clientID).getMaxBinX(clientID)) {
             throw new InvalidValueException("The bin x value out of supported range");
         }
@@ -54,17 +67,21 @@ public class CameraResource implements Camera {
     }
 
     @Override
-    public IntResponse getBinY(int deviceNumber,
-                               int clientID,
-                               long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/biny")
+    public IntResponse getBinY(@PathParam("deviceNumber") int deviceNumber,
+                               @QueryParam("ClientID") int clientID,
+                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getBinY(clientID));
     }
 
     @Override
-    public AlpacaResponse setBinY(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID,
-                                  int binY) {
+    @PUT
+    @Path("camera/{deviceNumber}/biny")
+    public AlpacaResponse setBinY(@PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID,
+                                  @FormParam("BinY") int binY) {
         if (binY < 1 || binY > getDevice(deviceNumber, clientID).getMaxBinX(clientID)) {
             throw new InvalidValueException("The bin x value out of supported range");
         }
@@ -73,495 +90,627 @@ public class CameraResource implements Camera {
     }
 
     @Override
-    public IntResponse getCameraState(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/camerastate")
+    public IntResponse getCameraState(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getCameraState(clientID).ordinal());
     }
 
     @Override
-    public IntResponse getCameraXSize(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/cameraxsize")
+    public IntResponse getCameraXSize(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getCameraXSize(clientID));
     }
 
     @Override
-    public IntResponse getCameraYSize(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/cameraysize")
+    public IntResponse getCameraYSize(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getCameraYSize(clientID));
     }
 
     @Override
-    public BooleanResponse canAbortExposure(int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/canabortexposure")
+    public BooleanResponse canAbortExposure(@PathParam("deviceNumber") int deviceNumber,
+                                            @QueryParam("ClientID") int clientID,
+                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canAbortExposure(clientID));
     }
 
     @Override
-    public BooleanResponse canAsymmetricBin(int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/canasymmetricbin")
+    public BooleanResponse canAsymmetricBin(@PathParam("deviceNumber") int deviceNumber,
+                                            @QueryParam("ClientID") int clientID,
+                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canAsymmetricBin(clientID));
     }
 
     @Override
-    public BooleanResponse canFastReadout(int deviceNumber,
-                                          int clientID,
-                                          long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/canfastreadout")
+    public BooleanResponse canFastReadout(@PathParam("deviceNumber") int deviceNumber,
+                                          @QueryParam("ClientID") int clientID,
+                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canFastReadout(clientID));
     }
 
     @Override
-    public BooleanResponse canGetCoolerPower(int deviceNumber,
-                                             int clientID,
-                                             long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/cangetcoolerpower")
+    public BooleanResponse canGetCoolerPower(@PathParam("deviceNumber") int deviceNumber,
+                                             @QueryParam("ClientID") int clientID,
+                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canGetCoolerPower(clientID));
     }
 
     @Override
-    public BooleanResponse canPulseGuide(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/canpulseguide")
+    public BooleanResponse canPulseGuide(@PathParam("deviceNumber") int deviceNumber,
+                                         @QueryParam("ClientID") int clientID,
+                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canPulseGuide(clientID));
     }
 
     @Override
-    public BooleanResponse canSetCCDTemperature(int deviceNumber,
-                                                int clientID,
-                                                long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/cansetccdtemperature")
+    public BooleanResponse canSetCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                                @QueryParam("ClientID") int clientID,
+                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canSetCCDTemperature(clientID));
     }
 
     @Override
-    public BooleanResponse canStopExposure(int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/canstopexposure")
+    public BooleanResponse canStopExposure(@PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canStopExposure(clientID));
     }
 
     @Override
-    public DoubleResponse getCCDTemperature(int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/ccdtemperature")
+    public DoubleResponse getCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                            @QueryParam("ClientID") int clientID,
+                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getCCDTemperature(clientID));
     }
 
     @Override
-    public BooleanResponse isCoolerOn(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/cooleron")
+    public BooleanResponse isCoolerOn(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).isCoolerOn(clientID));
     }
 
     @Override
-    public AlpacaResponse setCoolerOn(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID,
-                                      boolean coolerOn) {
+    @PUT
+    @Path("camera/{deviceNumber}/cooleron")
+    public AlpacaResponse setCoolerOn(@PathParam("deviceNumber") int deviceNumber,
+                                      @FormParam("ClientID") int clientID,
+                                      @FormParam("ClientTransactionID") long clientTransactionID,
+                                      @FormParam("CoolerOn") boolean coolerOn) {
         getDevice(deviceNumber, clientID).setCoolerOn(clientID, coolerOn);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getCoolerPower(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/coolerpower")
+    public IntResponse getCoolerPower(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getCoolerPower(clientID));
     }
 
     @Override
-    public DoubleResponse getElectronsPerADU(int deviceNumber,
-                                             int clientID,
-                                             long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/electronsperadu")
+    public DoubleResponse getElectronsPerADU(@PathParam("deviceNumber") int deviceNumber,
+                                             @QueryParam("ClientID") int clientID,
+                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getElectronsPerADU(clientID));
     }
 
     @Override
-    public DoubleResponse getExposureMax(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/exposuremax")
+    public DoubleResponse getExposureMax(@PathParam("deviceNumber") int deviceNumber,
+                                         @QueryParam("ClientID") int clientID,
+                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMax(clientID));
     }
 
     @Override
-    public DoubleResponse getExposureMin(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/exposuremin")
+    public DoubleResponse getExposureMin(@PathParam("deviceNumber") int deviceNumber,
+                                         @QueryParam("ClientID") int clientID,
+                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMin(clientID));
     }
 
     @Override
-    public DoubleResponse getExposureResolution(int deviceNumber,
-                                                int clientID,
-                                                long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/exposureresolution")
+    public DoubleResponse getExposureResolution(@PathParam("deviceNumber") int deviceNumber,
+                                                @QueryParam("ClientID") int clientID,
+                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureResolution(clientID));
     }
 
     @Override
-    public BooleanResponse getFastReadout(int deviceNumber,
-                                          int clientID,
-                                          long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/fastreadout")
+    public BooleanResponse getFastReadout(@PathParam("deviceNumber") int deviceNumber,
+                                          @QueryParam("ClientID") int clientID,
+                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).getFastReadout(clientID));
     }
 
     @Override
-    public AlpacaResponse setFastReadout(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID,
-                                         boolean fastReadout) {
+    @PUT
+    @Path("camera/{deviceNumber}/fastreadout")
+    public AlpacaResponse setFastReadout(@PathParam("deviceNumber") int deviceNumber,
+                                         @FormParam("ClientID") int clientID,
+                                         @FormParam("ClientTransactionID") long clientTransactionID,
+                                         @FormParam("FastReadout") boolean fastReadout) {
         getDevice(deviceNumber, clientID).setFastReadout(clientID, fastReadout);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public DoubleResponse getFullWellCapacity(int deviceNumber,
-                                              int clientID,
-                                              long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/fullwellcapacity")
+    public DoubleResponse getFullWellCapacity(@PathParam("deviceNumber") int deviceNumber,
+                                              @QueryParam("ClientID") int clientID,
+                                              @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getFullWellCapacity(clientID));
     }
 
     @Override
-    public IntResponse getGain(int deviceNumber,
-                               int clientID,
-                               long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/gain")
+    public IntResponse getGain(@PathParam("deviceNumber") int deviceNumber,
+                               @QueryParam("ClientID") int clientID,
+                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getGain(clientID));
     }
 
     @Override
-    public AlpacaResponse setGain(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID,
-                                  int gain) {
+    @PUT
+    @Path("camera/{deviceNumber}/gain")
+    public AlpacaResponse setGain(@PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID,
+                                  @FormParam("Gain") int gain) {
         getDevice(deviceNumber, clientID).setGain(clientID, gain);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getGainMax(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/gainmax")
+    public IntResponse getGainMax(@PathParam("deviceNumber") int deviceNumber,
+                                  @QueryParam("ClientID") int clientID,
+                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getGainMax(clientID));
     }
 
     @Override
-    public IntResponse getGainMin(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/gainmin")
+    public IntResponse getGainMin(@PathParam("deviceNumber") int deviceNumber,
+                                  @QueryParam("ClientID") int clientID,
+                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getGainMin(clientID));
     }
 
     @Override
-    public ListResponse<String> getGains(int deviceNumber,
-                                       int clientID,
-                                       long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/gains")
+    public ListResponse<String> getGains(@PathParam("deviceNumber") int deviceNumber,
+                                         @QueryParam("ClientID") int clientID,
+                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getGains(clientID));
     }
 
     @Override
-    public BooleanResponse hasShutter(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/hasshutter")
+    public BooleanResponse hasShutter(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).hasShutter(clientID));
     }
 
     @Override
-    public DoubleResponse getHeatSinkTemperature(int deviceNumber,
-                                                 int clientID,
-                                                 long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/heatsinktemperature")
+    public DoubleResponse getHeatSinkTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                                 @QueryParam("ClientID") int clientID,
+                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getHeatSinkTemperature(clientID));
     }
 
     @Override
-    public ImageArrayResponse getImageArray(int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/imagearray")
+    public ImageArrayResponse getImageArray(@PathParam("deviceNumber") int deviceNumber,
+                                            @QueryParam("ClientID") int clientID,
+                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
         ImageArray image = getDevice(deviceNumber, clientID).getImageArray(clientID);
         return new ImageArrayResponse(clientTransactionID, image);
     }
 
     @Override
-    public ImageArrayResponse getImageArrayVariant(int deviceNumber,
-                                                   int clientID,
-                                                   long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/imagearrayvariant")
+    public ImageArrayResponse getImageArrayVariant(@PathParam("deviceNumber") int deviceNumber,
+                                                   @QueryParam("ClientID") int clientID,
+                                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
         ImageArray image = getDevice(deviceNumber, clientID).getImageArrayVariant(clientID);
         return new ImageArrayResponse(clientTransactionID, image);
     }
 
     @Override
-    public BooleanResponse isImageReady(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/imageready")
+    public BooleanResponse isImageReady(@PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).isImageReady(clientID));
     }
 
     @Override
-    public BooleanResponse isPulseGuiding(int deviceNumber,
-                                          int clientID,
-                                          long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/ispulseguiding")
+    public BooleanResponse isPulseGuiding(@PathParam("deviceNumber") int deviceNumber,
+                                          @QueryParam("ClientID") int clientID,
+                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).isPulseGuiding(clientID));
     }
 
     @Override
-    public DoubleResponse getLastExposureDuration(int deviceNumber,
-                                                  int clientID,
-                                                  long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/lastexposureduration")
+    public DoubleResponse getLastExposureDuration(@PathParam("deviceNumber") int deviceNumber,
+                                                  @QueryParam("ClientID") int clientID,
+                                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getLastExposureDuration(clientID));
     }
 
     @Override
-    public StringResponse getLastExposureStartTime(int deviceNumber,
-                                                   int clientID,
-                                                   long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/lastexposurestarttime")
+    public StringResponse getLastExposureStartTime(@PathParam("deviceNumber") int deviceNumber,
+                                                   @QueryParam("ClientID") int clientID,
+                                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new StringResponse(getDevice(deviceNumber, clientID).getLastExposureStartTime(clientID));
     }
 
     @Override
-    public IntResponse getMaxADU(int deviceNumber,
-                                 int clientID,
-                                 long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/maxadu")
+    public IntResponse getMaxADU(@PathParam("deviceNumber") int deviceNumber,
+                                 @QueryParam("ClientID") int clientID,
+                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getMaxADU(clientID));
     }
 
     @Override
-    public IntResponse getMaxBinX(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/maxbinx")
+    public IntResponse getMaxBinX(@PathParam("deviceNumber") int deviceNumber,
+                                  @QueryParam("ClientID") int clientID,
+                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinX(clientID));
     }
 
     @Override
-    public IntResponse getMaxBinY(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/maxbiny")
+    public IntResponse getMaxBinY(@PathParam("deviceNumber") int deviceNumber,
+                                  @QueryParam("ClientID") int clientID,
+                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinY(clientID));
     }
 
     @Override
-    public IntResponse getNumX(int deviceNumber,
-                               int clientID,
-                               long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/numx")
+    public IntResponse getNumX(@PathParam("deviceNumber") int deviceNumber,
+                               @QueryParam("ClientID") int clientID,
+                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getNumX(clientID));
     }
 
     @Override
-    public AlpacaResponse setNumX(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID,
-                                  int numX) {
+    @PUT
+    @Path("camera/{deviceNumber}/numx")
+    public AlpacaResponse setNumX(@PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID,
+                                  @FormParam("NumX") int numX) {
         getDevice(deviceNumber, clientID).setNumX(clientID, numX);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getNumY(int deviceNumber,
-                               int clientID,
-                               long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/numy")
+    public IntResponse getNumY(@PathParam("deviceNumber") int deviceNumber,
+                               @QueryParam("ClientID") int clientID,
+                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getNumY(clientID));
     }
 
     @Override
-    public AlpacaResponse setNumY(int deviceNumber,
-                                  int clientID,
-                                  long clientTransactionID,
-                                  int numY) {
+    @PUT
+    @Path("camera/{deviceNumber}/numy")
+    public AlpacaResponse setNumY(@PathParam("deviceNumber") int deviceNumber,
+                                  @FormParam("ClientID") int clientID,
+                                  @FormParam("ClientTransactionID") long clientTransactionID,
+                                  @FormParam("NumY") int numY) {
         getDevice(deviceNumber, clientID).setNumY(clientID, numY);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getOffset(int deviceNumber,
-                                 int clientID,
-                                 long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/offset")
+    public IntResponse getOffset(@PathParam("deviceNumber") int deviceNumber,
+                                 @QueryParam("ClientID") int clientID,
+                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getOffset(clientID));
     }
 
     @Override
-    public AlpacaResponse setOffset(int deviceNumber,
-                                    int clientID,
-                                    long clientTransactionID,
-                                    int offset) {
+    @PUT
+    @Path("camera/{deviceNumber}/offset")
+    public AlpacaResponse setOffset(@PathParam("deviceNumber") int deviceNumber,
+                                    @FormParam("ClientID") int clientID,
+                                    @FormParam("ClientTransactionID") long clientTransactionID,
+                                    @FormParam("offset") int offset) {
         getDevice(deviceNumber, clientID).setOffset(clientID, offset);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getOffsetMax(int deviceNumber,
-                                    int clientID,
-                                    long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/offsetmax")
+    public IntResponse getOffsetMax(@PathParam("deviceNumber") int deviceNumber,
+                                    @QueryParam("ClientID") int clientID,
+                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMax(clientID));
     }
 
     @Override
-    public IntResponse getOffsetMin(int deviceNumber,
-                                    int clientID,
-                                    long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/offsetmin")
+    public IntResponse getOffsetMin(@PathParam("deviceNumber") int deviceNumber,
+                                    @QueryParam("ClientID") int clientID,
+                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMin(clientID));
     }
 
     @Override
-    public ListResponse<String> getOffsets(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/offsets")
+    public ListResponse<String> getOffsets(@PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getOffsets(clientID));
     }
 
     @Override
-    public IntResponse getPercentCompleted(int deviceNumber,
-                                           int clientID,
-                                           long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/percentcompleted")
+    public IntResponse getPercentCompleted(@PathParam("deviceNumber") int deviceNumber,
+                                           @QueryParam("ClientID") int clientID,
+                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getPercentCompleted(clientID));
     }
 
     @Override
-    public DoubleResponse getPixelSizeX(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/pixelsizex")
+    public DoubleResponse getPixelSizeX(@PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeX(clientID));
     }
 
     @Override
-    public DoubleResponse getPixelSizeY(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/pixelsizey")
+    public DoubleResponse getPixelSizeY(@PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeY(clientID));
     }
 
     @Override
-    public IntResponse getReadoutMode(int deviceNumber,
-                                      int clientID,
-                                      long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/readoutmode")
+    public IntResponse getReadoutMode(@PathParam("deviceNumber") int deviceNumber,
+                                      @QueryParam("ClientID") int clientID,
+                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getReadoutMode(clientID));
     }
 
     @Override
-    public AlpacaResponse setReadoutMode(int deviceNumber,
-                                         int clientID,
-                                         long clientTransactionID,
-                                         int readoutMode) {
+    @PUT
+    @Path("camera/{deviceNumber}/readoutmode")
+    public AlpacaResponse setReadoutMode(@PathParam("deviceNumber") int deviceNumber,
+                                         @FormParam("ClientID") int clientID,
+                                         @FormParam("ClientTransactionID") long clientTransactionID,
+                                         @FormParam("ReadoutMode") int readoutMode) {
         getDevice(deviceNumber, clientID).setReadoutMode(clientID, readoutMode);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public ListResponse<String> getReadoutModes(int deviceNumber,
-                                              int clientID,
-                                              long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/readoutmodes")
+    public ListResponse<String> getReadoutModes(@PathParam("deviceNumber") int deviceNumber,
+                                                @QueryParam("ClientID") int clientID,
+                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getReadoutModes(clientID));
     }
 
     @Override
-    public StringResponse getSensorName(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/sensorname")
+    public StringResponse getSensorName(@PathParam("deviceNumber") int deviceNumber,
+                                        @QueryParam("ClientID") int clientID,
+                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new StringResponse(getDevice(deviceNumber, clientID).getSensorName(clientID));
     }
 
     @Override
-    public IntResponse getSensorType(int deviceNumber,
-                                     int clientID,
-                                     long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/sensortype")
+    public IntResponse getSensorType(@PathParam("deviceNumber") int deviceNumber,
+                                     @QueryParam("ClientID") int clientID,
+                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getSensorType(clientID).getType());
     }
 
     @Override
-    public DoubleResponse getSetCCDTemperature(int deviceNumber,
-                                               int clientID,
-                                               long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/setccdtemperature")
+    public DoubleResponse getSetCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                               @QueryParam("ClientID") int clientID,
+                                               @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSetCCDTemperature(clientID));
     }
 
     @Override
-    public AlpacaResponse setCCDTemperature(int deviceNumber,
-                                            int clientID,
-                                            long clientTransactionID,
-                                            double setCCDTemperature) {
+    @PUT
+    @Path("camera/{deviceNumber}/setccdtemperature")
+    public AlpacaResponse setCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
+                                            @FormParam("ClientID") int clientID,
+                                            @FormParam("ClientTransactionID") long clientTransactionID,
+                                            @FormParam("SetCCDTemperature") double setCCDTemperature) {
         getDevice(deviceNumber, clientID).setCCDTemperature(clientID, setCCDTemperature);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getStartX(int deviceNumber,
-                                 int clientID,
-                                 long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/startx")
+    public IntResponse getStartX(@PathParam("deviceNumber") int deviceNumber,
+                                 @QueryParam("ClientID") int clientID,
+                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getStartX(clientID));
     }
 
     @Override
-    public AlpacaResponse setStartX(int deviceNumber,
-                                    int clientID,
-                                    long clientTransactionID,
-                                    int startX) {
+    @PUT
+    @Path("camera/{deviceNumber}/startx")
+    public AlpacaResponse setStartX(@PathParam("deviceNumber") int deviceNumber,
+                                    @FormParam("ClientID") int clientID,
+                                    @FormParam("ClientTransactionID") long clientTransactionID,
+                                    @FormParam("StartX") int startX) {
         getDevice(deviceNumber, clientID).setStartX(clientID, startX);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public IntResponse getStartY(int deviceNumber,
-                                 int clientID,
-                                 long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/starty")
+    public IntResponse getStartY(@PathParam("deviceNumber") int deviceNumber,
+                                 @QueryParam("ClientID") int clientID,
+                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new IntResponse(getDevice(deviceNumber, clientID).getStartY(clientID));
     }
 
     @Override
-    public AlpacaResponse setStartY(int deviceNumber,
-                                    int clientID,
-                                    long clientTransactionID,
-                                    int startY) {
+    @PUT
+    @Path("camera/{deviceNumber}/starty")
+    public AlpacaResponse setStartY(@PathParam("deviceNumber") int deviceNumber,
+                                    @FormParam("ClientID") int clientID,
+                                    @FormParam("ClientTransactionID") long clientTransactionID,
+                                    @FormParam("StartY") int startY) {
         getDevice(deviceNumber, clientID).setStartY(clientID, startY);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public DoubleResponse getSubExposureDuration(int deviceNumber,
-                                                 int clientID,
-                                                 long clientTransactionID) {
+    @GET
+    @Path("camera/{deviceNumber}/subexposureduration")
+    public DoubleResponse getSubExposureDuration(@PathParam("deviceNumber") int deviceNumber,
+                                                 @QueryParam("ClientID") int clientID,
+                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSubExposureDuration(clientID));
     }
 
     @Override
-    public AlpacaResponse setSubExposureDuration(int deviceNumber,
-                                                 int clientID,
-                                                 long clientTransactionID,
-                                                 double subExposureDuration) {
+    @PUT
+    @Path("camera/{deviceNumber}/subexposureduration")
+    public AlpacaResponse setSubExposureDuration(@PathParam("deviceNumber") int deviceNumber,
+                                                 @FormParam("ClientID") int clientID,
+                                                 @FormParam("ClientTransactionID") long clientTransactionID,
+                                                 @FormParam("SubExposureDuration") double subExposureDuration) {
         getDevice(deviceNumber, clientID).setSubExposureDuration(clientID, subExposureDuration);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public AlpacaResponse abortExposure(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID) {
+    @PUT
+    @Path("camera/{deviceNumber}/abortexposure")
+    public AlpacaResponse abortExposure(@PathParam("deviceNumber") int deviceNumber,
+                                        @FormParam("ClientID") int clientID,
+                                        @FormParam("ClientTransactionID") long clientTransactionID) {
         getDevice(deviceNumber, clientID).abortExposure(clientID);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public AlpacaResponse pulseGuide(int deviceNumber,
-                                     int clientID,
-                                     long clientTransactionID,
-                                     int direction,
-                                     int duration) {
+    @PUT
+    @Path("camera/{deviceNumber}/pulseguide")
+    public AlpacaResponse pulseGuide(@PathParam("deviceNumber") int deviceNumber,
+                                     @FormParam("ClientID") int clientID,
+                                     @FormParam("ClientTransactionID") long clientTransactionID,
+                                     @FormParam("Direction") int direction,
+                                     @FormParam("Duration") int duration) {
         getDevice(deviceNumber, clientID).pulseGuide(clientID, direction, duration);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public AlpacaResponse startExposure(int deviceNumber,
-                                        int clientID,
-                                        long clientTransactionID,
-                                        int duration,
-                                        boolean light) {
+    @PUT
+    @Path("camera/{deviceNumber}/startexposure")
+    public AlpacaResponse startExposure(@PathParam("deviceNumber") int deviceNumber,
+                                        @FormParam("ClientID") int clientID,
+                                        @FormParam("ClientTransactionID") long clientTransactionID,
+                                        @FormParam("Duration") int duration,
+                                        @FormParam("Light") boolean light) {
         getDevice(deviceNumber, clientID).startExposure(clientID, duration, light);
         return new AlpacaResponse(clientTransactionID);
     }
 
     @Override
-    public AlpacaResponse stopExposure(int deviceNumber,
-                                       int clientID,
-                                       long clientTransactionID) {
+    @PUT
+    @Path("camera/{deviceNumber}/stopexposure")
+    public AlpacaResponse stopExposure(@PathParam("deviceNumber") int deviceNumber,
+                                       @FormParam("ClientID") int clientID,
+                                       @FormParam("ClientTransactionID") long clientTransactionID) {
         getDevice(deviceNumber, clientID).stopExposure(clientID);
         return new AlpacaResponse(clientTransactionID);
     }
