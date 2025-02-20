@@ -28,8 +28,10 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
     // Ugh, this is the only way I've been able to figure out how to get the client IP address while using Quarkus is
     // to use the Vert.X HttpServerRequest object.  In the past when using Jersey, which ran in a Servlet environment,
     // I was using HttpServletRequest, which is more common and would be more portable.  Not available with Quarkus,
-    // so here we are.  If this needs porting to another microprofile implementation, then this would be code
-    // that would need changing
+    // so here we are.  If we port to another microprofile environment, we most likely need to come up with another
+    // mechanism.  You'd either need to remove the serverRequest, or compile this with the vertx-core package.  Even
+    // if you don't include the vert-core in your runtime, this should still work as serverRequest will be null,
+    // so it won't trigger a runtime exception.
     @Context
     HttpServerRequest serverRequest;
 
@@ -97,8 +99,19 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
             return "client_ip=" + ipAddress;
         }
 
-        ipAddress = serverRequest.remoteAddress().host();
-        return "client_ip=" + ipAddress;
+        // If we're running in a Helidon environment, this is the only way I've been able to figure
+        // out how to get the client ip
+        Object remoteAddress = context.getProperty("io.helidon.jaxrs.remote-host");
+        if (remoteAddress != null && remoteAddress instanceof String) {
+            return "client_ip=" + remoteAddress.toString();
+        }
+
+        // And this is the Quarkus way
+        if (serverRequest != null) {
+            ipAddress = serverRequest.remoteAddress().host();
+            return "client_ip=" + ipAddress;
+        }
+        return "";
     }
 
     /**
