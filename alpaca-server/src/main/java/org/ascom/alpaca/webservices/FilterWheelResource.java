@@ -56,7 +56,7 @@ public class FilterWheelResource implements FilterWheel {
     public AlpacaResponse setPosition(@PathParam("deviceNumber") int deviceNumber,
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID,
-                                      @QueryParam("Position") int position) {
+                                      @FormParam("Position") int position) {
         if (position < 0) {
             throw new InvalidValueException("Filter positions cannot be less than zero");
         }

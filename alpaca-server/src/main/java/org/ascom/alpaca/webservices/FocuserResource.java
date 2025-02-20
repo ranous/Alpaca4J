@@ -18,7 +18,6 @@ import org.ascom.alpaca.response.IntResponse;
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
 public class FocuserResource implements Focuser {
-    //private DeviceManager deviceManager = DeviceManager.getDeviceManager();
     @Inject
     DeviceManager deviceManager;
 

@@ -108,7 +108,7 @@ public class RotatorResource implements Rotator {
     public AlpacaResponse move(@PathParam("deviceNumber") int deviceNumber,
                                @FormParam("ClientID") int clientID,
                                @FormParam("ClientTransactionID") long clientTransactionID,
-                               double position) {
+                               @FormParam("Position") double position) {
         if (position > 360) {
             throw new InvalidValueException("The position cannot be moved more than 360 degrees");
         }
@@ -121,7 +121,7 @@ public class RotatorResource implements Rotator {
     public AlpacaResponse moveAbsolute(@PathParam("deviceNumber") int deviceNumber,
                                        @FormParam("ClientID") int clientID,
                                        @FormParam("ClientTransactionID") long clientTransactionID,
-                                       double position) {
+                                       @FormParam("Position") double position) {
         if (position < 0 || position > 360) {
             throw new InvalidValueException("Invalid position, must be no less than zero or greater than 360");
         }
@@ -135,7 +135,7 @@ public class RotatorResource implements Rotator {
     public AlpacaResponse moveMechanical(@PathParam("deviceNumber") int deviceNumber,
                                          @FormParam("ClientID") int clientID,
                                          @FormParam("ClientTransactionID") long clientTransactionID,
-                                         double position) {
+                                         @FormParam("Position") double position) {
         if (position < 0 || position > 360) {
             throw new InvalidValueException("Invalid position, must be no less than zero or greater than 360");
         }
@@ -148,7 +148,7 @@ public class RotatorResource implements Rotator {
     public AlpacaResponse sync(@PathParam("deviceNumber") int deviceNumber,
                                @FormParam("ClientID") int clientID,
                                @FormParam("ClientTransactionID") long clientTransactionID,
-                               double position) {
+                               @FormParam("Position") double position) {
         if (position < 0 || position > 360) {
             throw new InvalidValueException("Invalid position, must be no less than zero or greater than 360");
         }
