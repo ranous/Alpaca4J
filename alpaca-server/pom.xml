@@ -63,6 +63,13 @@
 
 
     <build>
+        <resources>
+            <!-- This will push the version number into the properties files -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
