@@ -637,7 +637,7 @@ public class TelescopeResource implements Telescope {
     @GET
     @Path("telescope/{deviceNumber}/axisrates")
     public ListResponse<AxisRate> getAxisRates(@PathParam("deviceNumber") int deviceNumber,
-                                               @DefaultValue("0") int axis,
+                                               @QueryParam("Axis") int axis,
                                                @QueryParam("ClientID") int clientID,
                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getAxisRates(axis, clientID));
@@ -647,7 +647,7 @@ public class TelescopeResource implements Telescope {
     @GET
     @Path("telescope/{deviceNumber}/canmoveaxis")
     public BooleanResponse canMoveAxis(@PathParam("deviceNumber") int deviceNumber,
-                                       @DefaultValue("0") int axis,
+                                       @QueryParam("Axis") int axis,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canMoveAxis(axis, clientID));
