@@ -84,29 +84,33 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
     }
 
     private String getClientIP(ContainerRequestContext context) {
-        String ipAddress = context.getHeaders().getFirst("X-Forwarded-For");
+        // On the remote chance that the client is on the other side of a proxy, we need to get the client IP from the
+        // Forwarded header.
+        String ipAddress = context.getHeaders().getFirst("Forwarded");
         if (ipAddress != null) {
-            return "client_ip=" + ipAddress;
+            String[] parts = ipAddress.split(";");
+            for (String part : parts) {
+                String[] keyValue = part.trim().split("=");
+                if (keyValue.length == 2 && keyValue[0].trim().equalsIgnoreCase("for")) {
+                    return "client_ip=" + keyValue[1].trim();
+                }
+            }
         }
 
-        ipAddress = context.getHeaders().getFirst("NS-Client-IP");
-        if (ipAddress != null && !ipAddress.isEmpty()) {
-            return "client_ip=" + ipAddress;
-        }
-
-        ipAddress = context.getHeaders().getFirst("X-Forwarded-Host");
-        if (ipAddress != null && !ipAddress.isEmpty()) {
+        // If the Forwarded header isn't present, we'll try the X-Forwarded-For header
+        ipAddress = context.getHeaders().getFirst("X-Forwarded-For");
+        if (ipAddress != null) {
             return "client_ip=" + ipAddress;
         }
 
         // If we're running in a Helidon environment, this is the only way I've been able to figure
         // out how to get the client ip
         Object remoteAddress = context.getProperty("io.helidon.jaxrs.remote-host");
-        if (remoteAddress != null && remoteAddress instanceof String) {
-            return "client_ip=" + remoteAddress.toString();
+        if (remoteAddress instanceof String) {
+            return "client_ip=" + remoteAddress;
         }
 
-        // And this is the Quarkus way
+        // And this is the Quarkus way of getting the client IP
         if (serverRequest != null) {
             ipAddress = serverRequest.remoteAddress().host();
             return "client_ip=" + ipAddress;
