@@ -11,7 +11,7 @@
     <name>Alpaca Core Libraries</name>
 
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <jackson.version>2.18.1</jackson.version>
     </properties>
