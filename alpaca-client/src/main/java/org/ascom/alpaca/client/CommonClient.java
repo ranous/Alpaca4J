@@ -6,8 +6,6 @@ import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
 import org.ascom.alpaca.response.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,8 +20,6 @@ import java.util.Random;
 
 @SuppressWarnings("unused")
 public class CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(CommonClient.class);
-
     private final DeviceDescriptor deviceDescriptor;
     private final DeviceType deviceType;
     private final int clientID;
@@ -39,18 +35,24 @@ public class CommonClient {
         this.deviceType = deviceDescriptor.getDeviceType();
         this.clientID = clientID;
         this.serverURI = serverURI;
+    }
 
-        try {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(serverURI.toURL() + "/api/v1/")
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .build();
-            client = retrofit.create(Common.class);
-        } catch (Exception e) {
-            client = null;
-            // Should probably be fatal
-            log.warn("Problem constructing the client");
+    private Common getClient() {
+        if (client == null) {
+            try {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(serverURI.toURL() + "/api/v1/")
+                        .addConverterFactory(JacksonConverterFactory.create())
+                        .build();
+                client = retrofit.create(Common.class);
+            } catch (Exception e) {
+                client = null;
+                // Should probably be fatal
+                logWarn("Problem constructing the client", e);
+                throw new RuntimeException("Cannot build a client for " + deviceType.getTypeName() + " - " + e.getMessage());
+            }
         }
+        return client;
     }
 
     protected URI getServerAddress() {
@@ -61,8 +63,12 @@ public class CommonClient {
         Platform.get().log(Platform.INFO, msg, null);
     }
 
-    static void log(String msg, Throwable t) {
-        Platform.get().log(Platform.INFO, msg, t);
+    static void logWarn(String msg) {
+        Platform.get().log(Platform.WARN, msg, null);
+    }
+
+    static void logWarn(String msg, Throwable t) {
+        Platform.get().log(Platform.WARN, msg, t);
     }
 
     /**
@@ -86,7 +92,7 @@ public class CommonClient {
             case 1035 -> throw new InvalidOperationException(response.getClientTransactionID(), response.getErrorMessage());
             case 1036 -> throw new ActionNotImplementedException(response.getClientTransactionID(), response.getErrorMessage());
             default -> {
-                log.warn("Received an unknown error type of {} with message: {}", response.getErrorNumber(), response.getErrorMessage());
+                logWarn("Received an unknown error type of " + response.getErrorNumber() + " with message: " + response.getErrorMessage());
                 throw new UnknownErrorException(response.getClientTransactionID(), response.getErrorNumber(), response.getErrorMessage());
             }
         }
@@ -111,26 +117,26 @@ public class CommonClient {
         } catch (AlpacaException e) {
             throw e;
         } catch (IOException e) {
-            log("Problem calling " + getMethodSignature(methodName, methodArgs) + " - " + e.getMessage(), e);
+            logWarn("Problem calling " + getMethodSignature(methodName, methodArgs) + " - " + e.getMessage(), e);
             throw new ClientException.CommunicationsError("Error calling " + getMethodSignature(methodName, methodArgs) + " - " + e.getMessage());
         } catch (Exception e) {
             String msg = e.getMessage();
             if (msg == null || msg.isEmpty()) {
                 msg = e.toString();
             }
-            log("Problem calling " + getMethodSignature(methodName, methodArgs) + " - " + msg, e);
+            logWarn("Problem calling " + getMethodSignature(methodName, methodArgs) + " - " + msg, e);
             throw new ClientException("Error calling " + getMethodSignature(methodName, methodArgs) + " - " + msg, e);
         }
     }
 
     static protected <T extends AlpacaResponse> void callAsync(Call<T> call, final AlpacaCallback<T> callback, final String methodName, final Object... methodArgs) {
-        call.enqueue(new Callback<T>() {
+        call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
                 if (!response.isSuccessful()) {
                     String errMsg = "Error calling " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code();
                     String errorBody = null;
-                    try  {
+                    try {
                         errorBody = response.errorBody() != null ? response.errorBody().string() : null;
                     } catch (Exception ignore) {
                         // best effort to get the error body
@@ -172,9 +178,9 @@ public class CommonClient {
         return sig + ")";
     }
 
-    private static String joiner(List items) {
+    private static String joiner(List<Object> items) {
 
-        if (items == null || items.size() == 0) {
+        if (items == null || items.isEmpty()) {
             return "";
         }
         StringBuilder sb = new StringBuilder(items.get(0).toString());
@@ -211,12 +217,12 @@ public class CommonClient {
     // The following methods are the actual Alpaca API methods that are implemented in the CommonClient class.
 
     public List<StateValue> getDeviceState() {
-        ListResponse<StateValue> response = call(client.getDeviceState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDeviceState");
+        ListResponse<StateValue> response = call(getClient().getDeviceState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDeviceState");
         return response.getValue();
     }
 
     public void getDeviceState(AlpacaCallback<List<StateValue>> callback) {
-        callAsync(client.getDeviceState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getDeviceState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(ListResponse<StateValue> response) {
                 callback.success(response.getValue());
@@ -230,12 +236,12 @@ public class CommonClient {
     }
 
     public boolean isConnecting() {
-        BooleanResponse response = call(client.isConnecting(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "isConnecting");
+        BooleanResponse response = call(getClient().isConnecting(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "isConnecting");
         return response.getValue();
     }
 
     public void isConnecting(AlpacaCallback<Boolean> callback) {
-        callAsync(client.isConnecting(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().isConnecting(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(BooleanResponse response) {
                 callback.success(response.getValue());
@@ -249,11 +255,11 @@ public class CommonClient {
     }
 
     public void connect() {
-        AlpacaResponse response = call(client.connect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "connect");
+        AlpacaResponse response = call(getClient().connect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "connect");
     }
 
     public void connect(AlpacaCallback<Void> callback) {
-        callAsync(client.connect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().connect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(AlpacaResponse response) {
                 callback.success(null);
@@ -267,11 +273,11 @@ public class CommonClient {
     }
 
     public void disconnect() {
-        AlpacaResponse response = call(client.disconnect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "disconnect");
+        AlpacaResponse response = call(getClient().disconnect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "disconnect");
     }
 
     public void disconnect(AlpacaCallback<Void> callback) {
-        callAsync(client.disconnect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().disconnect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(AlpacaResponse response) {
                 callback.success(null);
@@ -285,12 +291,12 @@ public class CommonClient {
     }
 
     public boolean getConnectedState() {
-        BooleanResponse response = call(client.isConnected(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "isConnected");
+        BooleanResponse response = call(getClient().isConnected(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "isConnected");
         return response.getValue();
     }
 
     public void getConnectedState(AlpacaCallback<Boolean> callback) {
-        callAsync(client.isConnected(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().isConnected(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(BooleanResponse response) {
                 callback.success(response.getValue());
@@ -304,11 +310,11 @@ public class CommonClient {
     }
 
     public void setConnectedState(boolean state) {
-        AlpacaResponse response = call(client.setConnectedState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), state), "setConnectedState", state);
+        AlpacaResponse response = call(getClient().setConnectedState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), state), "setConnectedState", state);
     }
 
     public void setConnectedState(boolean state, AlpacaCallback<Void> callback) {
-        callAsync(client.setConnectedState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), state), new AlpacaCallback<>() {
+        callAsync(getClient().setConnectedState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), state), new AlpacaCallback<>() {
             @Override
             public void success(AlpacaResponse response) {
                 callback.success(null);
@@ -322,12 +328,12 @@ public class CommonClient {
     }
 
     public String getDescription() {
-        StringResponse response = call(client.getDescription(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDescription");
+        StringResponse response = call(getClient().getDescription(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDescription");
         return response.getValue();
     }
 
     public void getDescription(AlpacaCallback<String> callback) {
-        callAsync(client.getDescription(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getDescription(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(StringResponse response) {
                 callback.success(response.getValue());
@@ -341,12 +347,12 @@ public class CommonClient {
     }
 
     public String getDriverInfo() {
-        StringResponse response = call(client.getDriverInfo(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDriverInfo");
+        StringResponse response = call(getClient().getDriverInfo(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDriverInfo");
         return response.getValue();
     }
 
     public void getDriverInfo(AlpacaCallback<String> callback) {
-        callAsync(client.getDriverInfo(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getDriverInfo(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(StringResponse response) {
                 callback.success(response.getValue());
@@ -360,12 +366,12 @@ public class CommonClient {
     }
 
     public String getDriverVersion() {
-        StringResponse response = call(client.getDriverVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDriverVersion");
+        StringResponse response = call(getClient().getDriverVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDriverVersion");
         return response.getValue();
     }
 
     public void getDriverVersion(AlpacaCallback<String> callback) {
-        callAsync(client.getDriverVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getDriverVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(StringResponse response) {
                 callback.success(response.getValue());
@@ -379,12 +385,12 @@ public class CommonClient {
     }
 
     public int getInterfaceVersion() {
-        IntResponse response = call(client.getInterfaceVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getInterfaceVersion");
+        IntResponse response = call(getClient().getInterfaceVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getInterfaceVersion");
         return response.getValue();
     }
 
     public void getInterfaceVersion(AlpacaCallback<Integer> callback) {
-        callAsync(client.getInterfaceVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getInterfaceVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(IntResponse response) {
                 callback.success(response.getValue());
@@ -398,12 +404,12 @@ public class CommonClient {
     }
 
     public String getName() {
-        StringResponse response = call(client.getName(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getName");
+        StringResponse response = call(getClient().getName(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getName");
         return response.getValue();
     }
 
     public void getName(AlpacaCallback<String> callback) {
-        callAsync(client.getName(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getName(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(StringResponse response) {
                 callback.success(response.getValue());
@@ -417,12 +423,12 @@ public class CommonClient {
     }
 
     public List<String> getSupportedActions() {
-        ListResponse<String> response = call(client.getSupportedActions(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getSupportedActions");
+        ListResponse<String> response = call(getClient().getSupportedActions(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getSupportedActions");
         return response.getValue();
     }
 
     public void getSupportedActions(AlpacaCallback<List<String>> callback) {
-        callAsync(client.getSupportedActions(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
+        callAsync(getClient().getSupportedActions(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(ListResponse<String> response) {
                 callback.success(response.getValue());
@@ -436,13 +442,13 @@ public class CommonClient {
     }
 
     public String executeAction(String action, String parameters) {
-        StringResponse response = call(client.executeAction(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), action, parameters),
+        StringResponse response = call(getClient().executeAction(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), action, parameters),
                 "executeAction", action, parameters);
         return response.getValue();
     }
 
     public void executeAction(String action, String parameters, AlpacaCallback<String> callback) {
-        callAsync(client.executeAction(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), action, parameters), new AlpacaCallback<>() {
+        callAsync(getClient().executeAction(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), action, parameters), new AlpacaCallback<>() {
             @Override
             public void success(StringResponse response) {
                 callback.success(response.getValue());
