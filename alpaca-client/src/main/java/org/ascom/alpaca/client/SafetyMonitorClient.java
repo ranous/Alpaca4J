@@ -6,7 +6,11 @@ import org.ascom.alpaca.model.DeviceDescriptor;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import java.io.IOException;
 import java.net.URI;
 
 @SuppressWarnings("unused")
@@ -28,9 +32,11 @@ public class SafetyMonitorClient extends CommonClient {
     private SafetyMonitor getClient() {
         if (client == null) {
             try {
-                client = RestClientBuilder.newBuilder()
-                        .baseUri(getServerAddress())
-                        .build(SafetyMonitor.class);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(serverAddress.toURL() + "/api/v1/")
+                        .addConverterFactory(JacksonConverterFactory.create())
+                        .build();
+                client = retrofit.create(SafetyMonitor.class);
                 return client;
             } catch (Exception e) {
                 log.warn("Problem constructing the client", e);
@@ -41,8 +47,22 @@ public class SafetyMonitorClient extends CommonClient {
     }
 
     public boolean isSafe() {
-        BooleanResponse response = getClient().isSafe(getDeviceID(), getClientID(), getTransactionID());
+        BooleanResponse response = call(getClient().isSafe(getDeviceID(), getClientID(), getTransactionID()), "isSafe");
         checkResponse(response);
         return response.getValue();
+    }
+
+    public void isSafe(AlpacaCallback<Boolean> callback) {
+        callAsync(getClient().isSafe(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(BooleanResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "isSafe");
     }
 }

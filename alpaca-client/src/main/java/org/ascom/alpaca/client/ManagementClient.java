@@ -9,7 +9,11 @@ import org.ascom.alpaca.response.ServerInfoResponse;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Random;
@@ -29,9 +33,11 @@ public class ManagementClient {
     private Management getClient() {
         if (client == null) {
             try {
-                client = RestClientBuilder.newBuilder()
-                        .baseUri(serverAddress)
-                        .build(Management.class);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(serverAddress.toURL() + "/management/")
+                        .addConverterFactory(JacksonConverterFactory.create())
+                        .build();
+                client = retrofit.create(Management.class);
                 return client;
             } catch (Throwable e) {
                 log.warn("Problem constructing the client", e);
@@ -45,29 +51,22 @@ public class ManagementClient {
         return CommonClient.getTransactionID();
     }
 
-    private void checkResponse(AlpacaResponse response) {
-        CommonClient.checkResponse(response);
-    }
-
     public int getClientID() {
         return clientID;
     }
 
     public List<Integer> getApiVersions() {
-        ListResponse<Integer> response = getClient().getApiVersions(getClientID(), getTransactionID());
-        checkResponse(response);
+        ListResponse<Integer> response = CommonClient.call(getClient().getApiVersions(getClientID(), getTransactionID()), "getApiVersions");
         return response.getValue();
     }
 
     public List<DeviceDescriptor> getConfiguredDevices() {
-        ListResponse<DeviceDescriptor> response = getClient().getConfiguredDevices(getClientID(), getTransactionID());
-        checkResponse(response);
+        ListResponse<DeviceDescriptor> response = CommonClient.call(getClient().getConfiguredDevices(getClientID(), getTransactionID()), "getConfiguredDevices");
         return response.getValue();
     }
 
     public ServerInfo getDescription() {
-        ServerInfoResponse response = getClient().getDescription(getClientID(), getTransactionID());
-        checkResponse(response);
+        ServerInfoResponse response = CommonClient.call(getClient().getDescription(getClientID(), getTransactionID()), "getDescription");
         return response.getValue();
     }
 }

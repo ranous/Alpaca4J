@@ -1,16 +1,21 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.Switch;
-import org.ascom.alpaca.model.*;
-import org.ascom.alpaca.response.*;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.ascom.alpaca.response.AlpacaResponse;
+import org.ascom.alpaca.response.BooleanResponse;
+import org.ascom.alpaca.response.DoubleResponse;
+import org.ascom.alpaca.response.IntResponse;
+import org.ascom.alpaca.response.StringResponse;
+import org.ascom.alpaca.model.DeviceDescriptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
 @SuppressWarnings("unused")
-public class SwitchClient extends CommonClient  {
+public class SwitchClient extends CommonClient {
     private static final Logger log = LoggerFactory.getLogger(SwitchClient.class);
     private final URI serverAddress;
     private Switch client = null;
@@ -28,9 +33,11 @@ public class SwitchClient extends CommonClient  {
     private Switch getClient() {
         if (client == null) {
             try {
-                client = RestClientBuilder.newBuilder()
-                        .baseUri(getServerAddress())
-                        .build(Switch.class);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(serverAddress.toString())
+                        .addConverterFactory(JacksonConverterFactory.create())
+                        .build();
+                client = retrofit.create(Switch.class);
                 return client;
             } catch (Exception e) {
                 log.warn("Problem constructing the client", e);
@@ -40,77 +47,171 @@ public class SwitchClient extends CommonClient  {
         return client;
     }
 
+    public boolean canWrite() {
+        BooleanResponse response = call(getClient().canWrite(getDeviceID(), getClientID(), getTransactionID()), "canWrite");
+        return response.getValue();
+    }
+
+    public void canWrite(AlpacaCallback<Boolean> callback) {
+        callAsync(getClient().canWrite(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(BooleanResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "canWrite");
+    }
+
     public int getMaxSwitch() {
-        IntResponse response = getClient().getMaxSwitch(getDeviceID(), getClientID(), getTransactionID());
-        checkResponse(response);
+        IntResponse response = call(getClient().getMaxSwitch(getDeviceID(), getClientID(), getTransactionID()), "getMaxSwitch");
         return response.getValue();
     }
 
-    public boolean canWrite(int switchID) {
-        BooleanResponse response = getClient().canWrite(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
+    public void getMaxSwitch(AlpacaCallback<Integer> callback) {
+        callAsync(getClient().getMaxSwitch(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(IntResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getMaxSwitch");
+    }
+
+    public boolean getSwitch(int id) {
+        BooleanResponse response = call(getClient().getSwitch(getDeviceID(), getClientID(), getTransactionID(), id), "getSwitch", id);
         return response.getValue();
     }
 
-    public boolean getSwitchState(int switchID) {
-        BooleanResponse response = getClient().getSwitchState(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
+    public void getSwitch(int id, AlpacaCallback<Boolean> callback) {
+        callAsync(getClient().getSwitch(getDeviceID(), getClientID(), getTransactionID(), id), new AlpacaCallback<>() {
+            @Override
+            public void success(BooleanResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getSwitch", id);
+    }
+
+    public void setSwitch(int id, boolean state) {
+        AlpacaResponse response = call(getClient().setSwitch(getDeviceID(), getClientID(), getTransactionID(), id, state), "setSwitch", id, state);
+    }
+
+    public void setSwitch(int id, boolean state, AlpacaCallback<Void> callback) {
+        callAsync(getClient().setSwitch(getDeviceID(), getClientID(), getTransactionID(), id, state), new AlpacaCallback<>() {
+            @Override
+            public void success(AlpacaResponse result) {
+                callback.success(null);
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "setSwitch", id, state);
+    }
+
+    public String getSwitchDescription(int id) {
+        StringResponse response = call(getClient().getSwitchDescription(getDeviceID(), getClientID(), getTransactionID(), id), "getSwitchDescription", id);
         return response.getValue();
     }
 
-    public String getSwitchDescription(int switchID) {
-        StringResponse response = getClient().getSwitchDescription(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
+    public void getSwitchDescription(int id, AlpacaCallback<String> callback) {
+        callAsync(getClient().getSwitchDescription(getDeviceID(), getClientID(), getTransactionID(), id), new AlpacaCallback<>() {
+            @Override
+            public void success(StringResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getSwitchDescription", id);
+    }
+
+    public String getSwitchName(int id) {
+        StringResponse response = call(getClient().getSwitchName(getDeviceID(), getClientID(), getTransactionID(), id), "getSwitchName", id);
         return response.getValue();
     }
 
-    public String getSwitchName(int switchID) {
-        StringResponse response = getClient().getSwitchName(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
+    public void getSwitchName(int id, AlpacaCallback<String> callback) {
+        callAsync(getClient().getSwitchName(getDeviceID(), getClientID(), getTransactionID(), id), new AlpacaCallback<>() {
+            @Override
+            public void success(StringResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getSwitchName", id);
+    }
+
+    public void setSwitchName(int id, String name) {
+        AlpacaResponse response = call(getClient().setSwitchName(getDeviceID(), getClientID(), getTransactionID(), id, name), "setSwitchName", id, name);
+    }
+
+    public void setSwitchName(int id, String name, AlpacaCallback<Void> callback) {
+        callAsync(getClient().setSwitchName(getDeviceID(), getClientID(), getTransactionID(), id, name), new AlpacaCallback<>() {
+            @Override
+            public void success(AlpacaResponse result) {
+                callback.success(null);
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "setSwitchName", id, name);
+    }
+
+    public double getSwitchValue(int id) {
+        DoubleResponse response = call(getClient().getSwitchValue(getDeviceID(), getClientID(), getTransactionID(), id), "getSwitchValue", id);
         return response.getValue();
     }
 
-    public double getSwitchValue(int switchID) {
-        DoubleResponse response = getClient().getSwitchValue(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
-        return response.getValue();
+    public void getSwitchValue(int id, AlpacaCallback<Double> callback) {
+        callAsync(getClient().getSwitchValue(getDeviceID(), getClientID(), getTransactionID(), id), new AlpacaCallback<>() {
+            @Override
+            public void success(DoubleResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getSwitchValue", id);
     }
 
-    public double getMinSwitchValue(int switchID) {
-        DoubleResponse response = getClient().getMinSwitchValue(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
-        return response.getValue();
+    public void setSwitchValue(int id, double value) {
+        AlpacaResponse response = call(getClient().setSwitchValue(getDeviceID(), getClientID(), getTransactionID(), id, value), "setSwitchValue", id, value);
     }
 
-    public double getMaxSwitchValue(int switchID) {
-        DoubleResponse response = getClient().getMaxSwitchValue(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
-        return response.getValue();
-    }
+    public void setSwitchValue(int id, double value, AlpacaCallback<Void> callback) {
+        callAsync(getClient().setSwitchValue(getDeviceID(), getClientID(), getTransactionID(), id, value), new AlpacaCallback<>() {
+            @Override
+            public void success(AlpacaResponse result) {
+                callback.success(null);
+            }
 
-    public void cancelAsync(int switchID, boolean state) {
-        AlpacaResponse response = getClient().setSwitchState(getDeviceID(), switchID, state, getClientID(), getTransactionID());
-        checkResponse(response);
-    }
-
-    public void setSwitchState(int switchID, boolean state) {
-        AlpacaResponse response = getClient().setSwitchState(getDeviceID(), switchID, state, getClientID(), getTransactionID());
-        checkResponse(response);
-    }
-
-    public void setSwitchName(int switchID, String switchName) {
-        AlpacaResponse response = getClient().setSwitchName(getDeviceID(), switchID, switchName, getClientID(), getTransactionID());
-        checkResponse(response);
-    }
-
-    public void setSwitchValue(int switchID, double value) {
-        AlpacaResponse response = getClient().setSwitchValue(getDeviceID(), switchID, value, getClientID(), getTransactionID());
-        checkResponse(response);
-    }
-
-    public double getSwitchStep(int switchID) {
-        DoubleResponse response = getClient().getSwitchStep(getDeviceID(), switchID, getClientID(), getTransactionID());
-        checkResponse(response);
-        return response.getValue();
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "setSwitchValue", id, value);
     }
 }

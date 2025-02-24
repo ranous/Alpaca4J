@@ -88,6 +88,7 @@ public class ClientManager {
 
     /**
      * Broadcasts on the local network for any Alpaca devices
+     * TODO: Add an asynch version with a callback
      */
     public void discoverDevices() {
 

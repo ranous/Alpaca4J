@@ -1,11 +1,14 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.FilterWheel;
-import org.ascom.alpaca.model.*;
-import org.ascom.alpaca.response.*;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.ascom.alpaca.model.DeviceDescriptor;
+import org.ascom.alpaca.response.AlpacaResponse;
+import org.ascom.alpaca.response.IntResponse;
+import org.ascom.alpaca.response.ListResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.URI;
 import java.util.List;
@@ -29,38 +32,92 @@ public class FilterWheelClient extends CommonClient {
     private FilterWheel getClient() {
         if (client == null) {
             try {
-                client = RestClientBuilder.newBuilder()
-                        .baseUri(getServerAddress())
-                        .build(FilterWheel.class);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(serverAddress.toString())
+                        .addConverterFactory(JacksonConverterFactory.create())
+                        .build();
+                client = retrofit.create(FilterWheel.class);
                 return client;
             } catch (Exception e) {
                 log.warn("Problem constructing the client", e);
-                throw new RuntimeException("Cannot build a client for Switch - " + e.getMessage());
+                throw new RuntimeException("Cannot build a client for FilterWheel - " + e.getMessage());
             }
         }
         return client;
     }
 
     public List<Integer> getFocusOffsets() {
-        ListResponse<Integer> response = getClient().getFocusOffsets(getDeviceID(), getClientID(), getTransactionID());
-        checkResponse(response);
+        ListResponse<Integer> response = call(getClient().getFocusOffsets(getDeviceID(), getClientID(), getTransactionID()), "getFocusOffsets");
         return response.getValue();
+    }
+
+    public void getFocusOffsets(AlpacaCallback<List<Integer>> callback) {
+        callAsync(getClient().getFocusOffsets(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(ListResponse<Integer> result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getFocusOffsets");
     }
 
     public List<String> getFilterNames() {
-        ListResponse<String> response = getClient().getFilterNames(getDeviceID(), getClientID(), getTransactionID());
-        checkResponse(response);
+        ListResponse<String> response = call(getClient().getFilterNames(getDeviceID(), getClientID(), getTransactionID()), "getFilterNames");
         return response.getValue();
+    }
+
+    public void getFilterNames(AlpacaCallback<List<String>> callback) {
+        callAsync(getClient().getFilterNames(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(ListResponse<String> result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getFilterNames");
     }
 
     public int getPosition() {
-        IntResponse response = getClient().getPosition(getDeviceID(), getClientID(), getTransactionID());
-        checkResponse(response);
+        IntResponse response = call(getClient().getPosition(getDeviceID(), getClientID(), getTransactionID()), "getPosition");
         return response.getValue();
     }
 
+    public void getPosition(AlpacaCallback<Integer> callback) {
+        callAsync(getClient().getPosition(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(IntResponse result) {
+                callback.success(result.getValue());
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getPosition");
+    }
+
     public void setPosition(int position) {
-        AlpacaResponse response = getClient().setPosition(getDeviceID(), getClientID(), getTransactionID(), position);
-        checkResponse(response);
+        AlpacaResponse response = call(getClient().setPosition(getDeviceID(), getClientID(), getTransactionID(), position), "setPosition", position);
+    }
+
+    public void setPosition(int position, AlpacaCallback<Void> callback) {
+        callAsync(getClient().setPosition(getDeviceID(), getClientID(), getTransactionID(), position), new AlpacaCallback<>() {
+            @Override
+            public void success(AlpacaResponse result) {
+                callback.success(null);
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "setPosition", position);
     }
 }
