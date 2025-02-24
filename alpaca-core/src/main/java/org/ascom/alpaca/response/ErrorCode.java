@@ -12,7 +12,11 @@ public enum ErrorCode {
     InvalidWhileParked(1032),
     InvalidWhileSlaved(1033),
     InvalidOperation(1035),
-    ActionNotImplemented(1036);
+    ActionNotImplemented(1036),
+    CommunicationError(1280),
+    ServerError(1281),
+    ServerResourceNotFound(1282),
+    UnknownError(1283);
 
     private final int code;
 
@@ -32,6 +36,6 @@ public enum ErrorCode {
                 return errorCode;
             }
         }
-        throw new IllegalArgumentException("Invalid error code: " + code);
+        return UnknownError;
     }
 }
