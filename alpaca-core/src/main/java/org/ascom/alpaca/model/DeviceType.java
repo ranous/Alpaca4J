@@ -2,8 +2,6 @@ package org.ascom.alpaca.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("SpellCheckingInspection")
 public enum DeviceType {
@@ -19,7 +17,6 @@ public enum DeviceType {
     Telescope("telescope"),
     Unknown("unknown");
 
-    private static final Logger log = LoggerFactory.getLogger(DeviceType.class);
     private final String typeName;
 
     DeviceType(String typeName) {
@@ -44,10 +41,7 @@ public enum DeviceType {
             case "safetymonitor" -> SafetyMonitor;
             case "switch" -> Switch;
             case "telescope" -> Telescope;
-            default -> {
-                log.warn("Unrecognized device type: {}", name);
-                yield Unknown;
-            }
+            default ->  Unknown;
         };
     }
 }
