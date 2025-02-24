@@ -3,13 +3,13 @@ package org.ascom.alpaca.client;
 import org.ascom.alpaca.response.ErrorCode;
 
 public class AlpacaClientError {
-    private ErrorCode errorCode;
+    private final ErrorCode errorCode;
     private String errorMessage;
     private long clientTransactionID;
     private long serverTransasctionID;
 
     public AlpacaClientError(String errorMessage) {
-        errorCode = ErrorCode.ServerError;
+        this.errorCode = ErrorCode.ServerError;
         this.errorMessage = errorMessage;
     }
 
@@ -56,7 +56,7 @@ public class AlpacaClientError {
         }
     }
 
-    public class CommunicationError extends AlpacaClientError {
+    public static class CommunicationError extends AlpacaClientError {
         public CommunicationError(String errorMessage) {
             super(errorMessage);
         }

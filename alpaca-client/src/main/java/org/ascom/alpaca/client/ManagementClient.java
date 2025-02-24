@@ -2,18 +2,14 @@ package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.Management;
 import org.ascom.alpaca.model.DeviceDescriptor;
-import org.ascom.alpaca.response.AlpacaResponse;
-import org.ascom.alpaca.response.ListResponse;
 import org.ascom.alpaca.model.ServerInfo;
+import org.ascom.alpaca.response.ListResponse;
 import org.ascom.alpaca.response.ServerInfoResponse;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Random;

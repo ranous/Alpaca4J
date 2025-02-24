@@ -1,16 +1,13 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.SafetyMonitor;
-import org.ascom.alpaca.response.BooleanResponse;
 import org.ascom.alpaca.model.DeviceDescriptor;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.ascom.alpaca.response.BooleanResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import java.io.IOException;
 import java.net.URI;
 
 @SuppressWarnings("unused")
