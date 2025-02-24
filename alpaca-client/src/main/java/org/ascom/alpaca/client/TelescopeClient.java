@@ -1147,7 +1147,7 @@ public class TelescopeClient extends CommonClient {
         try {
             return format.parse(response.getValue());
         } catch (ParseException e) {
-            log.warn("Couldn't parse date: {}", response.getValue());
+            log.warn("Couldn't parse date: " + response.getValue());
             throw new InvalidValueException("Invalid date format " + e.getMessage());
         }
     }
