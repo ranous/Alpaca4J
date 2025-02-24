@@ -173,8 +173,8 @@ public class ClientManager {
                     case SafetyMonitor -> client = new SafetyMonitorClient(uri, descriptor, currentClientID);
                     case Switch -> client = new SwitchClient(uri, descriptor, currentClientID);
                     case Telescope -> client = new TelescopeClient(uri, descriptor, currentClientID);
-                    case Unknown -> log.warn("Received a unknown client type: {} during discovery from server {}", type, uri);
-                    default -> log.warn("Received a client of type {} during discovery from server {} which is unimplemented", type, uri);
+                    case Unknown -> log.warn("Received a unknown client type: " + type + " during discovery from server" + uri);
+                    default -> log.warn("Received a client of type " + type + " during discovery from server " + uri + " which is unimplemented");
                  }
                 if (client != null) {
                     clients.add(client);
@@ -182,7 +182,7 @@ public class ClientManager {
                 servers.put(server, clients);
             }
         } catch (Exception e) {
-            log.warn("Problem interrogating Alpaca server running at {}", address, e);
+            log.warn("Problem interrogating Alpaca server running at " + address, e);
         }
     }
 }
