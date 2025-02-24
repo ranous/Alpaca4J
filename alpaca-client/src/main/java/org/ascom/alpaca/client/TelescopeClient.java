@@ -3,8 +3,6 @@ package org.ascom.alpaca.client;
 import org.ascom.alpaca.api.Telescope;
 import org.ascom.alpaca.model.*;
 import org.ascom.alpaca.response.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -17,7 +15,7 @@ import java.util.TimeZone;
 
 @SuppressWarnings({"SpellCheckingInspection", "unused"})
 public class TelescopeClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(TelescopeClient.class);
+    private static final Logger log = Logger.getLogger(TelescopeClient.class);
     private final URI serverAddress;
     private Telescope client = null;
 
@@ -41,7 +39,7 @@ public class TelescopeClient extends CommonClient {
                 client = retrofit.create(Telescope.class);
                 return client;
             } catch (Exception e) {
-                log.warn("Problem constructing the client", e);
+                logWarn("Problem constructing the client", e);
                 throw new RuntimeException("Cannot build a client for Telescope - " + e.getMessage());
             }
         }

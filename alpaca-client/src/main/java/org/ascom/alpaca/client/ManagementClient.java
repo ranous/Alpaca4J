@@ -5,8 +5,6 @@ import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.ServerInfo;
 import org.ascom.alpaca.response.ListResponse;
 import org.ascom.alpaca.response.ServerInfoResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -16,7 +14,7 @@ import java.util.Random;
 
 @SuppressWarnings("unused")
 public class ManagementClient {
-    private static final Logger log = LoggerFactory.getLogger(ManagementClient.class);
+    private static final Logger log = Logger.getLogger(ManagementClient.class);
     private final URI serverAddress;
     private final int clientID;
     private Management client = null;

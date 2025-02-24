@@ -1,20 +1,18 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.ObservingConditions;
-import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.model.DeviceDescriptor;
+import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.DoubleResponse;
 import org.ascom.alpaca.response.StringResponse;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
 @SuppressWarnings("unused")
 public class ObservingConditionsClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(ObservingConditionsClient.class);
+    private static final Logger log = Logger.getLogger(ObservingConditionsClient.class);
     private final URI serverAddress;
     private ObservingConditions client = null;
 

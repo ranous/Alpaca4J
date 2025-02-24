@@ -5,8 +5,6 @@ import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.IntResponse;
 import org.ascom.alpaca.response.ListResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -15,7 +13,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class FilterWheelClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(FilterWheelClient.class);
+    private static final Logger log = Logger.getLogger(FilterWheelClient.class);
     private final URI serverAddress;
     private FilterWheel client = null;
 

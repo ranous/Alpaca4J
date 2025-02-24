@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.ServerInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.*;
 import java.util.*;
@@ -17,7 +15,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SpellCheckingInspection"})
 public class ClientManager {
-    private static final Logger log = LoggerFactory.getLogger(ClientManager.class);
+    private static final Logger log = Logger.getLogger(ClientManager.class);
 
     private final String broadcastMessage = "alpacadiscovery1";
     private final int discoveryPort = 32227;
@@ -111,7 +109,7 @@ public class ClientManager {
                 byte[] recvBuf = new byte[1024];
 
                 DatagramPacket recvPacket = new DatagramPacket(recvBuf, recvBuf.length);
-                log.info("Discovery Listener started on port {}", discoveryPort);
+                log.info("Discovery Listener started on port " + discoveryPort);
 
                 long timeout = System.currentTimeMillis() + (long) responseTimeout * 1000;
                 while (System.currentTimeMillis() < timeout) {
@@ -124,7 +122,7 @@ public class ClientManager {
                     ObjectMapper mapper = new ObjectMapper();
                     AlpacaDiscoveryResponse response = mapper.readValue(receiveBuf, AlpacaDiscoveryResponse.class);
 
-                    log.info("received a discovery response from {}, port {}", address.getHostAddress(), response.alpacaPort);
+                    log.info("Received a discovery response from " + address.getHostAddress() + ", port " + response.alpacaPort);
                     int port = 11111;
                     // let's interogate the server in a separate thread as to not delay hearing from other servers
                     executor.submit(() -> interrogateAlpacaServer(address, port));
@@ -142,7 +140,7 @@ public class ClientManager {
             } catch (SocketTimeoutException e) {
                 log.debug("Alpaca discovery request timed out");
             } catch (Exception e) {
-                log.warn("Problem receiving Alpaca discovery responses");
+                log.warn("Problem receiving Alpaca discovery responses", e);
             }
         } catch (SocketException e) {
             log.warn("Problem with Alpaca discovery socket", e);
@@ -159,7 +157,7 @@ public class ClientManager {
             List<CommonClient> clients = new ArrayList<>();
 
             List<DeviceDescriptor> descriptors = managementClient.getConfiguredDevices();
-            log.info("Received {} devices from server {} running on {}", descriptors.size(), serverInfo.getServerName(), address.getHostAddress());
+            log.info("Received " + descriptors.size() + " devices from server " + serverInfo.getServerName() +" running on " + address.getHostAddress());
 
             for (DeviceDescriptor descriptor : descriptors) {
                 DeviceType type = descriptor.getDeviceType();
@@ -176,7 +174,7 @@ public class ClientManager {
                     case Switch -> client = new SwitchClient(uri, descriptor, currentClientID);
                     case Telescope -> client = new TelescopeClient(uri, descriptor, currentClientID);
                     case Unknown -> log.warn("Received a unknown client type: {} during discovery from server {}", type, uri);
-                    default -> log.error("Received a client of type {} during discovery from server {} which is unimplemented", type, uri);
+                    default -> log.warn("Received a client of type {} during discovery from server {} which is unimplemented", type, uri);
                  }
                 if (client != null) {
                     clients.add(client);

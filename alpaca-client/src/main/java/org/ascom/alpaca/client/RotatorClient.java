@@ -1,20 +1,18 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.Rotator;
+import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.BooleanResponse;
-import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.DoubleResponse;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
 @SuppressWarnings("unused")
 public class RotatorClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(RotatorClient.class);
+    private static final Logger log = Logger.getLogger(RotatorClient.class);
     private final URI serverAddress;
     private Rotator client = null;
 

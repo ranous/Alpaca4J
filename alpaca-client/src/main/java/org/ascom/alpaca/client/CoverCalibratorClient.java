@@ -3,21 +3,19 @@ package org.ascom.alpaca.client;
 import org.ascom.alpaca.api.CoverCalibrator;
 import org.ascom.alpaca.model.CalibratorState;
 import org.ascom.alpaca.model.CoverState;
+import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.BooleanResponse;
 import org.ascom.alpaca.response.IntResponse;
 import org.ascom.alpaca.response.ValueResponse;
-import org.ascom.alpaca.model.DeviceDescriptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
 @SuppressWarnings("unused")
 public class CoverCalibratorClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(CoverCalibratorClient.class);
+    private static final Logger log = Logger.getLogger(CoverCalibratorClient.class);
     private final URI serverAddress;
     private CoverCalibrator client = null;
 

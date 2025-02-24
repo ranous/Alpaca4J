@@ -6,8 +6,6 @@ import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.ImageArray;
 import org.ascom.alpaca.model.SensorType;
 import org.ascom.alpaca.response.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -16,7 +14,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class CameraClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(CameraClient.class);
+    private static final Logger log = Logger.getLogger(CameraClient.class);
     private Camera client = null;
 
     public CameraClient(URI serverURI, DeviceDescriptor deviceDescriptor) {

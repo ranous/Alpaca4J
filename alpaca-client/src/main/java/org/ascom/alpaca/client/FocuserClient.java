@@ -1,21 +1,18 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.Focuser;
+import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.BooleanResponse;
 import org.ascom.alpaca.response.DoubleResponse;
 import org.ascom.alpaca.response.IntResponse;
-import org.ascom.alpaca.model.DeviceDescriptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
 @SuppressWarnings("unused")
 public class FocuserClient extends CommonClient {
-    private static final Logger log = LoggerFactory.getLogger(FocuserClient.class);
     private final URI serverAddress;
     private Focuser client = null;
 
@@ -39,7 +36,7 @@ public class FocuserClient extends CommonClient {
                 client = retrofit.create(Focuser.class);
                 return client;
             } catch (Exception e) {
-                log.warn("Problem constructing the client", e);
+                logWarn("Problem constructing the client", e);
                 throw new RuntimeException("Cannot build a client for Focuser - " + e.getMessage());
             }
         }
