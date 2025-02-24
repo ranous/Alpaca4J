@@ -6,24 +6,24 @@ public class AlpacaClientError {
     private final ErrorCode errorCode;
     private String errorMessage;
     private long clientTransactionID;
-    private long serverTransasctionID;
+    private long serverTransactionID;
 
     public AlpacaClientError(String errorMessage) {
         this.errorCode = ErrorCode.ServerError;
         this.errorMessage = errorMessage;
     }
 
-    public AlpacaClientError(long clientTransactionID, long serverTransasctionID, ErrorCode errorCode) {
+    public AlpacaClientError(long clientTransactionID, long serverTransactionID, ErrorCode errorCode) {
         this.errorCode = errorCode;
         this.clientTransactionID = clientTransactionID;
-        this.serverTransasctionID = serverTransasctionID;
+        this.serverTransactionID = serverTransactionID;
     }
 
-    public AlpacaClientError(long clientTransactionID, long serverTransasctionID, ErrorCode errorCode, String errorMessage) {
+    public AlpacaClientError(long clientTransactionID, long serverTransactionID, ErrorCode errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.clientTransactionID = clientTransactionID;
-        this.serverTransasctionID = serverTransasctionID;
+        this.serverTransactionID = serverTransactionID;
     }
 
     public ErrorCode getErrorCode() {
@@ -39,8 +39,8 @@ public class AlpacaClientError {
     }
 
 
-    public long getServerTransasctionID() {
-        return serverTransasctionID;
+    public long getServerTransactionID() {
+        return serverTransactionID;
     }
 
     public static class ServerError extends AlpacaClientError {
