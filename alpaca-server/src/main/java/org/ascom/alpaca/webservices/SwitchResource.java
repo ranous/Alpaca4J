@@ -5,7 +5,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.Switch;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.device.SwitchDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
-public class SwitchResource implements Switch {
+public class SwitchResource {
     private static final Logger log = LoggerFactory.getLogger(SwitchResource.class);
     @Inject
     DeviceManager deviceManager;

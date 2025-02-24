@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.FilterWheel;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.device.FilterWheelDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -17,7 +16,7 @@ import org.ascom.alpaca.response.ListResponse;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
-public class FilterWheelResource implements FilterWheel {
+public class FilterWheelResource {
     @Inject
     DeviceManager deviceManager;
 

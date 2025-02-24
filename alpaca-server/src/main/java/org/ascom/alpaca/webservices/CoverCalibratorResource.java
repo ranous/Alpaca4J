@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.CoverCalibrator;
 import org.ascom.alpaca.device.CoverCalibratorDevice;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.model.CalibratorState;
@@ -16,7 +15,7 @@ import org.ascom.alpaca.response.*;
 @Path("api/v1/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-public class CoverCalibratorResource implements CoverCalibrator {
+public class CoverCalibratorResource {
     @Inject
     DeviceManager deviceManager;
 
@@ -34,7 +33,6 @@ public class CoverCalibratorResource implements CoverCalibrator {
         return new IntResponse(getDevice(deviceNumber, clientID).getBrightness(clientID));
     }
 
-    @Override
     @GET
     @Path("covercalibrator/{deviceNumber}/calibratorchanging")
     public BooleanResponse isCalibratorChanging(@PathParam("deviceNumber") int deviceNumber,
@@ -51,7 +49,6 @@ public class CoverCalibratorResource implements CoverCalibrator {
         return new ValueResponse<>(getDevice(deviceNumber, clientID).getCalibratorState(clientID));
     }
 
-    @Override
     @GET
     @Path("covercalibrator/{deviceNumber}/covermoving")
     public BooleanResponse isCoverMoving(@PathParam("deviceNumber") int deviceNumber,

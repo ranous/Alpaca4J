@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.Camera;
 import org.ascom.alpaca.device.CameraDevice;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.model.DeviceType;
@@ -15,7 +14,7 @@ import org.ascom.alpaca.response.*;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
-public class CameraResource implements Camera {
+public class CameraResource {
     @Inject
     DeviceManager deviceManager;
 
@@ -25,7 +24,6 @@ public class CameraResource implements Camera {
         return device;
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/bayeroffsetx")
     public IntResponse getBayerOffsetX(@PathParam("deviceNumber") int deviceNumber,
@@ -34,7 +32,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetX(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/bayeroffsety")
     public IntResponse getBayerOffsetY(@PathParam("deviceNumber") int deviceNumber,
@@ -43,7 +40,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetY(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/binx")
     public IntResponse getBinX(@PathParam("deviceNumber") int deviceNumber,
@@ -52,7 +48,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getBinX(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/binx")
     public AlpacaResponse setBinX(@PathParam("deviceNumber") int deviceNumber,
@@ -66,7 +61,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/biny")
     public IntResponse getBinY(@PathParam("deviceNumber") int deviceNumber,
@@ -75,7 +69,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getBinY(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/biny")
     public AlpacaResponse setBinY(@PathParam("deviceNumber") int deviceNumber,
@@ -89,7 +82,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/camerastate")
     public IntResponse getCameraState(@PathParam("deviceNumber") int deviceNumber,
@@ -98,7 +90,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getCameraState(clientID).ordinal());
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/cameraxsize")
     public IntResponse getCameraXSize(@PathParam("deviceNumber") int deviceNumber,
@@ -107,7 +98,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getCameraXSize(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/cameraysize")
     public IntResponse getCameraYSize(@PathParam("deviceNumber") int deviceNumber,
@@ -116,7 +106,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getCameraYSize(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/canabortexposure")
     public BooleanResponse canAbortExposure(@PathParam("deviceNumber") int deviceNumber,
@@ -125,7 +114,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canAbortExposure(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/canasymmetricbin")
     public BooleanResponse canAsymmetricBin(@PathParam("deviceNumber") int deviceNumber,
@@ -134,7 +122,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canAsymmetricBin(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/canfastreadout")
     public BooleanResponse canFastReadout(@PathParam("deviceNumber") int deviceNumber,
@@ -143,7 +130,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canFastReadout(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/cangetcoolerpower")
     public BooleanResponse canGetCoolerPower(@PathParam("deviceNumber") int deviceNumber,
@@ -152,7 +138,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canGetCoolerPower(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/canpulseguide")
     public BooleanResponse canPulseGuide(@PathParam("deviceNumber") int deviceNumber,
@@ -161,7 +146,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canPulseGuide(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/cansetccdtemperature")
     public BooleanResponse canSetCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
@@ -170,7 +154,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canSetCCDTemperature(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/canstopexposure")
     public BooleanResponse canStopExposure(@PathParam("deviceNumber") int deviceNumber,
@@ -179,7 +162,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).canStopExposure(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/ccdtemperature")
     public DoubleResponse getCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
@@ -188,7 +170,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getCCDTemperature(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/cooleron")
     public BooleanResponse isCoolerOn(@PathParam("deviceNumber") int deviceNumber,
@@ -197,7 +178,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).isCoolerOn(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/cooleron")
     public AlpacaResponse setCoolerOn(@PathParam("deviceNumber") int deviceNumber,
@@ -208,7 +188,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/coolerpower")
     public IntResponse getCoolerPower(@PathParam("deviceNumber") int deviceNumber,
@@ -217,7 +196,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getCoolerPower(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/electronsperadu")
     public DoubleResponse getElectronsPerADU(@PathParam("deviceNumber") int deviceNumber,
@@ -226,7 +204,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getElectronsPerADU(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/exposuremax")
     public DoubleResponse getExposureMax(@PathParam("deviceNumber") int deviceNumber,
@@ -235,7 +212,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMax(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/exposuremin")
     public DoubleResponse getExposureMin(@PathParam("deviceNumber") int deviceNumber,
@@ -244,7 +220,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMin(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/exposureresolution")
     public DoubleResponse getExposureResolution(@PathParam("deviceNumber") int deviceNumber,
@@ -253,7 +228,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureResolution(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/fastreadout")
     public BooleanResponse getFastReadout(@PathParam("deviceNumber") int deviceNumber,
@@ -262,7 +236,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).getFastReadout(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/fastreadout")
     public AlpacaResponse setFastReadout(@PathParam("deviceNumber") int deviceNumber,
@@ -273,7 +246,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/fullwellcapacity")
     public DoubleResponse getFullWellCapacity(@PathParam("deviceNumber") int deviceNumber,
@@ -282,7 +254,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getFullWellCapacity(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/gain")
     public IntResponse getGain(@PathParam("deviceNumber") int deviceNumber,
@@ -291,7 +262,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getGain(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/gain")
     public AlpacaResponse setGain(@PathParam("deviceNumber") int deviceNumber,
@@ -302,7 +272,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/gainmax")
     public IntResponse getGainMax(@PathParam("deviceNumber") int deviceNumber,
@@ -311,7 +280,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getGainMax(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/gainmin")
     public IntResponse getGainMin(@PathParam("deviceNumber") int deviceNumber,
@@ -320,7 +288,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getGainMin(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/gains")
     public ListResponse<String> getGains(@PathParam("deviceNumber") int deviceNumber,
@@ -329,7 +296,6 @@ public class CameraResource implements Camera {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getGains(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/hasshutter")
     public BooleanResponse hasShutter(@PathParam("deviceNumber") int deviceNumber,
@@ -338,7 +304,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).hasShutter(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/heatsinktemperature")
     public DoubleResponse getHeatSinkTemperature(@PathParam("deviceNumber") int deviceNumber,
@@ -347,7 +312,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getHeatSinkTemperature(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/imagearray")
     public ImageArrayResponse getImageArray(@PathParam("deviceNumber") int deviceNumber,
@@ -357,7 +321,6 @@ public class CameraResource implements Camera {
         return new ImageArrayResponse(clientTransactionID, image);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/imagearrayvariant")
     public ImageArrayResponse getImageArrayVariant(@PathParam("deviceNumber") int deviceNumber,
@@ -367,7 +330,6 @@ public class CameraResource implements Camera {
         return new ImageArrayResponse(clientTransactionID, image);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/imageready")
     public BooleanResponse isImageReady(@PathParam("deviceNumber") int deviceNumber,
@@ -376,7 +338,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).isImageReady(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/ispulseguiding")
     public BooleanResponse isPulseGuiding(@PathParam("deviceNumber") int deviceNumber,
@@ -385,7 +346,6 @@ public class CameraResource implements Camera {
         return new BooleanResponse(getDevice(deviceNumber, clientID).isPulseGuiding(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/lastexposureduration")
     public DoubleResponse getLastExposureDuration(@PathParam("deviceNumber") int deviceNumber,
@@ -394,7 +354,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getLastExposureDuration(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/lastexposurestarttime")
     public StringResponse getLastExposureStartTime(@PathParam("deviceNumber") int deviceNumber,
@@ -403,7 +362,6 @@ public class CameraResource implements Camera {
         return new StringResponse(getDevice(deviceNumber, clientID).getLastExposureStartTime(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/maxadu")
     public IntResponse getMaxADU(@PathParam("deviceNumber") int deviceNumber,
@@ -412,7 +370,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getMaxADU(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/maxbinx")
     public IntResponse getMaxBinX(@PathParam("deviceNumber") int deviceNumber,
@@ -421,7 +378,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinX(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/maxbiny")
     public IntResponse getMaxBinY(@PathParam("deviceNumber") int deviceNumber,
@@ -430,7 +386,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinY(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/numx")
     public IntResponse getNumX(@PathParam("deviceNumber") int deviceNumber,
@@ -439,7 +394,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getNumX(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/numx")
     public AlpacaResponse setNumX(@PathParam("deviceNumber") int deviceNumber,
@@ -450,7 +404,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/numy")
     public IntResponse getNumY(@PathParam("deviceNumber") int deviceNumber,
@@ -459,7 +412,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getNumY(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/numy")
     public AlpacaResponse setNumY(@PathParam("deviceNumber") int deviceNumber,
@@ -470,7 +422,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/offset")
     public IntResponse getOffset(@PathParam("deviceNumber") int deviceNumber,
@@ -479,7 +430,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getOffset(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/offset")
     public AlpacaResponse setOffset(@PathParam("deviceNumber") int deviceNumber,
@@ -490,7 +440,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/offsetmax")
     public IntResponse getOffsetMax(@PathParam("deviceNumber") int deviceNumber,
@@ -499,7 +448,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMax(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/offsetmin")
     public IntResponse getOffsetMin(@PathParam("deviceNumber") int deviceNumber,
@@ -508,7 +456,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMin(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/offsets")
     public ListResponse<String> getOffsets(@PathParam("deviceNumber") int deviceNumber,
@@ -517,7 +464,6 @@ public class CameraResource implements Camera {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getOffsets(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/percentcompleted")
     public IntResponse getPercentCompleted(@PathParam("deviceNumber") int deviceNumber,
@@ -526,7 +472,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getPercentCompleted(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/pixelsizex")
     public DoubleResponse getPixelSizeX(@PathParam("deviceNumber") int deviceNumber,
@@ -535,7 +480,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeX(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/pixelsizey")
     public DoubleResponse getPixelSizeY(@PathParam("deviceNumber") int deviceNumber,
@@ -544,7 +488,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeY(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/readoutmode")
     public IntResponse getReadoutMode(@PathParam("deviceNumber") int deviceNumber,
@@ -553,7 +496,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getReadoutMode(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/readoutmode")
     public AlpacaResponse setReadoutMode(@PathParam("deviceNumber") int deviceNumber,
@@ -564,7 +506,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/readoutmodes")
     public ListResponse<String> getReadoutModes(@PathParam("deviceNumber") int deviceNumber,
@@ -573,7 +514,6 @@ public class CameraResource implements Camera {
         return new ListResponse<>(getDevice(deviceNumber, clientID).getReadoutModes(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/sensorname")
     public StringResponse getSensorName(@PathParam("deviceNumber") int deviceNumber,
@@ -582,7 +522,6 @@ public class CameraResource implements Camera {
         return new StringResponse(getDevice(deviceNumber, clientID).getSensorName(clientID));
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/sensortype")
     public IntResponse getSensorType(@PathParam("deviceNumber") int deviceNumber,
@@ -591,7 +530,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getSensorType(clientID).getType());
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/setccdtemperature")
     public DoubleResponse getSetCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
@@ -600,7 +538,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSetCCDTemperature(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/setccdtemperature")
     public AlpacaResponse setCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
@@ -611,7 +548,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/startx")
     public IntResponse getStartX(@PathParam("deviceNumber") int deviceNumber,
@@ -620,7 +556,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getStartX(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/startx")
     public AlpacaResponse setStartX(@PathParam("deviceNumber") int deviceNumber,
@@ -631,7 +566,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/starty")
     public IntResponse getStartY(@PathParam("deviceNumber") int deviceNumber,
@@ -640,7 +574,6 @@ public class CameraResource implements Camera {
         return new IntResponse(getDevice(deviceNumber, clientID).getStartY(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/starty")
     public AlpacaResponse setStartY(@PathParam("deviceNumber") int deviceNumber,
@@ -651,7 +584,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("camera/{deviceNumber}/subexposureduration")
     public DoubleResponse getSubExposureDuration(@PathParam("deviceNumber") int deviceNumber,
@@ -660,7 +592,6 @@ public class CameraResource implements Camera {
         return new DoubleResponse(getDevice(deviceNumber, clientID).getSubExposureDuration(clientID));
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/subexposureduration")
     public AlpacaResponse setSubExposureDuration(@PathParam("deviceNumber") int deviceNumber,
@@ -671,7 +602,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/abortexposure")
     public AlpacaResponse abortExposure(@PathParam("deviceNumber") int deviceNumber,
@@ -681,7 +611,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/pulseguide")
     public AlpacaResponse pulseGuide(@PathParam("deviceNumber") int deviceNumber,
@@ -693,7 +622,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/startexposure")
     public AlpacaResponse startExposure(@PathParam("deviceNumber") int deviceNumber,
@@ -705,7 +633,6 @@ public class CameraResource implements Camera {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @PUT
     @Path("camera/{deviceNumber}/stopexposure")
     public AlpacaResponse stopExposure(@PathParam("deviceNumber") int deviceNumber,

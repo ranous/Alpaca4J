@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.SafetyMonitor;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.device.SafetyMonitorDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -13,7 +12,7 @@ import org.ascom.alpaca.response.BooleanResponse;
 @ApplicationScoped
 @Path("api/v1/")
 @Produces(MediaType.APPLICATION_JSON)
-public class SafetyMonitorResource implements SafetyMonitor {
+public class SafetyMonitorResource {
     @Inject
     DeviceManager deviceManager;
 

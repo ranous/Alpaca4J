@@ -44,7 +44,6 @@ public class CommonDeviceResource implements Common {
         throw new NotConnectedException(clientTransactionID, "Client " + clientID + " is not connected");
     }
 
-    @Override
     @PUT
     @Path("{deviceType}/{deviceNumber}/action")
     public StringResponse executeAction(@PathParam("deviceType") String deviceType,
@@ -57,7 +56,6 @@ public class CommonDeviceResource implements Common {
         return new StringResponse(clientTransactionID, response);
     }
 
-    @Override
     @PUT
     @Path("{deviceType}/{deviceNumber}/connect")
     public AlpacaResponse connect(@PathParam("deviceType") String deviceType,
@@ -69,7 +67,6 @@ public class CommonDeviceResource implements Common {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @PUT
     @Path("{deviceType}/{deviceNumber}/disconnect")
     public AlpacaResponse disconnect(@PathParam("deviceType") String deviceType,
@@ -81,7 +78,6 @@ public class CommonDeviceResource implements Common {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/connecting")
     public BooleanResponse isConnecting(@PathParam("deviceType") String deviceType,
@@ -92,7 +88,6 @@ public class CommonDeviceResource implements Common {
         return new BooleanResponse(clientTransactionID, device.isConnecting(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/connected")
     public BooleanResponse isConnected(@PathParam("deviceType") String deviceType,
@@ -104,7 +99,6 @@ public class CommonDeviceResource implements Common {
         return new BooleanResponse(clientTransactionID, device.isConnected(clientID));
     }
 
-    @Override
     @PUT
     @Path("{deviceType}/{deviceNumber}/connected")
     public AlpacaResponse setConnectedState(@PathParam("deviceType") String deviceType,
@@ -121,7 +115,6 @@ public class CommonDeviceResource implements Common {
         return new AlpacaResponse(clientTransactionID);
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/description")
     public StringResponse getDescription(@PathParam("deviceType") String deviceType,
@@ -134,7 +127,6 @@ public class CommonDeviceResource implements Common {
         return new StringResponse(clientTransactionID, device.getDescription(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/devicestate")
     public ListResponse<StateValue> getDeviceState(@PathParam("deviceType") String deviceType,
@@ -145,7 +137,6 @@ public class CommonDeviceResource implements Common {
         return new ListResponse<>(clientTransactionID, device.getDeviceState(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/driverinfo")
     public StringResponse getDriverInfo(@PathParam("deviceType") String deviceType,
@@ -157,7 +148,6 @@ public class CommonDeviceResource implements Common {
         return new StringResponse(clientTransactionID, device.getDriverInfo(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/driverversion")
     public StringResponse getDriverVersion(@PathParam("deviceType") String deviceType,
@@ -169,7 +159,6 @@ public class CommonDeviceResource implements Common {
         return new StringResponse(clientTransactionID, device.getDriverVersion(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/interfaceversion")
     public IntResponse getInterfaceVersion(@PathParam("deviceType") String deviceType,
@@ -181,7 +170,6 @@ public class CommonDeviceResource implements Common {
         return new IntResponse(clientTransactionID, device.getInterfaceVersion(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/name")
     public StringResponse getName(@PathParam("deviceType") String deviceType,
@@ -193,7 +181,6 @@ public class CommonDeviceResource implements Common {
         return new StringResponse(clientTransactionID, device.getName(clientID));
     }
 
-    @Override
     @GET
     @Path("{deviceType}/{deviceNumber}/supportedactions")
     public ListResponse<String> getSupportedActions(@PathParam("deviceType") String deviceType,

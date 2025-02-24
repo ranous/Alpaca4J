@@ -7,7 +7,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.Management;
 import org.ascom.alpaca.device.Device;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.model.DeviceDescriptor;
@@ -21,7 +20,7 @@ import java.util.List;
 @Path("/management")
 @Produces(MediaType.APPLICATION_JSON)
 @ApplicationScoped
-public class ManagementResource implements Management {
+public class ManagementResource {
     @Inject
     DeviceManager deviceManager;
     @Inject @ConfigProperty(name = "alpaca.server_info.server-name")
@@ -33,7 +32,6 @@ public class ManagementResource implements Management {
     @Inject @ConfigProperty(name = "alpaca.server_info.location")
     String location;
 
-    @Override
     @GET
     @Path("apiversions")
     public ListResponse<Integer> getApiVersions(@QueryParam("ClientID") int clientID,
@@ -41,7 +39,6 @@ public class ManagementResource implements Management {
         return new ListResponse<>(clientTransactionID, List.of(1));
     }
 
-    @Override
     @GET
     @Path("v1/configureddevices")
     public ListResponse<DeviceDescriptor> getConfiguredDevices(@QueryParam("ClientID") int clientID,

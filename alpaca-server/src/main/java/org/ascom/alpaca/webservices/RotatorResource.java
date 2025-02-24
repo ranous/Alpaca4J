@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.Rotator;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.device.RotatorDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -17,7 +16,7 @@ import org.ascom.alpaca.response.InvalidValueException;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
-public class RotatorResource implements Rotator {
+public class RotatorResource {
     @Inject
     DeviceManager deviceManager;
 

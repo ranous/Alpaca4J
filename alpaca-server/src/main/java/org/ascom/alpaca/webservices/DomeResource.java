@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.Dome;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.device.DomeDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -14,7 +13,7 @@ import org.ascom.alpaca.response.*;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
-public class DomeResource implements Dome {
+public class DomeResource {
     @Inject
     DeviceManager deviceManager;
 

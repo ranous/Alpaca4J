@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.api.Focuser;
 import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.device.FocuserDevice;
 import org.ascom.alpaca.model.DeviceType;
@@ -17,7 +16,7 @@ import org.ascom.alpaca.response.IntResponse;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @ApplicationScoped
-public class FocuserResource implements Focuser {
+public class FocuserResource {
     @Inject
     DeviceManager deviceManager;
 
