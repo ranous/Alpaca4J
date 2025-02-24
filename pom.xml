@@ -22,13 +22,10 @@
     <modules>
         <module>alpaca-core</module>
         <module>alpaca-client</module>
-        <module>alpaca-client-retrofit</module>
         <module>alpaca-server</module>
         <module>alpaca-client-test</module>
         <module>alpaca-server-test</module>
-        <module>meteobridge</module>
     </modules>
-
 
     <dependencyManagement>
         <dependencies>
