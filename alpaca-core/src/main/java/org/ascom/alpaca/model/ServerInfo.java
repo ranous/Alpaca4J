@@ -2,6 +2,8 @@ package org.ascom.alpaca.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public class ServerInfo {
     private String serverName;
@@ -60,5 +62,22 @@ public class ServerInfo {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ServerInfo that = (ServerInfo) o;
+        return Objects.equals(serverName, that.serverName)
+                && Objects.equals(manufacturer, that.manufacturer)
+                && Objects.equals(manufacturerVersion, that.manufacturerVersion)
+                && Objects.equals(location, that.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serverName, manufacturer, manufacturerVersion, location);
     }
 }
