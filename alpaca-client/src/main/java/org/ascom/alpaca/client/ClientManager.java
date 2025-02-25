@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SpellCheckingInspection"})
 public class ClientManager {
     private static final Logger log = Logger.getLogger(ClientManager.class);
+    private static final ClientManager instance = new ClientManager();
 
     private final String broadcastMessage = "alpacadiscovery1";
     private final int discoveryPort = 32227;
@@ -27,6 +28,15 @@ public class ClientManager {
     record AlpacaDiscoveryResponse(@JsonProperty("AlpacaPort") int alpacaPort) {}
 
     record AlpacaServerInfo(InetAddress address, int alpacaPort, ServerInfo serverInfo) {}
+
+
+    ClientManager() {
+
+    }
+
+    public static ClientManager getInstance() {
+        return instance;
+    }
 
     /**
      * The amount of time the client will wait for responses to the discovery broadcast for Alpaca devices.
@@ -82,6 +92,24 @@ public class ClientManager {
             }
         }
         return null;
+    }
+
+    /**
+     * Discovers Alpaca devices on the local network and returns a list of the discovered devices.
+     * This method is asynchronous and will return immediately.  The callback will be called when the
+     * discovery is complete.
+     *
+     * @return a list of the discovered devices
+     */
+    public void discoverDevices(AlpacaCallback<List<CommonClient>> callback) {
+        executor.submit(() -> {
+            try {
+                discoverDevices();
+                callback.success(getClients());
+            } catch (Exception e) {
+                callback.error(new AlpacaClientError(e.getMessage()));
+            }
+        });
     }
 
     /**
@@ -179,9 +207,9 @@ public class ClientManager {
                 if (client != null) {
                     clients.add(client);
                 }
-                servers.put(server, clients);
             }
-        } catch (Exception e) {
+            servers.put(server, clients);
+        } catch (Throwable e) {
             log.warn("Problem interrogating Alpaca server running at " + address, e);
         }
     }
