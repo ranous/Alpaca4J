@@ -1,5 +1,6 @@
 package org.ascom.alpaca.test;
 
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.ObservingConditionsDevice;
@@ -7,6 +8,7 @@ import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
 import org.ascom.alpaca.response.InvalidValueException;
 import org.ascom.alpaca.response.PropertyNotImplementedException;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +43,14 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
         super(DeviceType.ObservingConditions, "Test Observing Conditions", 2);
         setDescription("Test Observing Conditions Device");
         setDriverInfo(getDescription() + ". Version " + VERSION);
+    }
+
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    @Inject
+    public TestObservingConditionsDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        this();
+        setDriverVersion(deviceVersion);
     }
 
     @Override
