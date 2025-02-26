@@ -8,6 +8,7 @@ import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
 import org.ascom.alpaca.response.InvalidValueException;
 import org.ascom.alpaca.response.PropertyNotImplementedException;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,6 @@ import java.util.List;
 @ApplicationScoped
 public class MeteobridgeObservingConditionsDevice extends BaseDevice implements ObservingConditionsDevice {
     private static final Logger log = LoggerFactory.getLogger(MeteobridgeObservingConditionsDevice.class);
-    private final String VERSION = "1.0";
 
     @Inject
     WeatherDB weatherDB;
@@ -30,7 +30,13 @@ public class MeteobridgeObservingConditionsDevice extends BaseDevice implements 
     public MeteobridgeObservingConditionsDevice() {
         super(DeviceType.ObservingConditions, "Meteobridge Observing Conditions", 2);
         setDescription("Meteobridge Observing Conditions Device");
-        setDriverInfo(getDescription() + ". Version " + VERSION);
+        setDriverInfo(getDescription());
+    }
+
+    @Inject
+    public MeteobridgeObservingConditionsDevice(@ConfigProperty(name="meteobridge.driver.version", defaultValue = "1.0") String deviceVersion) {
+        this();
+        setDriverVersion(deviceVersion);
     }
 
     @Override
