@@ -103,13 +103,13 @@ public class ClientTest {
 
         });
     }
-    private static void initLogger(Class classObject) {
+    private static void initLogger(Class<?> classObject) {
         // Attempt to read the logging configuration from the classpath
         try {
             InputStream stream = classObject.getClassLoader().getResourceAsStream("logging.properties");
             LogManager.getLogManager().readConfiguration(stream);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error reading logging configuration: " + e.getMessage());
         }
     }
 }
