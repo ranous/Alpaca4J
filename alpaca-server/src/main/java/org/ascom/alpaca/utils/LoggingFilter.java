@@ -103,6 +103,11 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
             return "client_ip=" + ipAddress;
         }
 
+        ipAddress = context.getHeaders().getFirst("X-Real-IP");
+        if (ipAddress != null) {
+            return "client_ip=" + ipAddress;
+        }
+
         // If we're running in a Helidon environment, this is the only way I've been able to figure
         // out how to get the client ip
         Object remoteAddress = context.getProperty("io.helidon.jaxrs.remote-host");
