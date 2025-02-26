@@ -98,8 +98,6 @@ public class ClientManager {
      * Discovers Alpaca devices on the local network and returns a list of the discovered devices.
      * This method is asynchronous and will return immediately.  The callback will be called when the
      * discovery is complete.
-     *
-     * @return a list of the discovered devices
      */
     public void discoverDevices(AlpacaCallback<List<CommonClient>> callback) {
         executor.submit(() -> {

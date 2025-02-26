@@ -9,7 +9,7 @@ import java.text.MessageFormat;
  * In the case of the JVM, it's java.util.logging.  In the case of Android, it's android.util.Log.
  */
 public class Logger {
-    private Platform platform = Platform.get();
+    private final Platform platform = Platform.get();
 
     Logger() {
     }

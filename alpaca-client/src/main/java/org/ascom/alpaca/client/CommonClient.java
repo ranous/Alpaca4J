@@ -1,5 +1,6 @@
 package org.ascom.alpaca.client;
 
+import okhttp3.ResponseBody;
 import okhttp3.internal.platform.Platform;
 import org.ascom.alpaca.api.Common;
 import org.ascom.alpaca.model.DeviceDescriptor;
@@ -102,13 +103,16 @@ public class CommonClient {
         try {
             Response<T> response = call.execute();
             if (!response.isSuccessful()) {
-                String responseBody = response.errorBody() != null ? " - " + response.errorBody().string() : "";
-
-                switch (response.code()) {
-                    case 400:
-                        throw new ServerException("Error calling " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code() + responseBody);
-                    default:
-                        throw new ServerException("Error calling " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code() + responseBody);
+                try (ResponseBody errorResponse = response.errorBody()) {
+                    String responseBody = errorResponse != null ? " - " + errorResponse : "";
+                    switch (response.code()) {
+                        case 400:
+                            throw new ServerException("Error calling " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code() + responseBody);
+                        case 404:
+                            throw new ServerException("Server has no resource called " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code() + responseBody);
+                        default:
+                            throw new ServerException("Error calling " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code() + responseBody);
+                    }
                 }
             }
             T callResponse = response.body();
