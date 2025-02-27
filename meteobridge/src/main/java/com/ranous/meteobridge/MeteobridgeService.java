@@ -9,11 +9,11 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import java.util.Base64;
 
-@SuppressWarnings("SpellCheckingInspection")
 /**
  * This is a REST client interface for querying the Meteobridge device for weather data.
  * This is used when configured to poll the device for weather data.
  */
+@SuppressWarnings("SpellCheckingInspection")
 @Path("cgi-bin")
 @RegisterRestClient(configKey="meteobridge-client")
 @ClientHeaderParam(name = "Authorization", value = "{lookupAuth}")

@@ -16,7 +16,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"FieldCanBeLocal", "SpellCheckingInspection"})
+@SuppressWarnings({"SpellCheckingInspection"})
 @ApplicationScoped
 public class MeteobridgeObservingConditionsDevice extends BaseDevice implements ObservingConditionsDevice {
     private static final Logger log = LoggerFactory.getLogger(MeteobridgeObservingConditionsDevice.class);
