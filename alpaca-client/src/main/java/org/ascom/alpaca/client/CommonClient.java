@@ -135,17 +135,17 @@ public class CommonClient {
 
     static protected <T extends AlpacaResponse> void callAsync(Call<T> call, final AlpacaCallback<T> callback, final String methodName, final Object... methodArgs) {
         call.enqueue(new Callback<>() {
+            @SuppressWarnings("NullableProblems")
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
                 if (!response.isSuccessful()) {
                     String errMsg = "Error calling " + getMethodSignature(methodName, methodArgs) + " - Status=" + response.code();
-                    String errorBody = null;
-                    try {
-                        errorBody = response.errorBody() != null ? response.errorBody().string() : null;
+                    try (ResponseBody errorResponse = response.errorBody()) {
+                        String responseBody = errorResponse != null ? " - " + errorResponse : "";
+                        errMsg = errMsg + responseBody;
                     } catch (Exception ignore) {
                         // best effort to get the error body
                     }
-                    errMsg = errMsg + (errorBody != null ? " - " + errorBody : "");
                     AlpacaClientError error = new AlpacaClientError.ServerError(errMsg, response.code());
                     callback.error(error);
                     return;
@@ -164,6 +164,7 @@ public class CommonClient {
                 callback.success(response.body());
             }
 
+            @SuppressWarnings("NullableProblems")
             @Override
             public void onFailure(Call<T> call, Throwable t) {
                 String msg = "Error calling " + getMethodSignature(methodName, methodArgs) + " - " + t.getMessage();
@@ -171,7 +172,6 @@ public class CommonClient {
             }
         });
     }
-
 
     private static String getMethodSignature(String name, Object[] args) {
         String sig = name + "(";
