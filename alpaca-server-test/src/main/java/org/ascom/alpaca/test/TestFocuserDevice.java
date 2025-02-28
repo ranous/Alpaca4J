@@ -96,13 +96,12 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
 
     @Override
     public void moveToPosition(int clientID, int position) {
-        this.position = position;
         if (position < 0) {
-            this.position = 0;
+            position = 0;
+        } else if (position > maxPosition) {
+            position = maxPosition;
         }
-        if (position > maxPosition) {
-            this.position = maxPosition;
-        }
+        this.position = position;
         isMoving = true;
         moveStartTime = System.currentTimeMillis();
     }
