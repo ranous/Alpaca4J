@@ -12,12 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @ApplicationScoped
 public class MeteobridgePoller {
     private static final Logger log = LoggerFactory.getLogger(MeteobridgePoller.class);
-    private boolean stopPolling = false;
-    private Thread pollingThread;
+    private TimerTask pollingTask;
 
     @Inject
     WeatherDB weatherDB;
@@ -53,37 +54,31 @@ public class MeteobridgePoller {
     }
 
     public void startPolling() {
-        if (pollingThread != null) {
+        if (pollingTask != null) {
             log.warn("Meteobridge poller already running");
             return;
         }
-        stopPolling = false;
-        pollingThread = new Thread() {
-            public synchronized void run() {
-                poller();
+
+        Timer timer = new Timer();
+        pollingTask = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    log.info("Calling meteobridge to get weather data");
+                    WeatherData data = client.getWeatherData(template, MediaType.APPLICATION_JSON+";"+ StandardCharsets.ISO_8859_1.name());
+                    weatherDB.setWeatherData(data);
+                } catch (Exception e) {
+                    log.warn("Got an exception polling meteobridge: ", e);
+                }
             }
         };
-        pollingThread.start();
+        timer.scheduleAtFixedRate(pollingTask, 0, pollingInterval*1000);
     }
 
     public void stopPolling() {
-        stopPolling = true;
-    }
-
-    void poller() {
-        while (!stopPolling) {
-            try {
-                log.info("Calling meteobridge to get weather data");
-                WeatherData data = client.getWeatherData(template, MediaType.APPLICATION_JSON+";"+ StandardCharsets.ISO_8859_1.name());
-                weatherDB.setWeatherData(data);
-            } catch (Exception e) {
-                log.warn("Got an exception polling meteobridge: ", e);
-            }
-            try {
-                Thread.sleep(pollingInterval * 1000);
-            } catch (Exception e) {
-                // Ignore
-            }
+        if (pollingTask != null) {
+            pollingTask.cancel();
+            pollingTask = null;
         }
     }
 }
