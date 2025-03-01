@@ -145,7 +145,8 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
 
     @Override
     public void refresh(int clientID) {
-            }
+        lastUpdate = System.currentTimeMillis();
+    }
 
     @Override
     public String getSensorDescription(int clientID, String sensorName) {
