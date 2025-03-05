@@ -8,6 +8,10 @@ public class ValueNotSetException extends AlpacaException {
         super(clientTransactionID, ERROR_CODE);
     }
 
+    public ValueNotSetException(String message) {
+        super(ERROR_CODE, message);
+    }
+
     public ValueNotSetException(long clientTransactionID, String message) {
         super(clientTransactionID, ERROR_CODE, message);
     }
