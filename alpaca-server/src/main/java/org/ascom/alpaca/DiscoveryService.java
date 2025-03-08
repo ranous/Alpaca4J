@@ -13,6 +13,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 @SuppressWarnings("unused")
 @ApplicationScoped
@@ -21,13 +22,20 @@ public class DiscoveryService {
 
     private Thread listenerThread;
     private boolean shouldExit = false;
+    private byte[] validDiscoveryMessage;
+    private byte[] responseBuffer;
+
     @Inject @ConfigProperty(name = "alpaca.discovery.port", defaultValue = "32227")
     int discoveryPort;
     @Inject @ConfigProperty(name = "alpaca.http.port", defaultValue = "11111")
     int alpacaPort;
 
+
     // Should be magically called on server startup
     void onStart(@Observes Startup ev) {
+        String responseMessage = "{\"AlpacaPort\":" + alpacaPort + "}";
+        responseBuffer = responseMessage.getBytes(StandardCharsets.UTF_8);
+        validDiscoveryMessage = "alpacadiscovery1".getBytes();
         startListener();
     }
 
@@ -81,8 +89,12 @@ public class DiscoveryService {
                 int port = packet.getPort();
                 log.info("Received discovery request from {}", address.getHostAddress());
                 byte[] receiveBuf = packet.getData();
-                //TODO:  verify this
-                sendResponse(address, port);
+                if (Arrays.compare(receiveBuf, 0, 16, validDiscoveryMessage, 0, 16) == 0) {
+                    sendResponse(address, port);
+                } else {
+                    String discoveryMessage = new String(receiveBuf, 0, 16, StandardCharsets.UTF_8);
+                    log.warn("Invalid discovery message \"{}\" received from {}", discoveryMessage, address.getHostAddress());
+                }
             }
         } catch (Exception e) {
             log.warn("Problem with discovery listener {}", String.valueOf(e));
@@ -92,13 +104,11 @@ public class DiscoveryService {
 
     private void sendResponse(InetAddress address, int port) {
         try (DatagramSocket socket = new DatagramSocket()) {
-            String responseMessage = "{\"AlpacaPort\":" + alpacaPort + "}";
-            byte[] responseBuffer = responseMessage.getBytes(StandardCharsets.UTF_8);
             DatagramPacket packet = new DatagramPacket(responseBuffer, responseBuffer.length, address, port);
             socket.send(packet);
-            log.info("Sent discovery response {} to {}", responseMessage, address.getHostAddress());
+            log.info("Sent discovery response to {}", address.getHostAddress());
         } catch (Exception e) {
-            log.warn("Problem sending response in discovery listener{}", String.valueOf(e));
+            log.warn("Problem sending response in discovery listener {}", String.valueOf(e));
         }
     }
 }
