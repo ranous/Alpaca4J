@@ -6,6 +6,7 @@ import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.ObservingConditionsDevice;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
+import org.ascom.alpaca.response.ActionNotImplementedException;
 import org.ascom.alpaca.response.InvalidValueException;
 import org.ascom.alpaca.response.PropertyNotImplementedException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -168,5 +169,19 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
             lastUpdate = curTime;
         }
         return duration;
+    }
+
+    @Override
+    public String executeAction(int clientID, String action, String parameters) {
+        if (action.equalsIgnoreCase("testAction")) {
+            return testAction(clientID, parameters);
+        } else {
+            throw new ActionNotImplementedException("Unknown action: " + action);
+        }
+    }
+
+    public String testAction(int clientID, String parameters) {
+        log.info("Executing testAction from ClientID={} - {}", clientID, parameters);
+        return "Hi there " + parameters;
     }
 }

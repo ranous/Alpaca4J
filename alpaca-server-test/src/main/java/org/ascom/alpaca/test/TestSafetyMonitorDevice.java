@@ -34,17 +34,4 @@ public class TestSafetyMonitorDevice extends BaseDevice implements SafetyMonitor
         return true;
     }
 
-    @Override
-    public String executeAction(int clientID, String action, String parameters) {
-        if (action.equalsIgnoreCase("testAction")) {
-            return testAction(clientID, parameters);
-        } else {
-            throw new ActionNotImplementedException("Unknown action: " + action);
-        }
-    }
-
-    public String testAction(int clientID, String parameters) {
-        log.info("Executing testAction from ClientID={} - {}", clientID, parameters);
-        return "Hi there " + parameters;
-    }
 }
