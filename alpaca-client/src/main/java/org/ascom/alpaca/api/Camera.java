@@ -354,32 +354,32 @@ public interface Camera {
                                 @Query("ClientTransactionID") long clientTransactionID);
 
     @FormUrlEncoded
-    @PUT("camera/{deviceNumber}/starty")
+    @PUT("api/v1/camera/{deviceNumber}/starty")
     Call<AlpacaResponse> setStartY(@Path("deviceNumber") int deviceNumber,
                                    @Field("ClientID") int clientID,
                                    @Field("ClientTransactionID") long clientTransactionID,
                                    @Field("StartY") int startY);
 
-    @GET("camera/{deviceNumber}/subexposureduration")
+    @GET("api/v1/camera/{deviceNumber}/subexposureduration")
     Call<DoubleResponse> getSubExposureDuration(@Path("deviceNumber") int deviceNumber,
                                                 @Query("ClientID") int clientID,
                                                 @Query("ClientTransactionID") long clientTransactionID);
 
     @FormUrlEncoded
-    @PUT("camera/{deviceNumber}/subexposureduration")
+    @PUT("api/v1/camera/{deviceNumber}/subexposureduration")
     Call<AlpacaResponse> setSubExposureDuration(@Path("deviceNumber") int deviceNumber,
                                                 @Field("ClientID") int clientID,
                                                 @Field("ClientTransactionID") long clientTransactionID,
                                                 @Field("SubExposureDuration") double subExposureDuration);
 
     @FormUrlEncoded
-    @PUT("camera/{deviceNumber}/abortexposure")
+    @PUT("api/v1/camera/{deviceNumber}/abortexposure")
     Call<AlpacaResponse> abortExposure(@Path("deviceNumber") int deviceNumber,
                                        @Field("ClientID") int clientID,
                                        @Field("ClientTransactionID") long clientTransactionID);
 
     @FormUrlEncoded
-    @PUT("camera/{deviceNumber}/pulseguide")
+    @PUT("api/v1/camera/{deviceNumber}/pulseguide")
     Call<AlpacaResponse> pulseGuide(@Path("deviceNumber") int deviceNumber,
                                     @Field("ClientID") int clientID,
                                     @Field("ClientTransactionID") long clientTransactionID,
@@ -387,15 +387,15 @@ public interface Camera {
                                     @Field("Duration") int duration);
 
     @FormUrlEncoded
-    @PUT("camera/{deviceNumber}/startexposure")
+    @PUT("api/v1/camera/{deviceNumber}/startexposure")
     Call<AlpacaResponse> startExposure(@Path("deviceNumber") int deviceNumber,
                                        @Field("ClientID") int clientID,
                                        @Field("ClientTransactionID") long clientTransactionID,
-                                       @Field("Duration") int duration,
+                                       @Field("Duration") double duration,
                                        @Field("Light") boolean light);
 
     @FormUrlEncoded
-    @PUT("camera/{deviceNumber}/stopexposure")
+    @PUT("api/v1/camera/{deviceNumber}/stopexposure")
     Call<AlpacaResponse> stopExposure(@Path("deviceNumber") int deviceNumber,
                                       @Field("ClientID") int clientID,
                                       @Field("ClientTransactionID") long clientTransactionID);
