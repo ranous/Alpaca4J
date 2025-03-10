@@ -24,6 +24,8 @@ public class DiscoveryService {
     private boolean shouldExit = false;
     private byte[] validDiscoveryMessage;
     private byte[] responseBuffer;
+    private InetAddress lastDisoveryRequest;
+    private long lastDiscoveryRequestTime = 0;
 
     @Inject @ConfigProperty(name = "alpaca.discovery.port", defaultValue = "32227")
     int discoveryPort;
@@ -89,12 +91,24 @@ public class DiscoveryService {
                 int port = packet.getPort();
                 log.info("Received discovery request from {}", address.getHostAddress());
                 byte[] receiveBuf = packet.getData();
+                log.debug("Comparing address {} to last received address {}", address, lastDisoveryRequest);
+                // So we may get multiple requests if we're listening on multiple network interfaces, so
+                // we can ignore an additonal request if it happens w/in 1 sec of the previous request.
+                if (address.equals(lastDisoveryRequest) && (System.currentTimeMillis() - lastDiscoveryRequestTime) < 1000) {
+                    log.info("Ignoring duplicate discovery request from {}", address.getHostAddress());
+                    lastDisoveryRequest = address;
+                    lastDiscoveryRequestTime = System.currentTimeMillis();
+                    continue;
+                }
                 if (Arrays.compare(receiveBuf, 0, 16, validDiscoveryMessage, 0, 16) == 0) {
+                    log.info("Sending discovery response to {}", address.getHostAddress());
                     sendResponse(address, port);
                 } else {
                     String discoveryMessage = new String(receiveBuf, 0, 16, StandardCharsets.UTF_8);
                     log.warn("Invalid discovery message \"{}\" received from {}", discoveryMessage, address.getHostAddress());
                 }
+                lastDisoveryRequest = address;
+                lastDiscoveryRequestTime = System.currentTimeMillis();
             }
         } catch (Exception e) {
             log.warn("Problem with discovery listener {}", String.valueOf(e));
