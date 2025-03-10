@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.ascom</groupId>
         <artifactId>alpaca</artifactId>
-        <version>0.9.0-SNAPSHOT</version>
+        <version>0.9.0</version>
     </parent>
     <artifactId>alpaca-core</artifactId>
     <packaging>jar</packaging>

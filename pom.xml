@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.ascom</groupId>
     <artifactId>alpaca</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
+    <version>0.9.0</version>
     <packaging>pom</packaging>
     <name>Alpaca4J Framework</name>
 
@@ -95,7 +95,8 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/ranous/Alpaca4J.git</developerConnection>
-    </scm>
+      <tag>0.9.0</tag>
+  </scm>
 
     <build>
         <plugins>
