@@ -43,7 +43,7 @@ public class ClientManager {
      * @return The amount to time in seconds the ClientManager will wait for responses.
      */
     public int getResponseTimeout() {
-        return responseTimeout;
+        return defaultResponseTimeout;
     }
 
     /**
@@ -51,7 +51,7 @@ public class ClientManager {
      * @param responseTimeout the amount of time to wait for responses in seconds
      */
     public void setResponseTimeout(int responseTimeout) {
-        this.responseTimeout = responseTimeout;
+        defaultResponseTimeout = responseTimeout;
     }
 
     /**
