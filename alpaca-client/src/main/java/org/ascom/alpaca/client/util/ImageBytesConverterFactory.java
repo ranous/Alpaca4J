@@ -18,6 +18,7 @@ import java.lang.reflect.Type;
  * implement the image bytes format, so this factory relies on an instance of {@link JacksonConverterFactory}
  * to handle standard JSON deserialization when the media type does not match "application/imagebytes."
  */
+@SuppressWarnings("NullableProblems")
 public class ImageBytesConverterFactory extends Converter.Factory {
     private static final MediaType mediaType = MediaType.get("application/imagebytes");
     private final JacksonConverterFactory jacksonConverterFactory;
@@ -26,7 +27,7 @@ public class ImageBytesConverterFactory extends Converter.Factory {
     }
 
     private ImageBytesConverterFactory(JacksonConverterFactory jacksonConverterFactory) {
-        this.jacksonConverterFactory = jacksonConverterFactory;;
+        this.jacksonConverterFactory = jacksonConverterFactory;
 
     }
 
