@@ -151,7 +151,7 @@ public interface CameraDevice extends Device {
 
     void pulseGuide(int clientID, int direction, int duration);
 
-    void startExposure(int clientID, int duration, boolean light);
+    void startExposure(int clientID, double duration, boolean light);
 
     void stopExposure(int clientID);
 }

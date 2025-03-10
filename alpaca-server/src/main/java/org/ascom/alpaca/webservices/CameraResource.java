@@ -627,7 +627,7 @@ public class CameraResource {
     public AlpacaResponse startExposure(@PathParam("deviceNumber") int deviceNumber,
                                         @FormParam("ClientID") int clientID,
                                         @FormParam("ClientTransactionID") long clientTransactionID,
-                                        @FormParam("Duration") int duration,
+                                        @FormParam("Duration") double duration,
                                         @FormParam("Light") boolean light) {
         getDevice(deviceNumber, clientID).startExposure(clientID, duration, light);
         return new AlpacaResponse(clientTransactionID);
