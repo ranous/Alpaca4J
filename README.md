@@ -18,7 +18,7 @@ should be possible to port Alpaca4J to another web services framework with minim
 
 ## Sub-Modules
 
-Alpaca4J includes the following sub-modules to help developers get started with building and 
+Alpaca4J includes the following submodules to help developers get started with building and 
 testing applications:
 
 1. **`alpaca-client-test`**:  
@@ -33,7 +33,7 @@ It is designed to help developers get started with building their own Alpaca-com
 drivers. The `alpaca-server-test` module provides a foundational implementation of test 
 devices within a server framework.
 
-These sub-modules are great tools for experimentation and learning. Developers can use them 
+These submodules are great tools for experimentation and learning. Developers can use them 
 as references or templates to accelerate their implementation process.
 
 ## Features
