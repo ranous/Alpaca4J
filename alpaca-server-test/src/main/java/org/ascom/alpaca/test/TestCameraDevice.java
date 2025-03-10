@@ -41,8 +41,8 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     int starty=0;
     CameraState state = CameraState.CameraIdle;
     long exposureStartTime = 0;
-    long exposureDuration = 0;
-    long lastExposureDuration = 0;
+    double exposureDuration = 0;
+    double lastExposureDuration = 0;
     long lastExposureStartTime = 0;
     final int maxDuration = 300;
     double subExposureDuration = 0;
@@ -273,7 +273,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
         if (lastExposureDuration == 0) {
             throw new InvalidOperationException("No last exposure");
         }
-        return (double) lastExposureDuration /1000;
+        return lastExposureDuration /1000;
     }
 
     @Override
@@ -355,7 +355,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
             if (elapsed >= exposureDuration) {
                 return 100;
             }
-            return (int) ((double)elapsed/(double)exposureDuration*100);
+            return (int) ((double)elapsed/exposureDuration*100);
         }
         return 0;
     }
@@ -453,7 +453,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public void startExposure(int clientID, int duration, boolean light) {
+    public void startExposure(int clientID, double duration, boolean light) {
         if (duration < 0 || duration > this.maxDuration) {
             throw new InvalidValueException("invalid duration");
         }
@@ -477,7 +477,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
         }
         state = CameraState.CameraExposing;
         exposureStartTime = System.currentTimeMillis();
-        exposureDuration = duration* 1000L;
+        exposureDuration = duration* 1000.0F;
         imageReady = false;
         lastExposureStartTime = 0;
         lastExposureDuration = 0;
