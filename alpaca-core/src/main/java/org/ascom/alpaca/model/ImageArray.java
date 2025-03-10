@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public class ImageArray {
     @SuppressWarnings("unused")
@@ -100,5 +103,19 @@ public class ImageArray {
 
     public void setValue(int[][] value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ImageArray that = (ImageArray) o;
+        return type == that.type && rank == that.rank && Objects.deepEquals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, rank, Arrays.deepHashCode(value));
     }
 }
