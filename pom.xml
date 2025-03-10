@@ -93,6 +93,9 @@
         </dependencies>
     </dependencyManagement>
 
+    <scm>
+        <developerConnection>scm:git:https://github.com/ranous/Alpaca4J.git</developerConnection>
+    </scm>
 
     <build>
         <plugins>
@@ -131,6 +134,11 @@
                         <maven.home>${maven.home}</maven.home>
                     </systemPropertyVariables>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.1.1</version>
             </plugin>
         </plugins>
     </build>
