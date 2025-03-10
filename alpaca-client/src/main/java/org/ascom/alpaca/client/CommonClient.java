@@ -81,9 +81,7 @@ public class CommonClient {
             throw new ClientException("Received a null response from the server");
         }
         switch (response.getErrorNumber()) {
-            case 0 -> {
-                // no error
-            }
+            case 0 -> { } // no error
             case 1024 -> throw new PropertyNotImplementedException(response.getClientTransactionID(), response.getErrorMessage());
             case 1025 -> throw new InvalidValueException(response.getClientTransactionID(), response.getErrorMessage());
             case 1026 -> throw new ValueNotSetException(response.getClientTransactionID(), response.getErrorMessage());

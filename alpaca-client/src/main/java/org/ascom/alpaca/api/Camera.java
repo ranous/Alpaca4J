@@ -187,7 +187,8 @@ public interface Camera {
                                                 @Query("ClientTransactionID") long clientTransactionID);
 
     @GET("api/v1/camera/{deviceNumber}/imagearray")
-    Call<ImageArrayResponse> getImageArray(@Path("deviceNumber") int deviceNumber,
+    Call<ImageArrayResponse> getImageArray(@Header("Accept") String mediaType,
+                                           @Path("deviceNumber") int deviceNumber,
                                            @Query("ClientID") int clientID,
                                            @Query("ClientTransactionID") long clientTransactionID);
 

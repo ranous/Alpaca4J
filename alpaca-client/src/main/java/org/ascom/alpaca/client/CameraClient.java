@@ -1,6 +1,7 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.api.Camera;
+import org.ascom.alpaca.client.util.ImageBytesConverterFactory;
 import org.ascom.alpaca.model.CameraState;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.ImageArray;
@@ -28,9 +29,11 @@ public class CameraClient extends CommonClient {
     private Camera getClient() {
         if (client == null) {
             try {
+                JacksonConverterFactory jacksonConverterFactory = JacksonConverterFactory.create();
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(getServerAddress().toURL())
-                        .addConverterFactory(JacksonConverterFactory.create())
+                        .addConverterFactory(ImageBytesConverterFactory.create(jacksonConverterFactory))
+                        .addConverterFactory(jacksonConverterFactory)
                         .build();
                 client = retrofit.create(Camera.class);
             } catch (Exception e) {
@@ -682,13 +685,17 @@ public class CameraClient extends CommonClient {
         }, "getHeatSinkTemperature");
     }
 
-    public ImageArray getImageArray() {
-        ImageArrayResponse response = call(getClient().getImageArray(getDeviceID(), getClientID(), getTransactionID()), "getImageArray");
+    public ImageArray getImageArray(String mediaType) {
+        ImageArrayResponse response = call(getClient().getImageArray(mediaType, getDeviceID(), getClientID(), getTransactionID()), "getImageArray");
         return new ImageArray(response.getType(), response.getRank(), response.getValue());
     }
 
-    public void getImageArray(AlpacaCallback<ImageArray> callback) {
-        callAsync(getClient().getImageArray(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+    public ImageArray getImageArray() {
+        return getImageArray("application/json");
+    }
+
+    public void getImageArray(String mediaType, AlpacaCallback<ImageArray> callback) {
+        callAsync(getClient().getImageArray(mediaType, getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(ImageArrayResponse result) {
                 callback.success(new ImageArray(result.getType(), result.getRank(), result.getValue()));
@@ -699,6 +706,10 @@ public class CameraClient extends CommonClient {
                 callback.error(error);
             }
         }, "getImageArray");
+    }
+
+    public void getImageArray(AlpacaCallback<ImageArray> callback) {
+        getImageArray("application/json", callback);
     }
 
     public ImageArray getImageArrayVariant() {
@@ -718,6 +729,14 @@ public class CameraClient extends CommonClient {
                 callback.error(error);
             }
         }, "getImageArrayVariant");
+    }
+
+    public ImageArray getImageBytes() {
+        return getImageArray("application/imagebytes");
+    }
+
+    public void getImageBytes(AlpacaCallback<ImageArray> callback) {
+        getImageArray("application/imagebytes", callback);
     }
 
     public boolean isImageReady() {
@@ -1356,7 +1375,7 @@ public class CameraClient extends CommonClient {
         }, "pulseGuide", direction, duration);
     }
 
-    public void startExposure(int duration, boolean light) {
+    public void startExposure(double duration, boolean light) {
         AlpacaResponse response = call(getClient().startExposure(getDeviceID(), getClientID(), getTransactionID(), duration, light), "startExposure", duration, light);
     }
 
