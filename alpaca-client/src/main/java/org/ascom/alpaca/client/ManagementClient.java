@@ -20,11 +20,15 @@ public class ManagementClient {
     private Management client = null;
 
     public ManagementClient(URI serverURI) {
-        serverAddress = serverURI;
-        clientID = new Random().nextInt(Integer.MAX_VALUE);
+        this(serverURI, new Random().nextInt(Integer.MAX_VALUE));
     }
 
-    private Management getClient() {
+    public ManagementClient(URI serverURI, int clientID) {
+        serverAddress = serverURI;
+        this.clientID = clientID;
+    }
+
+    private synchronized Management getClient() {
         if (client == null) {
             try {
                 Retrofit retrofit = new Retrofit.Builder()

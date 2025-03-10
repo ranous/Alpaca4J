@@ -23,7 +23,7 @@ public class ClientManager {
     private final int currentClientID = new Random().nextInt(Integer.MAX_VALUE);
     private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
     private final Map<AlpacaServerInfo, List<CommonClient>> servers = Collections.synchronizedMap(new HashMap<>());
-    private int responseTimeout = 5; // 5 seconds
+    private int defaultResponseTimeout = 5; // 5 seconds
 
     record AlpacaDiscoveryResponse(@JsonProperty("AlpacaPort") int alpacaPort) {}
 
@@ -100,6 +100,18 @@ public class ClientManager {
      * discovery is complete.
      */
     public void discoverDevices(AlpacaCallback<List<CommonClient>> callback) {
+        discoverDevices(defaultResponseTimeout, callback);
+    }
+
+    /**
+     * Discovers Alpaca devices on the local network and returns a list of the discovered devices.
+     * This method is asynchronous and will return immediately.  The callback will be called when the
+     * discovery is complete.
+     *
+     * @param timeout the amount of time to wait for responses
+     * @param callback the callback to call after the discovery completes or an error occurs.
+     */
+    public void discoverDevices(int timeout, AlpacaCallback<List<CommonClient>> callback) {
         executor.submit(() -> {
             try {
                 discoverDevices();
@@ -112,10 +124,17 @@ public class ClientManager {
 
     /**
      * Broadcasts on the local network for any Alpaca devices
-     * TODO: Add an asynch version with a callback
      */
     public void discoverDevices() {
+        discoverDevices(defaultResponseTimeout);
+    }
 
+    /**
+     * Broadcasts on the local network for any Alpaca devices using the supplied timeout.
+     *
+     * @param responseTimeout the amount of time to wait for responses
+     */
+    public void discoverDevices(int responseTimeout) {
         try (DatagramSocket socket= new DatagramSocket()) {
             try {
                 socket.setBroadcast(true);
@@ -176,7 +195,7 @@ public class ClientManager {
     void interrogateAlpacaServer(InetAddress address, int port) {
         try {
             URI uri = new URI("http", null, address.getHostAddress(), port, null, null, null);
-            ManagementClient managementClient = new ManagementClient(uri);
+            ManagementClient managementClient = new ManagementClient(uri, currentClientID);
             List<Integer> versions = managementClient.getApiVersions();
             ServerInfo serverInfo = managementClient.getDescription();
             AlpacaServerInfo server = new AlpacaServerInfo(address, port, serverInfo);
