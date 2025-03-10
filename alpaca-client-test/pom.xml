@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.ascom</groupId>
         <artifactId>alpaca</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.9.0-SNAPSHOT</version>
     </parent>
     <artifactId>alpaca-client-test</artifactId>
     <packaging>jar</packaging>
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.ascom</groupId>
             <artifactId>alpaca-client</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
