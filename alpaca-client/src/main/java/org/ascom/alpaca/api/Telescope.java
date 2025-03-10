@@ -1,13 +1,8 @@
 package org.ascom.alpaca.api;
 
-import org.ascom.alpaca.response.AlpacaResponse;
-import org.ascom.alpaca.response.BooleanResponse;
-import org.ascom.alpaca.response.DoubleResponse;
-import org.ascom.alpaca.response.IntResponse;
-import org.ascom.alpaca.response.ListResponse;
-import org.ascom.alpaca.response.StringResponse;
 import org.ascom.alpaca.model.AxisRate;
 import org.ascom.alpaca.model.DriveRate;
+import org.ascom.alpaca.response.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
