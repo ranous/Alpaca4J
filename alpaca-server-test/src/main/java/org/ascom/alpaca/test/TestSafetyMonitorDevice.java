@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.SafetyMonitorDevice;
 import org.ascom.alpaca.model.DeviceType;
-import org.ascom.alpaca.response.ActionNotImplementedException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
