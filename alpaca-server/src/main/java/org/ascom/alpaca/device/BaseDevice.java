@@ -35,6 +35,7 @@ public class BaseDevice implements Device {
     private boolean connecting = false;
     private final Map<Integer, Boolean> clientConnectedStates = new HashMap<>();
     private final List<StateValue> emptyDeviceState = new ArrayList<>();
+    private boolean enforceConnection = true;
 
     public BaseDevice(DeviceType deviceType, String deviceName) {
         this.deviceType = deviceType;
@@ -111,6 +112,14 @@ public class BaseDevice implements Device {
         }
     }
 
+    public boolean isEnforceConnection() {
+        return enforceConnection;
+    }
+
+    public void setEnforceConnection(boolean enforceConnection) {
+        this.enforceConnection = enforceConnection;
+    }
+
     // The following methods implement the operations common to all Alpaca devices.
     /**
      * Checks if the client is connected to this device.  If not, a NotConnectedException is thrown.
@@ -119,11 +128,10 @@ public class BaseDevice implements Device {
      */
     public void checkConnectionStatus(int clientID) {
         Boolean connected = clientConnectedStates.get(clientID);
-        if (connected == null || !connected) {
+        if (isEnforceConnection() && (connected == null || !connected)) {
             throw new NotConnectedException(clientID + " is not connected to device " + deviceType + " deviceID=" + deviceID);
         }
     }
-
 
     // The following methods are called via Alpaca clients
     @Override
