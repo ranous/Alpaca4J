@@ -6,6 +6,25 @@
     <version>0.9.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Alpaca4J Framework</name>
+    <description>Alpaca4J Parent POM</description>
+    <url>https://github.com/ranous/Alpaca4J</url>
+
+    <developers>
+        <developer>
+            <id>aranous</id>
+            <name>Alex Ranous</name>
+            <organization>ASCOM</organization>
+            <organizationUrl>https://ascom-standards.org/</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://mit-license.org/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
@@ -94,9 +113,11 @@
     </dependencyManagement>
 
     <scm>
+        <connection>scm:git:https://github.com/ranous/Alpaca4J.git</connection>
         <developerConnection>scm:git:https://github.com/ranous/Alpaca4J.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+        <url>https://github.com/ranous/Alpaca4J</url>
+    </scm>
 
     <build>
         <plugins>
