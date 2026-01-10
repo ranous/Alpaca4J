@@ -33,4 +33,5 @@ public interface Device {
     String getName(int clientID);
     List<String> getSupportedActions(int clientID);
     String executeAction(int clientID, String action, String parameters);
+    String setup();
 }

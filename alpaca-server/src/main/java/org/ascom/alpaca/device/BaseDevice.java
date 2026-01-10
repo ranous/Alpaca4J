@@ -209,4 +209,9 @@ public class BaseDevice implements Device {
     public String executeAction(int clientID, String action, String parameters) {
         throw new PropertyNotImplementedException("Action" + action + " not implemented");
     }
+
+    @Override
+    public String setup() {
+        return "Device " + name  + " doesn't have any setup parameters";
+    }
 }
