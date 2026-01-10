@@ -68,3 +68,6 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
+
+alpaca-client-mp
+tools
