@@ -1,17 +1,44 @@
 package org.ascom.alpaca.client;
 
+import org.ascom.alpaca.model.DeviceDescriptor;
+import org.ascom.alpaca.model.DeviceType;
+import org.ascom.alpaca.model.ImageArray;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 import java.util.logging.LogManager;
 
 public class ClientTest {
     public static void main(String[] args) {
         initLogger(ClientTest.class);
+        cameraTest();
         syncTest();
         asyncTest();
-
         System.exit(0);
+    }
+
+    static void cameraTest() {
+        try {
+            DeviceDescriptor descriptor = new DeviceDescriptor("camera", DeviceType.Camera, 0);
+            URI uri = URI.create("http://192.168.1.100:32323");
+//            URI uri = URI.create("http://192.168.1.102:11111");
+            CameraClient client = new CameraClient(uri, descriptor);
+            client.connect();
+            client.setBinX(1);
+            client.setBinY(1);
+            client.startExposure(1, true);
+            ImageArray array2 = client.getImageBytes();
+            ImageArray array = client.getImageArray();
+            if (array.equals(array2)) {
+                System.out.println("The arrays are equal");
+            } else {
+                System.out.println("The arrays are not equal");
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 
     static void syncTest() {
