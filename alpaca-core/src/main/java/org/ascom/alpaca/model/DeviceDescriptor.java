@@ -16,10 +16,14 @@ public class DeviceDescriptor {
     }
 
     public DeviceDescriptor(String deviceName, DeviceType deviceType, Integer deviceNumber) {
+        this(deviceName, deviceType, deviceNumber, UUID.randomUUID());
+    }
+
+    public DeviceDescriptor(String deviceName, DeviceType deviceType, Integer deviceNumber, UUID uniqueID) {
         this.deviceName = deviceName;
         this.deviceType = deviceType;
         this.deviceNumber = deviceNumber;
-        this.uniqueID = UUID.randomUUID();
+        this.uniqueID = uniqueID;
     }
 
     @JsonProperty("DeviceName")
