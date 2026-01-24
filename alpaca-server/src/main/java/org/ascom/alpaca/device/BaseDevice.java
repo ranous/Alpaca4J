@@ -222,4 +222,9 @@ public class BaseDevice implements Device {
     public String setup() {
         return "Device " + name  + " doesn't have any setup parameters";
     }
+
+    @Override
+    public void update(Map<String, String> updates) {
+
+    }
 }

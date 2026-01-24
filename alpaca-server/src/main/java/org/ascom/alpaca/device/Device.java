@@ -5,6 +5,7 @@ import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The operations common to all Alpaca drivers
@@ -34,4 +35,5 @@ public interface Device {
     List<String> getSupportedActions(int clientID);
     String executeAction(int clientID, String action, String parameters);
     String setup();
+    void update(Map<String, String> updates);
 }

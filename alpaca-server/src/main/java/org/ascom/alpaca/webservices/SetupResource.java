@@ -9,6 +9,8 @@ import org.ascom.alpaca.device.DeviceManager;
 import org.ascom.alpaca.model.DeviceType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import java.util.Map;
+
 @Path("setup/")
 @Produces(MediaType.TEXT_HTML)
 @ApplicationScoped
@@ -53,5 +55,13 @@ public class SetupResource {
     public String getDeviceConfiguration(@PathParam("deviceType") String deviceType, @PathParam("deviceNumber") int deviceNumber) {
         Device device = getDevice(deviceNumber, deviceType);
         return device.setup();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("v1/{deviceType}/{deviceNumber}/setup")
+    public void saveConfig(@PathParam("deviceType") String deviceType, @PathParam("deviceNumber") int deviceNumber, Map<String, String> updates) {
+        Device device = getDevice(deviceNumber, deviceType);
+        device.update(updates);
     }
 }
