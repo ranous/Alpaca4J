@@ -17,8 +17,8 @@ import java.util.function.Function;
 
 /**
  * The BaseDevice implements the functionality common to all Alpaca devices.  Implementers of
- * new devices should subclass this. The BaseDevice implements client based connection management.
- * If your device doesn't have connection state to manage, then the device subclassing BaseDevice
+ * new devices should subclass this. The BaseDevice implements client-based connection management.
+ * If your device doesn't have any connection state to manage, then the device subclassing BaseDevice
  * can disable connection enforcement.
  *
  * If your driver needs to manage connections to what it is managing, then you'll to manage that
@@ -28,38 +28,24 @@ import java.util.function.Function;
 public class BaseDevice implements Device {
     private static final Logger log = LoggerFactory.getLogger(BaseDevice.class);
     private int deviceID;
+    private int interfaceVersion;
     private DeviceType deviceType;
     private String description;
     private String driverInfo;
     private String driverVersion = "1.0";
-    private int interfaceVersion = 1;
     private String name;
-    private Map<String, Function<String,String>> supportedActions = new HashMap<>();
     private DeviceDescriptor deviceDescriptor;
     private boolean connecting = false;
+    private boolean enforceConnection = true;
+    private final Map<String, Function<String,String>> supportedActions = new HashMap<>();
     private final Map<Integer, Boolean> clientConnectedStates = new HashMap<>();
     private final List<StateValue> emptyDeviceState = new ArrayList<>();
-    private boolean enforceConnection = true;
-
-    /**
-     * Constructs a new BaseDevice instance with the provided device type and device name.
-     * Initializes the device descriptor with the given device name, device type,
-     * and a default device number of 0.
-     *
-     * @param deviceType the type of the device, represented by an instance of {@link DeviceType}
-     * @param deviceName the name of the device
-     */
-    public BaseDevice(DeviceType deviceType, String deviceName) {
-        this.deviceType = deviceType;
-        this.name = deviceName;
-        this.deviceDescriptor = new DeviceDescriptor(deviceName, deviceType, 0);
-    }
 
     /**
      * Constructs a new BaseDevice instance with the provided device type, device name, and interface version number.
-     * @param deviceType
-     * @param deviceName
-     * @param interfaceVersion
+     * @param deviceType the type of the device, represented by an instance of {@link DeviceType}
+     * @param deviceName the name of the device
+     * @param interfaceVersion the interface version number of the device
      */
     public BaseDevice(DeviceType deviceType, String deviceName, int interfaceVersion) {
         this.deviceType = deviceType;
@@ -77,7 +63,7 @@ public class BaseDevice implements Device {
     }
 
     /**
-     * Returns the device ID.  Device ids are assigned by the DeviceManager.
+     * Returns the device ID. Device ids are assigned by the DeviceManager.
      * @return
      */
     public int getDeviceID() {
@@ -85,7 +71,7 @@ public class BaseDevice implements Device {
     }
 
     /**
-     * Sets the device ID.  Device ids are assigned by the DeviceManager and should not be set directly.
+     * Sets the device ID. Device ids are assigned by the DeviceManager and should not be set directly.
      * @param deviceID
      */
     public void setDeviceID(int deviceID) {
@@ -213,7 +199,7 @@ public class BaseDevice implements Device {
         return description;
     }
 
-    // Default device state.  Subclasses should overload and return the device specific properties
+    // Default device state. Subclasses should overload and return the device-specific properties
     @Override
     public List<StateValue> getDeviceState(int clientID) {
         return emptyDeviceState;
