@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * The BaseDevice implements the functionality common to all Alpaca devices.  Implementers of
  * new devices should subclass this. The BaseDevice implements client based connection management.
+ * If your device doesn't have connection state to manage, then the device subclassing BaseDevice
+ * can disable connection enforcement.
+ *
  * If your driver needs to manage connections to what it is managing, then you'll to manage that
  * separately.
  */
@@ -30,19 +34,33 @@ public class BaseDevice implements Device {
     private String driverVersion = "1.0";
     private int interfaceVersion = 1;
     private String name;
-    private List<String> supportedActions = new ArrayList<>();
+    private Map<String, Function<String,String>> supportedActions = new HashMap<>();
     private DeviceDescriptor deviceDescriptor;
     private boolean connecting = false;
     private final Map<Integer, Boolean> clientConnectedStates = new HashMap<>();
     private final List<StateValue> emptyDeviceState = new ArrayList<>();
     private boolean enforceConnection = true;
 
+    /**
+     * Constructs a new BaseDevice instance with the provided device type and device name.
+     * Initializes the device descriptor with the given device name, device type,
+     * and a default device number of 0.
+     *
+     * @param deviceType the type of the device, represented by an instance of {@link DeviceType}
+     * @param deviceName the name of the device
+     */
     public BaseDevice(DeviceType deviceType, String deviceName) {
         this.deviceType = deviceType;
         this.name = deviceName;
         this.deviceDescriptor = new DeviceDescriptor(deviceName, deviceType, 0);
     }
 
+    /**
+     * Constructs a new BaseDevice instance with the provided device type, device name, and interface version number.
+     * @param deviceType
+     * @param deviceName
+     * @param interfaceVersion
+     */
     public BaseDevice(DeviceType deviceType, String deviceName, int interfaceVersion) {
         this.deviceType = deviceType;
         this.name = deviceName;
@@ -58,10 +76,18 @@ public class BaseDevice implements Device {
         this.deviceType = deviceType;
     }
 
+    /**
+     * Returns the device ID.  Device ids are assigned by the DeviceManager.
+     * @return
+     */
     public int getDeviceID() {
         return deviceID;
     }
 
+    /**
+     * Sets the device ID.  Device ids are assigned by the DeviceManager and should not be set directly.
+     * @param deviceID
+     */
     public void setDeviceID(int deviceID) {
         deviceDescriptor.setDeviceNumber(deviceID);
     }
@@ -98,12 +124,15 @@ public class BaseDevice implements Device {
         this.interfaceVersion = interfaceVersion;
     }
 
-    public void setSupportedActions(List<String> supportedActions) {
-        this.supportedActions = supportedActions;
-    }
-
-    public void addSupportedAction(String supportAction) {
-        this.supportedActions.add(supportAction);
+    /**
+     * Adds a supported action to the device.  The action name must be unique and the function
+     * must be non-null.  The function to be called takes the action parameters as input and
+     * returns a string result.
+     * @param actionName
+     * @param function
+     */
+    public void addSupportedAction(String actionName, Function<String,String> function) {
+        this.supportedActions.put(actionName, function);
     }
 
     protected void checkFormParameters(int clientID) {
@@ -116,11 +145,18 @@ public class BaseDevice implements Device {
         return enforceConnection;
     }
 
+    /**
+     * Sets whether the device enforces connection status for client operations.  If true, any operation
+     * that requires a connection will throw a NotConnectedException if the client is not connected, otherwise
+     * the connection state is ignored.  This can be useful during testing.
+     * @param enforceConnection
+     */
     public void setEnforceConnection(boolean enforceConnection) {
         this.enforceConnection = enforceConnection;
     }
 
-    // The following methods implement the operations common to all Alpaca devices.
+    // The following methods implement the operations common to all Alpaca devices.  Each method
+    // corresponds to the Alpca operartions called by clients.
     /**
      * Checks if the client is connected to this device.  If not, a NotConnectedException is thrown.
      *
@@ -133,7 +169,6 @@ public class BaseDevice implements Device {
         }
     }
 
-    // The following methods are called via Alpaca clients
     @Override
     public void connect(int clientID) {
         connecting = true;
@@ -206,23 +241,37 @@ public class BaseDevice implements Device {
 
     @Override
     public List<String> getSupportedActions(int clientID) {
-        return supportedActions;
+        return supportedActions.keySet().stream().toList();
     }
 
     /**
-     * If a given device implements any additional actions, they must override this method to dispatch the request to
-     * the correct method.
+     * Calls the method associated with the given action name, passing the parameters to it.  This method
+     * needs to be registered using {@link #addSupportedAction(String, Function)} before it can be called.
      */
     @Override
     public String executeAction(int clientID, String action, String parameters) {
-        throw new PropertyNotImplementedException("Action" + action + " not implemented");
+        log.info("Executing action {} with parameters {}", action, parameters);
+        return supportedActions.getOrDefault(action, (s) -> {throw new PropertyNotImplementedException("Action" + action + " not implemented");}).apply(parameters);
     }
 
+    /**
+     * Returns an HTML page that lets the client change configuration attributes supported by the device.
+     * The generated HTML can then call PUT on the Alpaca endpoint '/setup/v1/{deviceType}/{deviceID}/setup'.
+     * This resource will then call the device's {@link #update(Map)} method.
+     * @return
+     */
     @Override
     public String setup() {
         return "Device " + name  + " doesn't have any setup parameters";
     }
 
+    /**
+     * Updates the device's configuration using the provided key-value pairs.
+     * This method is typically used to apply settings or modifications to the device's properties.
+     *
+     * @param updates a map containing keys and their corresponding values to update the device properties.
+     *                The supported keys and their respective values are device-specific.
+     */
     @Override
     public void update(Map<String, String> updates) {
 
