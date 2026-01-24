@@ -40,7 +40,7 @@ public class ClientManager {
 
     /**
      * The amount of time the client will wait for responses to the discovery broadcast for Alpaca devices.
-     * @return The amount to time in seconds the ClientManager will wait for responses.
+     * @return The amount of time in seconds the ClientManager will wait for responses.
      */
     public int getResponseTimeout() {
         return defaultResponseTimeout;
@@ -73,7 +73,7 @@ public class ClientManager {
     }
 
     /**
-     * Returns all the instances of a clients of the supplied client type
+     * Returns all the instances of clients of the supplied client type
      * @param type the type of client to return
      * @return list of clients of the requested type
      */
