@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.SafetyMonitorDevice;
 import org.ascom.alpaca.model.DeviceType;
-import org.ascom.alpaca.response.InvalidValueException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,7 @@ public class TestSafetyMonitorDevice extends BaseDevice implements SafetyMonitor
         super(DeviceType.SafetyMonitor, "Test Safety Monitor Driver", 3);
         setDescription("Test Safety Monitor Device");
         setDriverInfo(getDescription());
+        setEnforceConnection(false);
         super.addSupportedAction("setSafety", (parameters) -> {
             isSafe = Boolean.parseBoolean(parameters);
             return "Safety set to " + isSafe;
@@ -36,22 +36,6 @@ public class TestSafetyMonitorDevice extends BaseDevice implements SafetyMonitor
     @Override
     public boolean isSafe(int clientID) {
         return isSafe;
-    }
-
-    //@Override
-    public String executeActions(int clientID, String actionName, String actionParameters) {
-        if (actionName.equals("setSafety")) {
-            log.info("Executing setSafety action with parameters: {}", actionParameters);
-            if (actionParameters.equals("true")) {
-                isSafe = true;
-            } else if (actionParameters.equals("false")) {
-                isSafe = false;
-            } else {
-                throw new InvalidValueException("Invalid parameter value for setSafety action: " + actionParameters);
-            }
-            return "Test action executed successfully";
-        }
-        return super.executeAction(clientID, actionName, actionParameters);
     }
 
 }
