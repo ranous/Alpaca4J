@@ -1,5 +1,10 @@
 package org.ascom.alpaca.device;
 
+/**
+ * Interface for observing conditions devices.
+ * The full documentation of the device interface can be found in the Alpaca documentation:
+ * <a href="https://ascom-standards.org/api/#/ObservingConditions%20Specific%20Methods"/>.
+ */
 @SuppressWarnings("unused")
 public interface ObservingConditionsDevice extends Device {
     double getAveragePeriod(int clientID);

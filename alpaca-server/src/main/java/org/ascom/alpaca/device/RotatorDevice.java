@@ -1,5 +1,10 @@
 package org.ascom.alpaca.device;
 
+/**
+ * Interface for rotator devices.
+ * The full documentation of the device interface can be found in the Alpaca documentation:
+ * <a href="https://ascom-standards.org/api/#/Rotator%20Specific%20Methods"/>.
+ */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface RotatorDevice extends Device {
     boolean canReverse(int clientID);

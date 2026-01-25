@@ -6,6 +6,10 @@ import org.ascom.alpaca.model.SensorType;
 
 import java.util.List;
 
+/**
+ * Interface for camera devices.  The full documentation of the device interface can be found in the
+ * Alpaca documentation: <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods">...</a>
+ */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface CameraDevice extends Device {
 

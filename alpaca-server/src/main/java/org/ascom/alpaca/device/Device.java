@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Interface for operations that are common to all Alpaca devices.
+ * The full documentation of the device interface can be found in the Alpaca documentation:
+ * <a href="https://ascom-standards.org/api/#/ASCOM%20Methods%20Common%20To%20All%20Devices"/>.
+ */
+
+/**
  * The operations common to all Alpaca drivers
  */
 @SuppressWarnings("unused")

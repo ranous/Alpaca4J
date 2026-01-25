@@ -4,6 +4,11 @@ import org.ascom.alpaca.model.*;
 
 import java.util.List;
 
+/**
+ * Interface for telescope devices.
+ * The full documentation of the device interface can be found in the Alpaca documentation:
+ * <a href="https://ascom-standards.org/api/#/Telescope%20Specific%20Methods"/>.
+ */
 @SuppressWarnings({"unused", "SpellCheckingInspection", "SameReturnValue", "EmptyMethod"})
 public interface TelescopeDevice extends Device {
 
