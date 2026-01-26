@@ -71,6 +71,9 @@ public class ParameterValidationFilter implements ContainerRequestFilter, Contai
         if (params != null) {
             Long clientTransactionID = getParameterAsLong("ClientTransactionID", params, null);
             if (clientTransactionID != null) {
+                if (clientTransactionID < 0) {
+                    throw new InvalidValueException(clientTransactionID, "ClientTransactionID cannot be less than zero");
+                }
                 clientContext.setClientTransactionID(clientTransactionID);
             }
             Long clientID = getParameterAsLong("ClientID", params, clientTransactionID);
