@@ -3,8 +3,8 @@ package org.ascom.alpaca.device;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
 import org.ascom.alpaca.config.ConfigManager;
-import org.ascom.alpaca.config.DefaultPageRenderer;
-import org.ascom.alpaca.config.PageRenderer;
+import org.ascom.alpaca.config.DefaultSetupPageRenderer;
+import org.ascom.alpaca.config.SetupPageRenderer;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
@@ -44,7 +44,7 @@ public class BaseDevice implements Device {
     private final Map<String, Function<String,String>> supportedActions = new HashMap<>();
     private final Map<Integer, Boolean> clientConnectedStates = new HashMap<>();
     private final List<StateValue> emptyDeviceState = new ArrayList<>();
-    private PageRenderer pageRenderer = new DefaultPageRenderer();
+    private SetupPageRenderer pageRenderer = new DefaultSetupPageRenderer();
 
     @Inject
     ConfigManager configManager;
@@ -153,7 +153,7 @@ public class BaseDevice implements Device {
         this.enforceConnection = enforceConnection;
     }
 
-    protected PageRenderer getPageRenderer() {
+    protected SetupPageRenderer getPageRenderer() {
         return pageRenderer;
     }
 
@@ -164,7 +164,7 @@ public class BaseDevice implements Device {
      * that no configuration is available.
      * @param pageRenderer
      */
-    protected void setPageRenderer(PageRenderer pageRenderer) {
+    protected void setPageRenderer(SetupPageRenderer pageRenderer) {
         this.pageRenderer = pageRenderer;
     }
 
