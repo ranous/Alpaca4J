@@ -1,6 +1,10 @@
 package org.ascom.alpaca.device;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
+import org.ascom.alpaca.config.ConfigManager;
+import org.ascom.alpaca.config.DefaultPageRenderer;
+import org.ascom.alpaca.config.PageRenderer;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;
@@ -40,6 +44,14 @@ public class BaseDevice implements Device {
     private final Map<String, Function<String,String>> supportedActions = new HashMap<>();
     private final Map<Integer, Boolean> clientConnectedStates = new HashMap<>();
     private final List<StateValue> emptyDeviceState = new ArrayList<>();
+    private PageRenderer pageRenderer = new DefaultPageRenderer();
+
+    @Inject
+    ConfigManager configManager;
+
+    public BaseDevice() {
+
+    }
 
     /**
      * Constructs a new BaseDevice instance with the provided device type, device name, and interface version number.
@@ -139,6 +151,21 @@ public class BaseDevice implements Device {
      */
     public void setEnforceConnection(boolean enforceConnection) {
         this.enforceConnection = enforceConnection;
+    }
+
+    protected PageRenderer getPageRenderer() {
+        return pageRenderer;
+    }
+
+    /**
+     * Sets the page renderer for the device.  The page renderer renders an HTML page for the client to
+     * edit device configuration attributes via the setup() method. If a device doesn't have any
+     * client-updatable configuration, then the default render is used which prints a message indicating
+     * that no configuration is available.
+     * @param pageRenderer
+     */
+    protected void setPageRenderer(PageRenderer pageRenderer) {
+        this.pageRenderer = pageRenderer;
     }
 
     // The following methods implement the operations common to all Alpaca devices.  Each method
@@ -248,7 +275,7 @@ public class BaseDevice implements Device {
      */
     @Override
     public String setup() {
-        return "Device " + name  + " doesn't have any setup parameters";
+        return pageRenderer.renderSetupPage(name, deviceType, deviceID, this);
     }
 
     /**
@@ -260,6 +287,6 @@ public class BaseDevice implements Device {
      */
     @Override
     public void update(Map<String, String> updates) {
-
+        configManager.updateConfig(updates);
     }
 }
