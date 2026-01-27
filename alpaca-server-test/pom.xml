@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.ascom</groupId>
+        <groupId>io.github.ranous.ascom</groupId>
         <artifactId>alpaca</artifactId>
         <version>0.9.1-SNAPSHOT</version>
     </parent>
@@ -10,9 +12,11 @@
     <name>Alpaca Server Tests</name>
 
     <properties>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <alpaca.platform.group-id>io.github.ranous.ascom</alpaca.platform.group-id>
+        <alpaca.platform.version>0.9.1-SNAPSHOT</alpaca.platform.version>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.27.1</quarkus.platform.version>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.version>3.27.2</quarkus.platform.version>
     </properties>
 
     <dependencyManagement>
@@ -29,14 +33,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ascom</groupId>
+            <groupId>${alpaca.platform.group-id}</groupId>
             <artifactId>alpaca-core</artifactId>
-            <version>${project.version}</version>
+            <version>${alpaca.platform.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.ascom</groupId>
+            <groupId>${alpaca.platform.group-id}</groupId>
             <artifactId>alpaca-server</artifactId>
-            <version>${project.version}</version>
+            <version>${alpaca.platform.version}</version>
         </dependency>
 
         <dependency>
