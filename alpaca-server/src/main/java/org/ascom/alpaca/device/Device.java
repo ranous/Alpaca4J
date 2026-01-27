@@ -9,12 +9,8 @@ import java.util.Map;
 
 /**
  * Interface for operations that are common to all Alpaca devices.
- * The full documentation of the device interface can be found in the Alpaca documentation:
- * <a href="https://ascom-standards.org/api/#/ASCOM%20Methods%20Common%20To%20All%20Devices"/>.
- */
-
-/**
- * The operations common to all Alpaca drivers
+ * The full documentation of the device interface can be found in the Alpaca documentation
+ * @see <a href="https://ascom-standards.org/api/#/ASCOM%20Methods%20Common%20To%20All%20Devices">ASCOM Alpaca Secification</a>.
  */
 @SuppressWarnings("unused")
 public interface Device {
@@ -26,7 +22,8 @@ public interface Device {
     void setDeviceDescriptor(DeviceDescriptor deviceDescriptor);
     void checkConnectionStatus(int clientID);
 
-    // The following methods are the operations exported to calling clients.
+    // The following methods are the operations exported to calling clients.  The @{link BaseDevice}
+    // provides an implementation of these methods that should be used by device subclasses.
     boolean isConnecting(int clientID);
     boolean isConnected(int clientID);
     void connect(int clientID);

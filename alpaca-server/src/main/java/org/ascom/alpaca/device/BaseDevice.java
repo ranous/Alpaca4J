@@ -21,12 +21,10 @@ import java.util.function.Function;
 
 /**
  * The BaseDevice implements the functionality common to all Alpaca devices.  Implementers of
- * new devices should subclass this. The BaseDevice implements client-based connection management.
- * If your device doesn't have any connection state to manage, then the device subclassing BaseDevice
- * can disable connection enforcement.
- *
- * If your driver needs to manage connections to what it is managing, then you'll to manage that
- * separately.
+ * new devices should subclass this to avoid all the boilerplate connection management. In general,
+ * it shouldn't be necessary to override any of the methods in this class. If your driver needs
+ * to manage connections due to requirements of the resources it's managing, then you will need
+ * to manage that in your device and override the connect/disconnect methods.
  */
 @SuppressWarnings("unused")
 public class BaseDevice implements Device {
@@ -49,7 +47,7 @@ public class BaseDevice implements Device {
     @Inject
     ConfigManager configManager;
 
-    public BaseDevice() {
+    BaseDevice() {
 
     }
 
@@ -70,13 +68,13 @@ public class BaseDevice implements Device {
         return deviceType;
     }
 
-    public void setDeviceType(DeviceType deviceType) {
+    void setDeviceType(DeviceType deviceType) {
         this.deviceType = deviceType;
     }
 
     /**
      * Returns the device ID. Device ids are assigned by the DeviceManager.
-     * @return
+     * @return the device ID
      */
     public int getDeviceID() {
         return deviceID;
@@ -84,7 +82,7 @@ public class BaseDevice implements Device {
 
     /**
      * Sets the device ID. Device ids are assigned by the DeviceManager and should not be set directly.
-     * @param deviceID
+     * @param deviceID the device ID
      */
     public void setDeviceID(int deviceID) {
         deviceDescriptor.setDeviceNumber(deviceID);
@@ -126,8 +124,8 @@ public class BaseDevice implements Device {
      * Adds a supported action to the device.  The action name must be unique and the function
      * must be non-null.  The function to be called takes the action parameters as input and
      * returns a string result.
-     * @param actionName
-     * @param function
+     * @param actionName the name of the action to add
+     * @param function the function to execute when the action is invoked
      */
     public void addSupportedAction(String actionName, Function<String,String> function) {
         this.supportedActions.put(actionName, function);
@@ -139,7 +137,13 @@ public class BaseDevice implements Device {
         }
     }
 
-    public boolean isEnforceConnection() {
+    /**
+     * Returns whether the device enforces connection status for client operations.  If true, any operation
+     * that requires a connection will throw a NotConnectedException if the client is not connected, otherwise
+     * the connection state is ignored.  This can be useful during testing.
+     * @return whether connection enforcement is enabled
+     */
+    protected boolean isEnforceConnection() {
         return enforceConnection;
     }
 
@@ -147,12 +151,18 @@ public class BaseDevice implements Device {
      * Sets whether the device enforces connection status for client operations.  If true, any operation
      * that requires a connection will throw a NotConnectedException if the client is not connected, otherwise
      * the connection state is ignored.  This can be useful during testing.
-     * @param enforceConnection
+     * @param enforceConnection whether connection enforcement should be done
      */
-    public void setEnforceConnection(boolean enforceConnection) {
+    protected void setEnforceConnection(boolean enforceConnection) {
         this.enforceConnection = enforceConnection;
     }
 
+    /**
+     * Returns the page renderer for the device which renders an HTML page for the client to
+     * edit device configuration attributes via the setup() method. The default renderer provided
+     * simply prints a message indicating that no configuration is available.
+     * @return the page renderer for the device.
+     */
     protected SetupPageRenderer getPageRenderer() {
         return pageRenderer;
     }
@@ -161,18 +171,25 @@ public class BaseDevice implements Device {
      * Sets the page renderer for the device.  The page renderer renders an HTML page for the client to
      * edit device configuration attributes via the setup() method. If a device doesn't have any
      * client-updatable configuration, then the default render is used which prints a message indicating
-     * that no configuration is available.
-     * @param pageRenderer
+     * that no configuration is available. If the device has state that is client-updatable, then the
+     * device subclass should implement a custom renderer that implements the
+     * {@link org.ascom.alpaca.config.SetupPageRenderer} interface can supply it to this method.
+     * @param pageRenderer the page renderer to use for device configuration
      */
     protected void setPageRenderer(SetupPageRenderer pageRenderer) {
         this.pageRenderer = pageRenderer;
     }
 
+
     // The following methods implement the operations common to all Alpaca devices.  Each method
     // corresponds to the Alpca operartions called by clients.
+
+
     /**
      * Checks if the client is connected to this device.  If not, a NotConnectedException is thrown.
-     *
+     * This check can be disabled by setting enforceConnection to false.  This can be useful during testing,
+     * so clients can perform operations without being connected.  Also, your device may not need to
+     * enforce connection as the device as there are no resources associated with the connection.
      * @param clientID the id of the calling client
      */
     public void checkConnectionStatus(int clientID) {
@@ -182,6 +199,15 @@ public class BaseDevice implements Device {
         }
     }
 
+    /**
+     * Connects the client to this device.  If the device is already connected, this operation does nothing.
+     * This base class does not implement asynchronous connections. This method always puts the client into
+     * a connected state and doesn't use the intermediate connecting state.  Connection management in this
+     * base class assumes the implementing Alpaca device doesn't have anything it needs to do on its own, such as
+     * connection to some hardware.  If the device has more complicated connection management requirements,
+     * it should override the various connection management methods and manage that on its own.
+     * @param clientID the id of the calling client
+     */
     @Override
     public void connect(int clientID) {
         connecting = true;
@@ -194,22 +220,46 @@ public class BaseDevice implements Device {
         connecting = false;
     }
 
+    /**
+     * Disconnects the client from this device.
+     * @param clientID the id of the calling client
+     */
     @Override
     public void disconnect(int clientID) {
         log.info("Disconnecting from device {}", deviceID);
         clientConnectedStates.remove(clientID);
     }
 
+    /**
+     * Returns whether the client is currently connecting to this device. The default behavior
+     * this base class provides is that it doesn't support the Alpaca v7 notions of aynchrounous
+     * connections that may take a while to complete, so this method always returns false.
+     * @param clientID the id of the calling client
+     * @return true if the connection is currently in progress, false otherwise.
+     */
     @Override
     public boolean isConnecting(int clientID) {
         return connecting;
     }
 
+    /**
+     * Returns whether the client is currently connected to this device.
+     * @param clientID the id of the calling client
+     * @return true if the client is connected, false otherwise.
+     */
     @Override
     public boolean isConnected(int clientID) {
         return clientConnectedStates.getOrDefault(clientID, Boolean.FALSE);
     }
 
+    /**
+     * Sets the connected state of the client. This was the way client's connected and disconnected
+     * states were managed in Alpaca v6, and is provided for compatibility with older clients.  This
+     * operation always completed the state transition before returning.  The aync connect/disconnect
+     * operations in this base class implementation have the same behaviour.
+     * @param clientID the id of the calling client
+     * @param connectedState the new connected state of the client.
+     */
     @Override
     public void setConnectedState(int clientID, boolean connectedState) {
         checkFormParameters(clientID);
@@ -221,37 +271,82 @@ public class BaseDevice implements Device {
         connecting = false;
     }
 
+    /**
+     * Returns the description of the device.  This is a static property of the device and does not
+     * change based on the client.  The description should be supplied by the implementing subclass device
+     * by passing it in the constructor.
+     * @param clientID the id of the calling client
+     * @return the description of the device.
+     */
     @Override
     public String getDescription(int clientID) {
         return description;
     }
 
-    // Default device state. Subclasses should overload and return the device-specific properties
+    /**
+     * Returns the device state. The mechanism allows the device to return all the state values in a single
+     * operation.  This implementation returns an empty list. The implementing device should override this and
+     * provide the device's state.  The state values that should be returned are described in the Alpaca specification.
+     * <a href="https://ascom-standards.org/api/#/ASCOM%20Methods%20Common%20To%20All%20Devices/get__device_type___device_number__devicestate">...</a>
+     * @param clientID the id of the calling client
+     * @return a list of device state values.
+     */
     @Override
     public List<StateValue> getDeviceState(int clientID) {
         return emptyDeviceState;
     }
 
+    /**
+     * Returns the driver information.  This is a description of the device and can include the version.
+     * @param clientID the id of the calling client
+     * @return the driver information.
+     */
     @Override
     public String getDriverInfo(int clientID) {
         return driverInfo;
     }
 
+    /**
+     * The major and minor version numbers of the driver.
+     * @param clientID the id of the calling client
+     * @return the driver version string.
+     */
     @Override
     public String getDriverVersion(int clientID) {
         return driverVersion;
     }
 
+    /**
+     * The ASCOM version of this device's interface.  These versions are defined in the ASCOM specifiations.
+     * This should be supplied by the device subclass in the constructor.
+     * @param clientID the id of the calling client
+     * @return the interface version number.
+     */
     @Override
     public int getInterfaceVersion(int clientID) {
         return interfaceVersion;
     }
 
+    /**
+     * Returns the short name of the driver for display purposes.  This should be supplied by the device subclass
+     * via the constructor.
+     * @param clientID the id of the calling client
+     * @return the name of the device.
+     */
     @Override
     public String getName(int clientID) {
         return name;
     }
 
+    /**
+     * Returns a list of supported actions for this device.  Actions are operations that aren't part
+     * of the Alpaca standard interface. If the device has additional functionality it wishes to
+     * expose to a client, this operation lists all the non-standard actions that the device supports.
+     * The client can invoke the Alpaa executeAction operation on the device, which in turn calls
+     * {@link #executeAction(int, String, String)} to invoke the action.
+     * @param clientID the id of the calling client
+     * @return a list of supported actions
+     */
     @Override
     public List<String> getSupportedActions(int clientID) {
         return supportedActions.keySet().stream().toList();
@@ -260,6 +355,10 @@ public class BaseDevice implements Device {
     /**
      * Calls the method associated with the given action name, passing the parameters to it.  This method
      * needs to be registered using {@link #addSupportedAction(String, Function)} before it can be called.
+     * @param clientID the id of the calling client
+     * @param action the name of the action to execute
+     * @param parameters the parameters to pass to the action function
+     * @return the result of the action function
      */
     @Override
     public String executeAction(int clientID, String action, String parameters) {
@@ -271,7 +370,7 @@ public class BaseDevice implements Device {
      * Returns an HTML page that lets the client change configuration attributes supported by the device.
      * The generated HTML can then call PUT on the Alpaca endpoint '/setup/v1/{deviceType}/{deviceID}/setup'.
      * This resource will then call the device's {@link #update(Map)} method.
-     * @return
+     * @return a HTML page that lets the client edit device configuration attributes.
      */
     @Override
     public String setup() {

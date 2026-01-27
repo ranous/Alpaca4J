@@ -3,9 +3,8 @@ package org.ascom.alpaca.device;
 import org.ascom.alpaca.model.ShutterState;
 
 /**
- * Interface for dome devices.
- * The full documentation of the device interface can be found in the Alpaca documentation:
- * <a href="https://ascom-standards.org/api/#/Dome%20Specific%20Methods"/>.
+ * Interface for dome devices. The full documentation of the device interface can be found in the Alpaca documentation.
+ * @see <a href="https://ascom-standards.org/api/#/Dome%20Specific%20Methods">ASCOM Alpaca Specification</a>
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface DomeDevice extends Device {

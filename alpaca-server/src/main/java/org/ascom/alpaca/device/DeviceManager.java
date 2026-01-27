@@ -20,6 +20,11 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The device manager is responsible for managing the lifecycle of all Alpaca devices. Implementors of
+ * new devices need not interact with the DeviceManager as their device will get registered with
+ * the device manager automatically on startup
+ */
 @SuppressWarnings("unused")
 @ApplicationScoped
 public class DeviceManager {

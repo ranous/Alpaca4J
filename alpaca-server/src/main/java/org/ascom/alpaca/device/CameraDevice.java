@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * Interface for camera devices.  The full documentation of the device interface can be found in the
- * Alpaca documentation: <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods">...</a>
+ * Alpaca documentation.
+ * @see <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods">ASCOM Alpaca Specification</a>
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface CameraDevice extends Device {
