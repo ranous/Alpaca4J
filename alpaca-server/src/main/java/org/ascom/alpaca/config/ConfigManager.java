@@ -17,8 +17,24 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Manages application configuration properties and provides access to them through
- * configuration interfaces.
+ * The ConfigManager is used to create and manage configuration objects that are used
+ * to store the configuration properties that are available to client devices to update.
+ * The user creates a new class that should contain fields annotated with the {@code @Key}
+ * annotation.  When requesting the configuration, the ConfigManager will load the properties
+ * from the specified file and apply any overrides from the override file. The user creates
+ * a properties file with key/value pairs that will be used to configure the device.
+ * The config file is configured in the application.properties file for the service
+ * using the following properties:
+ *
+ * setup.properties_file: The path to the properties file containing the default configuration.
+ * setup.overrides_file: The path to the properties file containing override configuration.
+ *
+ * The properties file should be formatted as key=value pairs, with one pair per line.
+ * When the user updates the configuration, the ConfigManager will apply the changes to the
+ * configuration object and save the updated configuration to the override file.
+ * The override file is not to be modified by the user.  It'll contain only the properties
+ * that have been updated by the user that differ from the default configuration. You'd need
+ * to check both files to get the full configuration.
  */
 @ApplicationScoped
 public class ConfigManager {
@@ -39,11 +55,26 @@ public class ConfigManager {
     }
 
     /**
-     * Retrieves a configuration object for the specified interface type.
-     * If the configuration is not already present in the cache, it will be loaded
-     * and stored in the cache for future access.
+     * Retrieves a configuration object for the specified class type. The first time this is
+     * done for a given class type, ConfigManager will instanciate a new instance of the class,
+     * and will inspect the object's fields annotated with {@code @Key} to bind configuration properties.
+     * The Key annotation value should be the name of the configuration property to bind to the field.
      *
-     * @param <T>            The type of the configuration interface.
+     * If the configuration is not already present in the cache, it will be loaded
+     * and stored in the cache for future access. If any of the configuration properties
+     * in the object are not found in the configuration file, they will be set to their default values.
+     *
+     * If any of the properties in the object have been updated by the client using the setup endpoint,
+     * the updated values will be applied to the configuration object, so the updated configuration
+     * is immediately available for use.
+     *
+     * If more than one type of device is running in this service, each device should create their
+     * own config object and will have its own configuration object, and the ConfigManager will manage
+     * them independently. A given device's configuration object will be used by all the devices of that type.
+     * There is only one properties file, so all the properties used by different devices are in
+     * a single file, so property names should be unique between devices.
+     *
+     * @param <T>            The type of the configuration object
      * @param configInterface The {@code Class} object representing the configuration interface.
      *                        This class must have a default no-argument constructor and may contain
      *                        fields annotated with {@code @Key} to bind configuration properties.
@@ -61,7 +92,8 @@ public class ConfigManager {
      * Updates the configuration properties with the specified changes.
      * If a property's value differs from the existing value, it is updated, and the resulting
      * changes are persisted to the configuration file. Additionally, the in-memory configuration
-     * cache is refreshed to reflect the updates.
+     * cache is refreshed to reflect the updates, so all the active configuration objects are
+     * immediately available for use.
      *
      * @param configChanges A map of configuration key-value pairs representing the changes to
      *                      be applied. Each entry contains a key as the property name and the

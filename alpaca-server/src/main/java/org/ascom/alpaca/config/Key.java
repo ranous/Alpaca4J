@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * Annotation used to mark configuration keys for injection or retrieval.
+ * Its value should be the name of the configuration property to bind to the field.
  */
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
