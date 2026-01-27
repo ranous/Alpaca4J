@@ -1,4 +1,4 @@
-package org.ascom.alpaca;
+package org.ascom.alpaca.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;

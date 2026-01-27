@@ -1,4 +1,4 @@
-package org.ascom.alpaca.utils;
+package org.ascom.alpaca.impl.utils;
 
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

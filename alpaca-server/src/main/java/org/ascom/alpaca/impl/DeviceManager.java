@@ -1,4 +1,4 @@
-package org.ascom.alpaca.device;
+package org.ascom.alpaca.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ascom.alpaca.device.Device;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

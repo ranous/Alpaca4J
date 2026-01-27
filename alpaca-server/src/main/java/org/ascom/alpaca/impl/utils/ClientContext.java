@@ -1,4 +1,4 @@
-package org.ascom.alpaca.utils;
+package org.ascom.alpaca.impl.utils;
 
 @SuppressWarnings("unused")
 public class ClientContext {

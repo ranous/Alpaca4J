@@ -1,11 +1,11 @@
-package org.ascom.alpaca.webservices;
+package org.ascom.alpaca.impl.webservices;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.ascom.alpaca.device.CoverCalibratorDevice;
-import org.ascom.alpaca.device.DeviceManager;
+import org.ascom.alpaca.impl.DeviceManager;
 import org.ascom.alpaca.model.CalibratorState;
 import org.ascom.alpaca.model.CoverState;
 import org.ascom.alpaca.model.DeviceType;

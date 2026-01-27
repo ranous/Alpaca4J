@@ -1,4 +1,4 @@
-package org.ascom.alpaca.utils;
+package org.ascom.alpaca.impl.utils;
 
 import jakarta.annotation.Priority;
 import jakarta.ws.rs.container.ContainerRequestContext;

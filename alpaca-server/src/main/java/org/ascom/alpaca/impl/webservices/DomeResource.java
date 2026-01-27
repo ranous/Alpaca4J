@@ -1,10 +1,10 @@
-package org.ascom.alpaca.webservices;
+package org.ascom.alpaca.impl.webservices;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.ascom.alpaca.device.DeviceManager;
+import org.ascom.alpaca.impl.DeviceManager;
 import org.ascom.alpaca.device.DomeDevice;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.response.*;

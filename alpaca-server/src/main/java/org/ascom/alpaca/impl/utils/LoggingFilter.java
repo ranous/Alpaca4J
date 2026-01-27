@@ -1,4 +1,4 @@
-package org.ascom.alpaca.utils;
+package org.ascom.alpaca.impl.utils;
 
 import io.vertx.core.http.HttpServerRequest;
 import jakarta.ws.rs.container.ContainerRequestContext;
