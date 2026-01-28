@@ -520,6 +520,7 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
      * JD = 367 * Y - INT(7 * (Y + INT((M + 9)/12))/4) + INT(275 * M / 9)
      *      + D + 1721013.5 + UT/24
      * Note that this is only valid for the year range 1900 - 2099.
+     * @param date the date to calculate the Julian Day for
      */
     public static double calculateJulianDay(Date date) {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -538,7 +539,8 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     /**
-     * Normalize the angle to the range 0 <= value < 360.
+     * Normalize the angle to the range between 0 and 360.
+     * @param angle the angle to normalize
      */
     public static double normalizeAngle(double angle) {
         double remainder = angle % 360;
