@@ -35,8 +35,9 @@
         <surefire-plugin.version>3.5.2</surefire-plugin.version>
         <jackson.version>2.18.1</jackson.version>
         <slf4j.version>2.0.16</slf4j.version>
-        <!-- Pinning Jandex to the 3.1.x stream to generate indexes compatible with Helidon -->
-        <jandex.version>3.1.8</jandex.version>
+        <!-- If using with Helidon instead of Quarkus, Jandex needs to be pinned to the 3.3.x stream to
+             generate indexes compatible with Helidon when compiling the core libraries -->
+        <jandex.version>3.3.0</jandex.version>
     </properties>
 
     <modules>
