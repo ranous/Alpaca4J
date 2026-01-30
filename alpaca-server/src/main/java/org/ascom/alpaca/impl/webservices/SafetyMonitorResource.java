@@ -27,6 +27,6 @@ public class SafetyMonitorResource {
     public BooleanResponse isSafe(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isSafe(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isSafe());
     }
 }

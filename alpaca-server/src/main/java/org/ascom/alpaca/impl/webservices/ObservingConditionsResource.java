@@ -33,7 +33,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getAveragePeriod(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getAveragePeriod(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getAveragePeriod());
     }
 
     @PUT
@@ -46,7 +46,7 @@ public class ObservingConditionsResource {
         if (averagePeriod < 0) {
             throw new InvalidValueException("The average period must be greater than 0");
         }
-        getDevice(deviceNumber, clientID).setAveragePeriod(clientID, averagePeriod);
+        getDevice(deviceNumber, clientID).setAveragePeriod(averagePeriod);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -55,7 +55,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getCloudCover(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getCloudCover(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getCloudCover());
     }
 
     @GET
@@ -63,7 +63,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getDewPoint(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getDewPoint(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getDewPoint());
     }
 
     @GET
@@ -71,7 +71,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getHumidity(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getHumidity(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getHumidity());
     }
 
     @GET
@@ -79,7 +79,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getPressure(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getPressure(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getPressure());
     }
 
     @GET
@@ -87,7 +87,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getRainRate(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getRainRate(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getRainRate());
     }
 
     @GET
@@ -95,7 +95,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getSkyBrightness(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyBrightness(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyBrightness());
     }
 
     @GET
@@ -103,7 +103,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getSkyQuality(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyQuality(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyQuality());
     }
 
     @GET
@@ -111,7 +111,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getSkyTemperature(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyTemperature(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSkyTemperature());
     }
 
     @GET
@@ -119,7 +119,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getStarFWHM(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getStarFWHM(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getStarFWHM());
     }
 
     @GET
@@ -127,7 +127,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getTemperature(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getTemperature(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getTemperature());
     }
 
     @GET
@@ -135,7 +135,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getWindDirection(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getWindDirection(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getWindDirection());
     }
 
     @GET
@@ -143,7 +143,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getWindGust(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getWindGust(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getWindGust());
     }
 
     @GET
@@ -151,7 +151,7 @@ public class ObservingConditionsResource {
     public DoubleResponse getWindSpeed(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getWindSpeed(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getWindSpeed());
     }
 
     @PUT
@@ -159,7 +159,7 @@ public class ObservingConditionsResource {
     public AlpacaResponse refresh(@PathParam("deviceNumber") int deviceNumber,
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).refresh(clientID);
+        getDevice(deviceNumber, clientID).refresh();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -169,7 +169,7 @@ public class ObservingConditionsResource {
                                                @QueryParam("SensorName") String sensorName,
                                                @QueryParam("ClientID") int clientID,
                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new StringResponse(getDevice(deviceNumber, clientID).getSensorDescription(clientID, sensorName));
+        return new StringResponse(getDevice(deviceNumber, clientID).getSensorDescription(sensorName));
     }
 
     @GET
@@ -178,6 +178,6 @@ public class ObservingConditionsResource {
                                                  @QueryParam("SensorName") String sensorName,
                                                  @QueryParam("ClientID") int clientID,
                                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getTimeSinceLastUpdate(clientID, sensorName));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getTimeSinceLastUpdate(sensorName));
     }
 }
