@@ -2,6 +2,8 @@ package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.client.impl.api.Camera;
 import org.ascom.alpaca.client.impl.ImageBytesConverterFactory;
+import org.ascom.alpaca.client.model.AlpacaCallback;
+import org.ascom.alpaca.client.model.AlpacaClientError;
 import org.ascom.alpaca.client.util.Logger;
 import org.ascom.alpaca.model.CameraState;
 import org.ascom.alpaca.model.DeviceDescriptor;

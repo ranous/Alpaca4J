@@ -1,6 +1,8 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.client.impl.api.Focuser;
+import org.ascom.alpaca.client.model.AlpacaCallback;
+import org.ascom.alpaca.client.model.AlpacaClientError;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.BooleanResponse;

@@ -1,4 +1,4 @@
-package org.ascom.alpaca.client;
+package org.ascom.alpaca.client.model;
 
 import org.ascom.alpaca.response.ErrorCode;
 

@@ -1,4 +1,4 @@
-package org.ascom.alpaca.client;
+package org.ascom.alpaca.client.model;
 
 /**
  * Callback interface for asynchronous operations. For the asynchronous operations,
