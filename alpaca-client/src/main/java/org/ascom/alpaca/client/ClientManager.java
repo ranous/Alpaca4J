@@ -2,6 +2,7 @@ package org.ascom.alpaca.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ascom.alpaca.client.util.Logger;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.ServerInfo;

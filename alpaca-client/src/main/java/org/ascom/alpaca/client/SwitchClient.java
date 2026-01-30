@@ -1,6 +1,7 @@
 package org.ascom.alpaca.client;
 
 import org.ascom.alpaca.client.impl.api.Switch;
+import org.ascom.alpaca.client.util.Logger;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.*;
 import retrofit2.Retrofit;

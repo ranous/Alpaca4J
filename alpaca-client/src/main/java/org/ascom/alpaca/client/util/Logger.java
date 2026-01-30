@@ -1,4 +1,4 @@
-package org.ascom.alpaca.client;
+package org.ascom.alpaca.client.util;
 
 import okhttp3.internal.platform.Platform;
 
