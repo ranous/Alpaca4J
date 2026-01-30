@@ -1,6 +1,6 @@
 package org.ascom.alpaca.client;
 
-import org.ascom.alpaca.api.FilterWheel;
+import org.ascom.alpaca.client.impl.api.FilterWheel;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.IntResponse;

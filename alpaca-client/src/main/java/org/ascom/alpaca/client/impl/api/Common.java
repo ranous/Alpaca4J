@@ -1,4 +1,4 @@
-package org.ascom.alpaca.api;
+package org.ascom.alpaca.client.impl.api;
 
 
 import org.ascom.alpaca.model.StateValue;

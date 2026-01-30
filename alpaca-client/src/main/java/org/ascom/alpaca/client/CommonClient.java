@@ -2,7 +2,7 @@ package org.ascom.alpaca.client;
 
 import okhttp3.ResponseBody;
 import okhttp3.internal.platform.Platform;
-import org.ascom.alpaca.api.Common;
+import org.ascom.alpaca.client.impl.api.Common;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.StateValue;

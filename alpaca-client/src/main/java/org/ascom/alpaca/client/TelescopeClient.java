@@ -1,6 +1,6 @@
 package org.ascom.alpaca.client;
 
-import org.ascom.alpaca.api.Telescope;
+import org.ascom.alpaca.client.impl.api.Telescope;
 import org.ascom.alpaca.model.*;
 import org.ascom.alpaca.response.*;
 import retrofit2.Retrofit;

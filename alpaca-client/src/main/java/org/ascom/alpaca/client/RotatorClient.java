@@ -1,6 +1,6 @@
 package org.ascom.alpaca.client;
 
-import org.ascom.alpaca.api.Rotator;
+import org.ascom.alpaca.client.impl.api.Rotator;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.response.AlpacaResponse;
 import org.ascom.alpaca.response.BooleanResponse;

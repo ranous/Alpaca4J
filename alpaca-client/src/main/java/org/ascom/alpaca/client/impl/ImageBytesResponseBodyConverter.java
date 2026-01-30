@@ -1,4 +1,4 @@
-package org.ascom.alpaca.client.util;
+package org.ascom.alpaca.client.impl;
 
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;

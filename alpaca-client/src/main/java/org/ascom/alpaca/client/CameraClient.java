@@ -1,7 +1,7 @@
 package org.ascom.alpaca.client;
 
-import org.ascom.alpaca.api.Camera;
-import org.ascom.alpaca.client.util.ImageBytesConverterFactory;
+import org.ascom.alpaca.client.impl.api.Camera;
+import org.ascom.alpaca.client.impl.ImageBytesConverterFactory;
 import org.ascom.alpaca.model.CameraState;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.ImageArray;

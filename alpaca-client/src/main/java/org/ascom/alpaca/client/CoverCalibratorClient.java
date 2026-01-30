@@ -1,6 +1,6 @@
 package org.ascom.alpaca.client;
 
-import org.ascom.alpaca.api.CoverCalibrator;
+import org.ascom.alpaca.client.impl.api.CoverCalibrator;
 import org.ascom.alpaca.model.CalibratorState;
 import org.ascom.alpaca.model.CoverState;
 import org.ascom.alpaca.model.DeviceDescriptor;
