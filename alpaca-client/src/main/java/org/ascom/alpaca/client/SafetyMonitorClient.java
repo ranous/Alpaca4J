@@ -8,6 +8,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.URI;
 
+/**
+ * Client for interacting with an ASCOM Alpaca SafetyMonitor device.
+ */
 @SuppressWarnings("unused")
 public class SafetyMonitorClient extends CommonClient {
     private static final Logger log = Logger.getLogger(SafetyMonitorClient.class);
@@ -41,12 +44,28 @@ public class SafetyMonitorClient extends CommonClient {
         return client;
     }
 
+    /**
+     * Indicates whether the monitored state is safe for use.
+     *
+     * @return true if the monitored state is safe for use, false otherwise.
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/safetymonitor.html#SafetyMonitor.IsSafe">A full description of this member's behavior is provided here</a>
+     */
     public boolean isSafe() {
         BooleanResponse response = call(getClient().isSafe(getDeviceID(), getClientID(), getTransactionID()), "isSafe");
         checkResponse(response);
         return response.getValue();
     }
 
+    /**
+     * Indicates whether the monitored state is safe for use.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/safetymonitor.html#SafetyMonitor.IsSafe">A full description of this member's behavior is provided here</a>
+     */
     public void isSafe(AlpacaCallback<Boolean> callback) {
         callAsync(getClient().isSafe(getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
             @Override

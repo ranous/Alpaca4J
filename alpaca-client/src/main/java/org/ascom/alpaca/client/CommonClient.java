@@ -19,6 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The base client all devices must extend.  All the operations that
+ * are common to all devices are implemented here.
+ */
 @SuppressWarnings("unused")
 public class CommonClient {
     private final DeviceDescriptor deviceDescriptor;
@@ -203,6 +207,7 @@ public class CommonClient {
         return clientID;
     }
 
+
     public DeviceType getDeviceType() {
         return deviceDescriptor.getDeviceType();
     }
@@ -218,11 +223,27 @@ public class CommonClient {
 
     // The following methods are the actual Alpaca API methods that are implemented in the CommonClient class.
 
+    /**
+     * Returns the device's operational state in a single call.
+     *
+     * @return a list of the device's operational state values
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.DeviceState">A full description of this member's behavior is provided here</a>
+     */
     public List<StateValue> getDeviceState() {
         ListResponse<StateValue> response = call(getClient().getDeviceState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDeviceState");
         return response.getValue();
     }
 
+    /**
+     * Returns the device's operational state in a single call.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.DeviceState">A full description of this member's behavior is provided here</a>
+     */
     public void getDeviceState(AlpacaCallback<List<StateValue>> callback) {
         callAsync(getClient().getDeviceState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -237,11 +258,26 @@ public class CommonClient {
         }, "getDeviceState");
     }
 
+    /**
+     * Completion variable for the asynchronous Connect() and Disconnect() methods.
+     *
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connecting">A full description of this member's behavior is provided here</a>
+     */
     public boolean isConnecting() {
         BooleanResponse response = call(getClient().isConnecting(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "isConnecting");
         return response.getValue();
     }
 
+    /**
+     * Completion variable for the asynchronous Connect() and Disconnect() methods.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connecting">A full description of this member's behavior is provided here</a>
+     */
     public void isConnecting(AlpacaCallback<Boolean> callback) {
         callAsync(getClient().isConnecting(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -256,10 +292,24 @@ public class CommonClient {
         }, "isConnecting");
     }
 
+    /**
+     * Starts an asynchronous connection to the device.
+     *
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connect">A full description of this member's behavior is provided here</a>
+     */
     public void connect() {
         AlpacaResponse response = call(getClient().connect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "connect");
     }
 
+    /**
+     * Starts an asynchronous connection to the device.
+     *
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connect">A full description of this member's behavior is provided here</a>
+     */
     public void connect(AlpacaCallback<Void> callback) {
         callAsync(getClient().connect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -274,10 +324,25 @@ public class CommonClient {
         }, "connect");
     }
 
+    /**
+     * Starts an asynchronous disconnect from the device.
+     *
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Disconnect">A full description of this member's behavior is provided here</a>
+     */
     public void disconnect() {
         AlpacaResponse response = call(getClient().disconnect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "disconnect");
     }
 
+    /**
+     * Starts an asynchronous disconnect from the device.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Disconnect">A full description of this member's behavior is provided here</a>
+     */
     public void disconnect(AlpacaCallback<Void> callback) {
         callAsync(getClient().disconnect(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -292,11 +357,26 @@ public class CommonClient {
         }, "disconnect");
     }
 
+    /**
+     * Retrieves the connected state of the device
+     * @return is the client connected to the device
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connected">A full description of this member's behavior is provided here</a>
+     */
     public boolean getConnectedState() {
         BooleanResponse response = call(getClient().isConnected(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "isConnected");
         return response.getValue();
     }
 
+    /**
+     * Retrieves the connected state of the device.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connected">A full description of this member's behavior is provided here</a>
+     */
     public void getConnectedState(AlpacaCallback<Boolean> callback) {
         callAsync(getClient().isConnected(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -329,11 +409,27 @@ public class CommonClient {
         }, "setConnectedState", state);
     }
 
+    /**
+     * Device description
+     *
+     * @return device description
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Description">A full description of this member's behavior is provided here</a>
+     */
     public String getDescription() {
         StringResponse response = call(getClient().getDescription(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDescription");
         return response.getValue();
     }
 
+    /**
+     * Device description
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Description">A full description of this member's behavior is provided here</a>
+     */
     public void getDescription(AlpacaCallback<String> callback) {
         callAsync(getClient().getDescription(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -348,11 +444,26 @@ public class CommonClient {
         }, "getDescription");
     }
 
+    /**
+     * Device driver description
+     *
+     * @return device driver description
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.DriverInfo">A full description of this member's behavior is provided here</a>
+     */
     public String getDriverInfo() {
         StringResponse response = call(getClient().getDriverInfo(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDriverInfo");
         return response.getValue();
     }
 
+    /**
+     * Device driver description
+     *
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.DriverInfo">A full description of this member's behavior is provided here</a>
+     */
     public void getDriverInfo(AlpacaCallback<String> callback) {
         callAsync(getClient().getDriverInfo(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -367,11 +478,27 @@ public class CommonClient {
         }, "getDriverInfo");
     }
 
+    /**
+     * Returns the version number of the driver that the client is connected to.
+     *
+     * @return The version number of the driver
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.DriverVersion">A full description of this member's behavior is provided here</a>
+     */
     public String getDriverVersion() {
         StringResponse response = call(getClient().getDriverVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getDriverVersion");
         return response.getValue();
     }
 
+    /**
+     * Returns the version number of the driver that the client is connected to.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.DriverVersion">A full description of this member's behavior is provided here</a>
+     */
     public void getDriverVersion(AlpacaCallback<String> callback) {
         callAsync(getClient().getDriverVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -386,11 +513,31 @@ public class CommonClient {
         }, "getDriverVersion");
     }
 
+    /**
+     * The ASCOM Device interface version number that this device supports.  This indicates
+     * the capabilities of the device and is used to determine which methods are supported.
+     * It is not the version number of the driver itself.
+     *
+     * @return The ASCOM Device interface version number
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.InterfaceVersion">A full description of this member's behavior is provided here</a>
+     */
     public int getInterfaceVersion() {
         IntResponse response = call(getClient().getInterfaceVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getInterfaceVersion");
         return response.getValue();
     }
 
+    /**
+     * The ASCOM Device interface version number that this device supports.  This indicates
+     * the capabilities of the device and is used to determine which methods are supported.
+     * It is not the version number of the driver itself.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.InterfaceVersion">A full description of this member's behavior is provided here</a>
+     */
     public void getInterfaceVersion(AlpacaCallback<Integer> callback) {
         callAsync(getClient().getInterfaceVersion(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -405,11 +552,27 @@ public class CommonClient {
         }, "getInterfaceVersion");
     }
 
+    /**
+     * Returns the name of the device the client is connected to.
+     *
+     * @return device name
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Name">A full description of this member's behavior is provided here</a>
+     */
     public String getName() {
         StringResponse response = call(getClient().getName(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getName");
         return response.getValue();
     }
 
+    /**
+     * Returns the name of the device the client is connected to.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Name">A full description of this member's behavior is provided here</a>
+     */
     public void getName(AlpacaCallback<String> callback) {
         callAsync(getClient().getName(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -424,11 +587,27 @@ public class CommonClient {
         }, "getName");
     }
 
+    /**
+     * Returns the list of action names supported by this driver.
+     *
+     * @return A list of the names of the driver-specific actions supported by this driver.
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.SupportedActions">A full description of this member's behavior is provided here</a>
+     */
     public List<String> getSupportedActions() {
         ListResponse<String> response = call(getClient().getSupportedActions(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), "getSupportedActions");
         return response.getValue();
     }
 
+    /**
+     * Returns the list of action names supported by this driver.
+     *
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.SupportedActions">A full description of this member's behavior is provided here</a>
+     */
     public void getSupportedActions(AlpacaCallback<List<String>> callback) {
         callAsync(getClient().getSupportedActions(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID()), new AlpacaCallback<>() {
             @Override
@@ -443,12 +622,31 @@ public class CommonClient {
         }, "getSupportedActions");
     }
 
+    /**
+     * Invokes the named device-specific action.
+     *
+     * @param action One of the recognised device actions
+     * @param parameters A string containing the parameters for the action
+     * @return An action-specific string containing the result of the action
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Action">A full description of this member's behavior is provided here</a>
+     */
     public String executeAction(String action, String parameters) {
         StringResponse response = call(getClient().executeAction(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), action, parameters),
                 "executeAction", action, parameters);
         return response.getValue();
     }
 
+    /**
+     * Invokes the named device-specific action.
+     *
+     * @param action One of the recognised device actions
+     * @param parameters A string containing the parameters for the action
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Action">A full description of this member's behavior is provided here</a>
+     */
     public void executeAction(String action, String parameters, AlpacaCallback<String> callback) {
         callAsync(getClient().executeAction(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), action, parameters), new AlpacaCallback<>() {
             @Override
