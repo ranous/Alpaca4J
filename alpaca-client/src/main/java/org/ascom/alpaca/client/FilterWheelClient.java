@@ -15,6 +15,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * Client for interacting with ASCOM FilterWheel devices via the ALPACA protocol.
+ */
 @SuppressWarnings("unused")
 public class FilterWheelClient extends CommonClient {
     private static final Logger log = Logger.getLogger(FilterWheelClient.class);

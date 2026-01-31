@@ -1,5 +1,6 @@
 package org.ascom.alpaca.client.model;
 
+
 public class ClientException extends RuntimeException {
     public ClientException(String message) {
         super(message);

@@ -14,6 +14,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.URI;
 
+/**
+ * Client for interacting with ASCOM Focuser devices via the ALPACA protocol.
+ */
 @SuppressWarnings("unused")
 public class FocuserClient extends CommonClient {
     private final URI serverAddress;

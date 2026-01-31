@@ -14,6 +14,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.URI;
 
+/**
+ * Client for interacting with ASCOM Rotator devices via the ALPACA protocol.
+ */
 @SuppressWarnings("unused")
 public class RotatorClient extends CommonClient {
     private static final Logger log = Logger.getLogger(RotatorClient.class);

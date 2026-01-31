@@ -16,6 +16,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Client for interacting with the Alpaca Server.  It's used to get information on the server
+ * and what devices are available.
+ */
 @SuppressWarnings("unused")
 public class ManagementClient {
     private static final Logger log = Logger.getLogger(ManagementClient.class);

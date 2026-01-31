@@ -17,6 +17,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * Client for interacting with Alpaca Camera devices.
+ */
 @SuppressWarnings("unused")
 public class CameraClient extends CommonClient {
     private static final Logger log = Logger.getLogger(CameraClient.class);

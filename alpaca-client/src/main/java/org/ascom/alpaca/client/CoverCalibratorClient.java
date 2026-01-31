@@ -17,6 +17,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.URI;
 
+/**
+ * Client for interacting with Alpaca CoverCalibrator devices.
+ */
 @SuppressWarnings("unused")
 public class CoverCalibratorClient extends CommonClient {
     private static final Logger log = Logger.getLogger(CoverCalibratorClient.class);

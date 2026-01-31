@@ -16,6 +16,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * The client manager is used to discover and instantiate clients for Alpaca devices.
+ */
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SpellCheckingInspection"})
 public class ClientManager {
     private static final Logger log = Logger.getLogger(ClientManager.class);
@@ -37,12 +40,16 @@ public class ClientManager {
 
     }
 
+    /**
+     * Returns the singleton instance of the ClientManager.
+     * @return
+     */
     public static ClientManager getInstance() {
         return instance;
     }
 
     /**
-     * The amount of time the client will wait for responses to the discovery broadcast for Alpaca devices.
+     * The amount of time in seconds the client will wait for responses to the discovery broadcast for Alpaca devices.
      * @return The amount of time in seconds the ClientManager will wait for responses.
      */
     public int getResponseTimeout() {
@@ -50,7 +57,7 @@ public class ClientManager {
     }
 
     /**
-     * Set the timeout the ClientManger should wait for responses when broadcasting to discover Alpaca devices
+     * Set the timeout in seconds the ClientManger should wait for responses when broadcasting to discover Alpaca devices
      * @param responseTimeout the amount of time to wait for responses in seconds
      */
     public void setResponseTimeout(int responseTimeout) {
