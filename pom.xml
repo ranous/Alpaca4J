@@ -200,6 +200,9 @@
                     </additionalJOptions>
                     <doctitle>ASCOM Alpaca Java Framework</doctitle>
                     <windowtitle>ASCOM Alpaca Java API</windowtitle>
+                    <excludePackageNames>
+                        *.internal.*:*.impl.*:*.impl
+                    </excludePackageNames>
                 </configuration>
                 <executions>
                     <execution>
