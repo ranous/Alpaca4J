@@ -394,10 +394,27 @@ public class CommonClient {
         }, "isConnected");
     }
 
+    /**
+     * Sets the connected state of the device
+     *
+     * @param state Set True to connect to the device hardware, set False to disconnect from the device hardware
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connected">A full description of this member's behavior is provided here</a>
+     */
     public void setConnectedState(boolean state) {
         AlpacaResponse response = call(getClient().setConnectedState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), state), "setConnectedState", state);
     }
 
+    /**
+     * Sets the connected state of the device
+     *
+     * @param state Set True to connect to the device hardware, set False to disconnect from the device hardware
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connected">A full description of this member's behavior is provided here</a>
+     */
     public void setConnectedState(boolean state, AlpacaCallback<Void> callback) {
         callAsync(getClient().setConnectedState(deviceType.getTypeName(), getDeviceID(), clientID, getTransactionID(), state), new AlpacaCallback<>() {
             @Override

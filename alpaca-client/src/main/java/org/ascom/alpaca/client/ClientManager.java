@@ -195,7 +195,7 @@ public class ClientManager {
         }
     }
 
-    void interrogateAlpacaServer(InetAddress address, int port) {
+    private void interrogateAlpacaServer(InetAddress address, int port) {
         try {
             URI uri = new URI("http", null, address.getHostAddress(), port, null, null, null);
             ManagementClient managementClient = new ManagementClient(uri, currentClientID);
