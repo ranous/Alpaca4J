@@ -1,5 +1,7 @@
 package org.ascom.alpaca.client;
 
+import org.ascom.alpaca.client.model.AlpacaCallback;
+import org.ascom.alpaca.client.model.AlpacaClientError;
 import org.ascom.alpaca.model.DeviceDescriptor;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.model.ImageArray;
@@ -130,6 +132,7 @@ public class ClientTest {
 
         });
     }
+
     private static void initLogger(Class<?> classObject) {
         // Attempt to read the logging configuration from the classpath
         try {
