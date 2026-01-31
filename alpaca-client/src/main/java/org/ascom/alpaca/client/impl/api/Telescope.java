@@ -365,6 +365,8 @@ public interface Telescope {
 
     @GET("api/v1/telescope/{deviceNumber}/destinationsideofpier")
     Call<IntResponse> getDestinationSideOfPier(@Path("deviceNumber") int deviceNumber,
+                                         @Query("RightAscension") double rightAscension,
+                                         @Query("Declination") double declination,
                                          @Query("ClientID") int clientID,
                                          @Query("ClientTransactionID") long clientTransactionID);
 
