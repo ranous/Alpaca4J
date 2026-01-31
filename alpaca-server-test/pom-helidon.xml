@@ -6,30 +6,30 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>4.1.6</version>
+        <version>4.3.3</version>
         <relativePath/>
     </parent>
-    <groupId>org.ascom</groupId>
+    <groupId>io.github.ranous.ascom</groupId>
     <artifactId>alpaca-server-test-helidon</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <properties>
         <version.plugin.hibernate-enhance>${version.lib.hibernate}</version.plugin.hibernate-enhance>
-        <version.lib.jandex>3.1.2</version.lib.jandex>
         <mainClass>io.helidon.Main</mainClass>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.ascom</groupId>
+            <groupId>io.github.ranous.ascom</groupId>
             <artifactId>alpaca-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.ascom</groupId>
             <artifactId>alpaca-server</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
+
         <!-- Jakarta JAX-RS libraries -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
@@ -72,10 +72,10 @@
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>jakarta.activation</groupId>
@@ -101,12 +101,12 @@
             <artifactId>helidon-microprofile-health</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>jakarta.json.bind</groupId>
+            <artifactId>jakarta.json.bind-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
+            <artifactId>jersey-media-json-binding</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -160,9 +160,6 @@
                 <executions>
                     <execution>
                         <id>make-index</id>
-                        <goals>
-                            <goal>jandex</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
