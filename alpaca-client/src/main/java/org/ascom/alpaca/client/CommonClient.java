@@ -680,12 +680,4 @@ public class CommonClient {
             }
         }, "executeAction", action, parameters);
     }
-
-    public void setDebug(String debug) {
-        if (Boolean.parseBoolean(debug)) {
-
-        } else {
-
-        }
-    }
 }
