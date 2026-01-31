@@ -2,6 +2,9 @@ package org.ascom.alpaca.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Axis rate limits.
+ */
 @SuppressWarnings("unused")
 public class AxisRate {
     double min;
@@ -16,20 +19,45 @@ public class AxisRate {
         this.max = max;
     }
 
+    /**
+     * The minimum rate (degrees per second). This must always be a positive number.
+     * It indicates the minimum rate in either direction about the axis.
+     *
+     * @return The minimum rate (degrees per second).
+     */
     @JsonProperty("Minimum")
     public double getMin() {
         return min;
     }
 
+
+    /**
+     * The minimum rate (degrees per second). This must always be a positive number.
+     * It indicates the minimum rate in either direction about the axis.
+     *
+     * @param min The minimum rate (degrees per second).
+     */
     public void setMin(double min) {
         this.min = min;
     }
 
+    /**
+     * The maximum rate (degrees per second). This must always be a positive number.
+     * It indicates the maximum rate in either direction about the axis.
+     *
+     * @return The maximum rate (degrees per second).
+     */
     @JsonProperty("Maximum")
     public double getMax() {
         return max;
     }
 
+    /**
+     * The maximum rate (degrees per second). This must always be a positive number.
+     * It indicates the maximum rate in either direction about the axis.
+     *
+     * @param max The maximum rate (degrees per second).
+     */
     public void setMax(double max) {
         this.max = max;
     }

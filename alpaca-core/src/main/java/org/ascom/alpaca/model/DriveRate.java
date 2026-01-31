@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * Integer value corresponding to one of the standard drive rates.
+ */
 public enum DriveRate {
     Sidereal(0),
     Lunar(1),

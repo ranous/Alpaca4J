@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The axis about which rate information is desired.
+ */
 public enum TelescopeAxes {
     Primary(0),
     Secondary(1),
