@@ -322,12 +322,22 @@ public class CameraResource {
     }
 
     @GET
+    @Path("camera/{deviceNumber}/imagearray")
+    @Produces("application/imagebytes")
+    public ByteArrayResponse getImageBytes(@PathParam("deviceNumber") int deviceNumber,
+                                            @QueryParam("ClientID") int clientID,
+                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
+        byte[] image = getDevice(deviceNumber, clientID).getImageBytes(clientID);
+        return new ByteArrayResponse(clientTransactionID, image);
+    }
+
+    @GET
     @Path("camera/{deviceNumber}/imagearrayvariant")
     public ImageArrayResponse getImageArrayVariant(@PathParam("deviceNumber") int deviceNumber,
                                                    @QueryParam("ClientID") int clientID,
                                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        ImageArray image = getDevice(deviceNumber, clientID).getImageArrayVariant(clientID);
-        return new ImageArrayResponse(clientTransactionID, image);
+        // This is a COM-specific operation and not implemented by Alpca devices
+        throw new PropertyNotImplementedException("Not implemented");
     }
 
     @GET

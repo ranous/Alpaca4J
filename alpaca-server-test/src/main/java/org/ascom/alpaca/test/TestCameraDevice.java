@@ -253,8 +253,8 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public ImageArray getImageArrayVariant(int clientID) {
-        return getImageArray(clientID);
+    public byte[] getImageBytes(int clientID) {
+        throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override

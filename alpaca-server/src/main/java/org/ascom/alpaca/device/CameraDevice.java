@@ -86,7 +86,7 @@ public interface CameraDevice extends Device {
 
     ImageArray getImageArray(int clientID);
 
-    ImageArray getImageArrayVariant(int clientID);
+    byte[] getImageBytes(int clientID);
 
     boolean isImageReady(int clientID);
 
