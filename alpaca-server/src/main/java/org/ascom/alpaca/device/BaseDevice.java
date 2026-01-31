@@ -88,10 +88,6 @@ public class BaseDevice implements Device {
         deviceDescriptor.setDeviceNumber(deviceID);
     }
 
-//    protected String getDescription() {
-//        return description;
-//    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -337,7 +333,7 @@ public class BaseDevice implements Device {
      * of the Alpaca standard interface. If the device has additional functionality it wishes to
      * expose to a client, this operation lists all the non-standard actions that the device supports.
      * The client can invoke the Alpaa executeAction operation on the device, which in turn calls
-     * {@link #executeAction(int, String, String)} to invoke the action.
+     * {@link #executeAction(String, String)} to invoke the action.
      * @return a list of supported actions
      */
     @Override
