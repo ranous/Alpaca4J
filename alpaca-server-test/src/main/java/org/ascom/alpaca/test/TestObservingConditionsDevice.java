@@ -98,56 +98,100 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
         return pressure;
     }
 
+    /**
+     * The current rain rate in mm/h.
+     * @return the rain rate
+     */
     @Override
     public double getRainRate() {
         return rainRate;
     }
 
+    /**
+     * The current sky brightness in lux.
+     * @return the sky brightness
+     */
     @Override
     public double getSkyBrightness() {
         return skyBrightness;
     }
 
+    /**
+     * The current sky quality in magnitudes per square arcsecond (SQM).
+     * @return the sky quality
+     */
     @Override
     public double getSkyQuality() {
         return skyQuality;
     }
 
+    /**
+     * The current sky temperature in degrees Celsius.
+     * @return
+     */
     @Override
     public double getSkyTemperature() {
         return skyTemperature;
     }
 
+    /**
+     * The current star FWHM in arcseconds.
+     * @return the star FWHM
+     */
     @Override
     public double getStarFWHM() {
         return starFWHM;
     }
 
+    /**
+     * The current temperature in degrees Celsius.
+     * @return the temperature
+     */
     @Override
     public double getTemperature() {
         return temperature;
     }
 
+    /**
+     * The current wind direction in degrees from which the wind is blowing.
+     * @return the wind direction
+     */
     @Override
     public double getWindDirection() {
         return windDirection;
     }
 
+    /**
+     * The peak 3 second wind gust in m/s ove the last 2 minutes.
+     * @return the wind gust
+     */
     @Override
     public double getWindGust() {
         return windGust;
     }
 
+    /**
+     * The current wind speed in m/s.
+     * @return the wind speed
+     */
     @Override
     public double getWindSpeed() {
         return windSpeed;
     }
 
+    /**
+     * Refresh the device state.
+     */
     @Override
     public void refresh() {
         lastUpdate = System.currentTimeMillis();
     }
 
+    /**
+     * Get the description of a sensor.
+     * @param sensorName the name of the sensor
+     * @return the sensor description
+     */
     @Override
     public String getSensorDescription(String sensorName) {
         if (sensorName == null || sensorName.isEmpty()) {
@@ -160,6 +204,11 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
         return "Meteobridge " + sensorName + " sensor";
     }
 
+    /**
+     * Get the time since the last update of a sensor.
+     * @param sensorName
+     * @return
+     */
     @Override
     public double getTimeSinceLastUpdate(String sensorName) {
         long curTime = System.currentTimeMillis();
@@ -170,6 +219,12 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
         return duration;
     }
 
+    /**
+     * Execute an action on the device.
+     * @param action the name of the action to execute
+     * @param parameters the parameters to pass to the action function
+     * @return
+     */
     @Override
     public String executeAction(String action, String parameters) {
         if (action.equalsIgnoreCase("testAction")) {

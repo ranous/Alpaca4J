@@ -104,7 +104,7 @@ public class BaseDevice implements Device {
         this.deviceDescriptor = deviceDescriptor;
     }
 
-    public void setDriverInfo(String driverInfo) {
+    protected void setDriverInfo(String driverInfo) {
         this.driverInfo = driverInfo;
     }
 
@@ -112,11 +112,11 @@ public class BaseDevice implements Device {
         this.driverVersion = driverVersion;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
-    public void setInterfaceVersion(int interfaceVersion) {
+    protected void setInterfaceVersion(int interfaceVersion) {
         this.interfaceVersion = interfaceVersion;
     }
 
@@ -127,7 +127,7 @@ public class BaseDevice implements Device {
      * @param actionName the name of the action to add
      * @param function the function to execute when the action is invoked
      */
-    public void addSupportedAction(String actionName, Function<String,String> function) {
+    protected void addSupportedAction(String actionName, Function<String,String> function) {
         this.supportedActions.put(actionName, function);
     }
 
@@ -348,9 +348,30 @@ public class BaseDevice implements Device {
     /**
      * Calls the method associated with the given action name, passing the parameters to it.  This method
      * needs to be registered using {@link #addSupportedAction(String, Function)} before it can be called.
+     * Actions and SupportedActions are a standardised means for drivers to extend functionality beyond the
+     * built-in capabilities of the ASCOM device interfaces.
+     *
+     * The key advantage of using Actions is that drivers can expose any device specific functionality required.
+     * The downside is that, in order to use these unique features, every application author would need to
+     * create bespoke code to present or exploit them.
+     *
+     * The Action parameter and return strings are deceptively simple, but can support transmission of arbitrarily
+     * complex data structures, for example through JSON encoding.
+     *
+     * This capability will be of primary value to:
+     * - bespoke software and hardware configurations where a single entity controls both the consuming application
+     *   software and the hardware / driver environment
+     * - a group of application and device authors who want to quickly formulate and try out new interface
+     *   capabilities without requiring an immediate change to the ASCOM device interface, which will take a lot
+     *   longer than just agreeing a name, input parameters and a standard response for an Action command
+     *
+     * The list of Action commands supported by a driver can be discovered through the SupportedActions property.
+     * If the device has no device specific actions, it should throw a PropertyNotImplementedException.
+     *
      * @param action the name of the action to execute
      * @param parameters the parameters to pass to the action function
      * @return the result of the action function
+     * @throws PropertyNotImplementedException if the device doesn't support the requested action
      */
     @Override
     public String executeAction(String action, String parameters) {
