@@ -32,7 +32,7 @@ public class FocuserResource {
     public BooleanResponse canAbsoluteFocus(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canAbsoluteFocus(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canAbsoluteFocus());
     }
 
     @GET
@@ -40,7 +40,7 @@ public class FocuserResource {
     public BooleanResponse isMoving(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isMoving(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isMoving());
     }
 
     @GET
@@ -48,7 +48,7 @@ public class FocuserResource {
     public IntResponse getMaxIncrement(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getMaxIncrement(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getMaxIncrement());
     }
 
     @GET
@@ -56,7 +56,7 @@ public class FocuserResource {
     public IntResponse getMaxStep(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getMaxStep(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getMaxStep());
     }
 
     @GET
@@ -64,7 +64,7 @@ public class FocuserResource {
     public IntResponse getPosition(@PathParam("deviceNumber") int deviceNumber,
                                    @QueryParam("ClientID") int clientID,
                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getPosition(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getPosition());
     }
 
     @GET
@@ -72,7 +72,7 @@ public class FocuserResource {
     public DoubleResponse getStepSize(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getStepSize(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getStepSize());
     }
 
     @GET
@@ -80,14 +80,14 @@ public class FocuserResource {
     public BooleanResponse isTemperatureCompensating(@PathParam("deviceNumber") int deviceNumber,
                                                      @QueryParam("ClientID") int clientID,
                                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isTemperatureCompensating(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isTemperatureCompensating());
     }
 
     public AlpacaResponse setTemperatureCompensation(int deviceNumber,
                                                      boolean tempCompState,
                                                      int clientID,
                                                      long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setTemperatureCompensation(clientID, tempCompState);
+        getDevice(deviceNumber, clientID).setTemperatureCompensation(tempCompState);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -96,7 +96,7 @@ public class FocuserResource {
     public BooleanResponse hasTemperatureCompensation(@PathParam("deviceNumber") int deviceNumber,
                                                       @QueryParam("ClientID") int clientID,
                                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).hasTemperatureCompensation(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).hasTemperatureCompensation());
     }
 
     @GET
@@ -104,7 +104,7 @@ public class FocuserResource {
     public DoubleResponse getTemperature(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getTemperature(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getTemperature());
     }
 
     @PUT
@@ -112,7 +112,7 @@ public class FocuserResource {
     public AlpacaResponse haltFocuser(@PathParam("deviceNumber") int deviceNumber,
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).haltFocuser(clientID);
+        getDevice(deviceNumber, clientID).haltFocuser();
         return new AlpacaResponse(clientTransactionID);
 
     }
@@ -123,7 +123,7 @@ public class FocuserResource {
                                          @FormParam("Position") int position,
                                          @FormParam("ClientID") int clientID,
                                          @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).moveToPosition(clientID, position);
+        getDevice(deviceNumber, clientID).moveToPosition(position);
         return new AlpacaResponse(clientTransactionID);
     }
 }

@@ -31,7 +31,7 @@ public class TelescopeResource {
     public IntResponse getAlignmentMode(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getAlignmentMode(clientID).getMode());
+        return new IntResponse(getDevice(deviceNumber, clientID).getAlignmentMode().getMode());
     }
 
     @GET
@@ -39,7 +39,7 @@ public class TelescopeResource {
     public DoubleResponse getAltitude(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getAltitude(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getAltitude());
     }
 
     @GET
@@ -47,7 +47,7 @@ public class TelescopeResource {
     public DoubleResponse getApertureArea(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getApertureArea(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getApertureArea());
     }
 
     @GET
@@ -55,7 +55,7 @@ public class TelescopeResource {
     public DoubleResponse getApertureDiameter(@PathParam("deviceNumber") int deviceNumber,
                                               @QueryParam("ClientID") int clientID,
                                               @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getApertureDiameter(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getApertureDiameter());
     }
 
     @GET
@@ -63,7 +63,7 @@ public class TelescopeResource {
     public BooleanResponse isAtHome(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isAtHome(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isAtHome());
     }
 
     @GET
@@ -71,7 +71,7 @@ public class TelescopeResource {
     public BooleanResponse isAtPark(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isAtPark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isAtPark());
     }
 
     @GET
@@ -79,7 +79,7 @@ public class TelescopeResource {
     public DoubleResponse getAzimuth(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getAzimuth(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getAzimuth());
     }
 
     @GET
@@ -87,7 +87,7 @@ public class TelescopeResource {
     public BooleanResponse canFindHome(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canFindHome(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canFindHome());
     }
 
     @GET
@@ -95,7 +95,7 @@ public class TelescopeResource {
     public BooleanResponse canPark(@PathParam("deviceNumber") int deviceNumber,
                                    @QueryParam("ClientID") int clientID,
                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canPark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canPark());
     }
 
     @GET
@@ -103,7 +103,7 @@ public class TelescopeResource {
     public BooleanResponse canPulseGuide(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canPulseGuide(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canPulseGuide());
     }
 
     @GET
@@ -111,7 +111,7 @@ public class TelescopeResource {
     public BooleanResponse canSetDeclinationRate(@PathParam("deviceNumber") int deviceNumber,
                                                  @QueryParam("ClientID") int clientID,
                                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetDeclinationRate(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetDeclinationRate());
     }
 
     @GET
@@ -119,7 +119,7 @@ public class TelescopeResource {
     public BooleanResponse canSetGuideRates(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetGuideRates(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetGuideRates());
     }
 
     @GET
@@ -127,7 +127,7 @@ public class TelescopeResource {
     public BooleanResponse canSetPark(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetPark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetPark());
     }
 
     @GET
@@ -135,7 +135,7 @@ public class TelescopeResource {
     public BooleanResponse canSetPierSide(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetPierSide(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetPierSide());
     }
 
     @GET
@@ -143,7 +143,7 @@ public class TelescopeResource {
     public BooleanResponse canSetRightAscensionRate(@PathParam("deviceNumber") int deviceNumber,
                                                     @QueryParam("ClientID") int clientID,
                                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetRightAscensionRate(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetRightAscensionRate());
     }
 
     @GET
@@ -151,7 +151,7 @@ public class TelescopeResource {
     public BooleanResponse canSetTracking(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetTracking(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetTracking());
     }
 
     @GET
@@ -159,7 +159,7 @@ public class TelescopeResource {
     public BooleanResponse canSlew(@PathParam("deviceNumber") int deviceNumber,
                                    @QueryParam("ClientID") int clientID,
                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlew(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlew());
     }
 
     @GET
@@ -167,7 +167,7 @@ public class TelescopeResource {
     public BooleanResponse canSlewAltAz(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlewAltAz(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlewAltAz());
     }
 
     @GET
@@ -175,7 +175,7 @@ public class TelescopeResource {
     public BooleanResponse canSlewAltAzAsync(@PathParam("deviceNumber") int deviceNumber,
                                              @QueryParam("ClientID") int clientID,
                                              @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlewAltAzAsync(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlewAltAzAsync());
     }
 
     @GET
@@ -183,7 +183,7 @@ public class TelescopeResource {
     public BooleanResponse canSlewAsync(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlewAsync(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlewAsync());
     }
 
     @GET
@@ -191,7 +191,7 @@ public class TelescopeResource {
     public BooleanResponse canSync(@PathParam("deviceNumber") int deviceNumber,
                                    @QueryParam("ClientID") int clientID,
                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSync(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSync());
     }
 
     @GET
@@ -199,7 +199,7 @@ public class TelescopeResource {
     public BooleanResponse canSyncAltAz(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSyncAltAz(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSyncAltAz());
     }
 
     @GET
@@ -207,7 +207,7 @@ public class TelescopeResource {
     public BooleanResponse canUnpark(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canUnpark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canUnpark());
     }
 
     @GET
@@ -215,7 +215,7 @@ public class TelescopeResource {
     public DoubleResponse getDeclination(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getDeclination(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getDeclination());
     }
 
     @GET
@@ -223,7 +223,7 @@ public class TelescopeResource {
     public DoubleResponse getDeclinationRate(@PathParam("deviceNumber") int deviceNumber,
                                              @QueryParam("ClientID") int clientID,
                                              @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getDeclinationRate(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getDeclinationRate());
     }
 
     @PUT
@@ -232,7 +232,7 @@ public class TelescopeResource {
                                              @FormParam("DeclinationRate") double declinationRate,
                                              @FormParam("ClientID") int clientID,
                                              @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setDeclinationRate(declinationRate, clientID);
+        getDevice(deviceNumber, clientID).setDeclinationRate(declinationRate);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -241,7 +241,7 @@ public class TelescopeResource {
     public BooleanResponse doesRefraction(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).doesRefraction(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).doesRefraction());
     }
 
     @PUT
@@ -250,7 +250,7 @@ public class TelescopeResource {
                                             @FormParam("DoesRefraction") boolean doesRefraction,
                                             @FormParam("ClientID") int clientID,
                                             @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setDoesRefraction(doesRefraction, clientID);
+        getDevice(deviceNumber, clientID).setDoesRefraction(doesRefraction);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -259,7 +259,7 @@ public class TelescopeResource {
     public IntResponse getEquatorialSystem(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getEquatorialSystem(clientID).ordinal());
+        return new IntResponse(getDevice(deviceNumber, clientID).getEquatorialSystem().ordinal());
     }
 
     @GET
@@ -267,7 +267,7 @@ public class TelescopeResource {
     public DoubleResponse getFocalLength(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getFocalLength(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getFocalLength());
     }
 
     @GET
@@ -275,7 +275,7 @@ public class TelescopeResource {
     public DoubleResponse getGuideRateDeclination(@PathParam("deviceNumber") int deviceNumber,
                                                   @QueryParam("ClientID") int clientID,
                                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getGuideRateDeclination(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getGuideRateDeclination());
     }
 
     @PUT
@@ -284,7 +284,7 @@ public class TelescopeResource {
                                                   @FormParam("GuideRateDeclination") double guideRate,
                                                   @FormParam("ClientID") int clientID,
                                                   @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setGuideRateDeclination(guideRate, clientID);
+        getDevice(deviceNumber, clientID).setGuideRateDeclination(guideRate);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -293,7 +293,7 @@ public class TelescopeResource {
     public DoubleResponse getGuideRateRightAscension(@PathParam("deviceNumber") int deviceNumber,
                                                      @QueryParam("ClientID") int clientID,
                                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getGuideRateRightAscension(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getGuideRateRightAscension());
     }
 
     @PUT
@@ -302,7 +302,7 @@ public class TelescopeResource {
                                                      @FormParam("GuideRateRightAscension") double guideRate,
                                                      @FormParam("ClientID") int clientID,
                                                      @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setGuideRateRightAscension(guideRate, clientID);
+        getDevice(deviceNumber, clientID).setGuideRateRightAscension(guideRate);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -311,7 +311,7 @@ public class TelescopeResource {
     public BooleanResponse isPulseGuiding(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isPulseGuiding(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isPulseGuiding());
     }
 
     @GET
@@ -319,7 +319,7 @@ public class TelescopeResource {
     public DoubleResponse getRightAscension(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getRightAscension(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getRightAscension());
     }
 
     @GET
@@ -327,7 +327,7 @@ public class TelescopeResource {
     public DoubleResponse getRightAscensionRate(@PathParam("deviceNumber") int deviceNumber,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getRightAscensionRate(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getRightAscensionRate());
     }
 
     @PUT
@@ -336,7 +336,7 @@ public class TelescopeResource {
                                                 @FormParam("RightAscensionRate") double rightAscensionRate,
                                                 @FormParam("ClientID") int clientID,
                                                 @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setRightAscensionRate(rightAscensionRate, clientID);
+        getDevice(deviceNumber, clientID).setRightAscensionRate(rightAscensionRate);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -345,7 +345,7 @@ public class TelescopeResource {
     public IntResponse getSideOfPier(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getSideOfPier(clientID).getSide());
+        return new IntResponse(getDevice(deviceNumber, clientID).getSideOfPier().getSide());
     }
 
     @PUT
@@ -354,7 +354,7 @@ public class TelescopeResource {
                                         @FormParam("SideOfPier") int sideOfPier,
                                         @FormParam("ClientID") int clientID,
                                         @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setSideOfPier(PierSide.fromSide(sideOfPier), clientID);
+        getDevice(deviceNumber, clientID).setSideOfPier(PierSide.fromSide(sideOfPier));
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -363,7 +363,7 @@ public class TelescopeResource {
     public DoubleResponse getSiderealTime(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiderealTime(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiderealTime());
     }
 
     @GET
@@ -371,7 +371,7 @@ public class TelescopeResource {
     public DoubleResponse getSiteElevation(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiteElevation(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiteElevation());
     }
 
     @PUT
@@ -383,7 +383,7 @@ public class TelescopeResource {
         if (siteElevation < -300 || siteElevation > 10000) {
             throw new InvalidValueException("An elevation of " + siteElevation + " is out of bounds");
         }
-        getDevice(deviceNumber, clientID).setSiteElevation(siteElevation, clientID);
+        getDevice(deviceNumber, clientID).setSiteElevation(siteElevation);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -392,7 +392,7 @@ public class TelescopeResource {
     public DoubleResponse getSiteLatitude(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiteLatitude(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiteLatitude());
     }
 
     @PUT
@@ -404,7 +404,7 @@ public class TelescopeResource {
         if (siteLatitude < -90 || siteLatitude > 90) {
             throw new InvalidValueException("A latitude of " + siteLatitude + " is invalid");
         }
-        getDevice(deviceNumber, clientID).setSiteLatitude(siteLatitude, clientID);
+        getDevice(deviceNumber, clientID).setSiteLatitude(siteLatitude);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -413,7 +413,7 @@ public class TelescopeResource {
     public DoubleResponse getSiteLongitude(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiteLongitude(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSiteLongitude());
     }
 
     @PUT
@@ -425,7 +425,7 @@ public class TelescopeResource {
         if (siteLongitude < -180 || siteLongitude > 180) {
             throw new InvalidValueException("A longitude of " + siteLongitude + " is invalid");
         }
-        getDevice(deviceNumber, clientID).setSiteLongitude(siteLongitude, clientID);
+        getDevice(deviceNumber, clientID).setSiteLongitude(siteLongitude);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -434,7 +434,7 @@ public class TelescopeResource {
     public BooleanResponse isSlewing(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isSlewing(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isSlewing());
     }
 
     @GET
@@ -442,7 +442,7 @@ public class TelescopeResource {
     public IntResponse getSlewSettleTime(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getSlewSettleTime(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getSlewSettleTime());
     }
 
     @PUT
@@ -454,7 +454,7 @@ public class TelescopeResource {
         if (slewSettleTime < 0) {
             throw new InvalidValueException("the slew settle time cannot be less that zero");
         }
-        getDevice(deviceNumber, clientID).setSlewSettleTime(slewSettleTime, clientID);
+        getDevice(deviceNumber, clientID).setSlewSettleTime(slewSettleTime);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -463,7 +463,7 @@ public class TelescopeResource {
     public DoubleResponse getTargetDeclination(@PathParam("deviceNumber") int deviceNumber,
                                                @QueryParam("ClientID") int clientID,
                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getTargetDeclination(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getTargetDeclination());
     }
 
     @PUT
@@ -475,7 +475,7 @@ public class TelescopeResource {
         if (targetDeclination < -90 || targetDeclination > 90) {
             throw new InvalidValueException("The declination value of " + targetDeclination + " is invalid");
         }
-        getDevice(deviceNumber, clientID).setTargetDeclination(targetDeclination, clientID);
+        getDevice(deviceNumber, clientID).setTargetDeclination(targetDeclination);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -484,7 +484,7 @@ public class TelescopeResource {
     public DoubleResponse getTargetRightAscension(@PathParam("deviceNumber") int deviceNumber,
                                                   @QueryParam("ClientID") int clientID,
                                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getTargetRightAscension(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getTargetRightAscension());
     }
 
     @PUT
@@ -496,7 +496,7 @@ public class TelescopeResource {
         if (targetRightAscension < 0 || targetRightAscension > 24) {
             throw new InvalidValueException("The right ascension value of " + targetRightAscension + " is invalid");
         }
-        getDevice(deviceNumber, clientID).setTargetRightAscension(targetRightAscension, clientID);
+        getDevice(deviceNumber, clientID).setTargetRightAscension(targetRightAscension);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -505,7 +505,7 @@ public class TelescopeResource {
     public BooleanResponse isTracking(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isTracking(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isTracking());
     }
 
     @PUT
@@ -514,7 +514,7 @@ public class TelescopeResource {
                                       @FormParam("Tracking") boolean tracking,
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setTracking(tracking, clientID);
+        getDevice(deviceNumber, clientID).setTracking(tracking);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -523,7 +523,7 @@ public class TelescopeResource {
     public IntResponse getTrackingRate(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getTrackingRate(clientID).getRate());
+        return new IntResponse(getDevice(deviceNumber, clientID).getTrackingRate().getRate());
     }
 
     @PUT
@@ -532,7 +532,7 @@ public class TelescopeResource {
                                           @FormParam("TrackingRate") int trackingRate,
                                           @FormParam("ClientID") int clientID,
                                           @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setTrackingRate(DriveRate.fromRate(trackingRate), clientID);
+        getDevice(deviceNumber, clientID).setTrackingRate(DriveRate.fromRate(trackingRate));
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -541,7 +541,7 @@ public class TelescopeResource {
     public ListResponse<DriveRate> getTrackingRates(@PathParam("deviceNumber") int deviceNumber,
                                                     @QueryParam("ClientID") int clientID,
                                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getTrackingRates(clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getTrackingRates());
     }
 
     @GET
@@ -549,7 +549,7 @@ public class TelescopeResource {
     public StringResponse getUTCDate(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new StringResponse(getDevice(deviceNumber, clientID).getUTCDate(clientID));
+        return new StringResponse(getDevice(deviceNumber, clientID).getUTCDate());
     }
 
     @PUT
@@ -558,7 +558,7 @@ public class TelescopeResource {
                                      @FormParam("UTCDate") String utcDate,
                                      @FormParam("ClientID") int clientID,
                                      @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setUTCDate(utcDate, clientID);
+        getDevice(deviceNumber, clientID).setUTCDate(utcDate);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -567,7 +567,7 @@ public class TelescopeResource {
     public AlpacaResponse abortSlew(@PathParam("deviceNumber") int deviceNumber,
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).abortSlew(clientID);
+        getDevice(deviceNumber, clientID).abortSlew();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -577,7 +577,7 @@ public class TelescopeResource {
                                                @QueryParam("Axis") int axis,
                                                @QueryParam("ClientID") int clientID,
                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getAxisRates(axis, clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getAxisRates(axis));
     }
 
     @GET
@@ -586,7 +586,7 @@ public class TelescopeResource {
                                        @QueryParam("Axis") int axis,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canMoveAxis(axis, clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canMoveAxis(axis));
     }
 
     @GET
@@ -596,7 +596,7 @@ public class TelescopeResource {
                                                 @QueryParam("Declination") double declination,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getDestinationSideOfPier(rightAscension, declination, clientID).getSide());
+        return new IntResponse(getDevice(deviceNumber, clientID).getDestinationSideOfPier(rightAscension, declination).getSide());
     }
 
     @PUT
@@ -604,7 +604,7 @@ public class TelescopeResource {
     public AlpacaResponse findHome(@PathParam("deviceNumber") int deviceNumber,
                                    @FormParam("ClientID") int clientID,
                                    @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).findHome(clientID);
+        getDevice(deviceNumber, clientID).findHome();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -615,7 +615,7 @@ public class TelescopeResource {
                                    @FormParam("Rate") double rate,
                                    @FormParam("ClientID") int clientID,
                                    @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).moveAxis(axis, rate, clientID);
+        getDevice(deviceNumber, clientID).moveAxis(axis, rate);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -624,7 +624,7 @@ public class TelescopeResource {
     public AlpacaResponse park(@PathParam("deviceNumber") int deviceNumber,
                                @FormParam("ClientID") int clientID,
                                @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).park(clientID);
+        getDevice(deviceNumber, clientID).park();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -635,7 +635,7 @@ public class TelescopeResource {
                                      @FormParam("Duration") int duration,
                                      @FormParam("ClientID") int clientID,
                                      @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).pulseguide(direction, duration, clientID);
+        getDevice(deviceNumber, clientID).pulseguide(direction, duration);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -644,7 +644,7 @@ public class TelescopeResource {
     public AlpacaResponse setPark(@PathParam("deviceNumber") int deviceNumber,
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setPark(clientID);
+        getDevice(deviceNumber, clientID).setPark();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -655,11 +655,11 @@ public class TelescopeResource {
                                       @FormParam("Altitude") double altitude,
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID) {
-        if (getDevice(deviceNumber, clientID).isAtPark(clientID)) {
+        if (getDevice(deviceNumber, clientID).isAtPark()) {
             throw new InvalidWhileParkedException("Cannot slew to AltAz while mount is parked");
         }
 
-        getDevice(deviceNumber, clientID).slewToAltAz(direction, altitude, clientID);
+        getDevice(deviceNumber, clientID).slewToAltAz(direction, altitude);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -670,10 +670,10 @@ public class TelescopeResource {
                                            @FormParam("Altitude") double altitude,
                                            @FormParam("ClientID") int clientID,
                                            @FormParam("ClientTransactionID") long clientTransactionID) {
-        if (getDevice(deviceNumber, clientID).isAtPark(clientID)) {
+        if (getDevice(deviceNumber, clientID).isAtPark()) {
             throw new InvalidWhileParkedException("Cannot slew to AltAz while mount is parked");
         }
-        getDevice(deviceNumber, clientID).slewToAltAzAsync(direction, altitude, clientID);
+        getDevice(deviceNumber, clientID).slewToAltAzAsync(direction, altitude);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -684,7 +684,7 @@ public class TelescopeResource {
                                             @FormParam("Declination") double declination,
                                             @FormParam("ClientID") int clientID,
                                             @FormParam("ClientTransactionID") long clientTransactionID) {
-        if (getDevice(deviceNumber, clientID).isAtPark(clientID)) {
+        if (getDevice(deviceNumber, clientID).isAtPark()) {
             throw new InvalidWhileParkedException("Cannot slew to coordinates while mount is parked");
         }
         if (declination < -90 || declination > 90) {
@@ -693,7 +693,7 @@ public class TelescopeResource {
         if (rightAscension < 0 || rightAscension > 24) {
             throw new InvalidValueException("The right ascension value of " + rightAscension + " is invalid");
         }
-        getDevice(deviceNumber, clientID).slewToCoordinates(rightAscension, declination, clientID);
+        getDevice(deviceNumber, clientID).slewToCoordinates(rightAscension, declination);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -704,7 +704,7 @@ public class TelescopeResource {
                                                  @FormParam("Declination") double declination,
                                                  @FormParam("ClientID") int clientID,
                                                  @FormParam("ClientTransactionID") long clientTransactionID) {
-        if (getDevice(deviceNumber, clientID).isAtPark(clientID)) {
+        if (getDevice(deviceNumber, clientID).isAtPark()) {
             throw new InvalidWhileParkedException("Mount parked");
         }
         if (declination < -90 || declination > 90) {
@@ -713,7 +713,7 @@ public class TelescopeResource {
         if (rightAscension < 0 || rightAscension > 24) {
             throw new InvalidValueException("The right ascension value of " + rightAscension + " is invalid");
         }
-        getDevice(deviceNumber, clientID).slewToCoordinatesAsync(rightAscension, declination, clientID);
+        getDevice(deviceNumber, clientID).slewToCoordinatesAsync(rightAscension, declination);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -722,10 +722,10 @@ public class TelescopeResource {
     public AlpacaResponse slewToTarget(@PathParam("deviceNumber") int deviceNumber,
                                        @FormParam("ClientID") int clientID,
                                        @FormParam("ClientTransactionID") long clientTransactionID) {
-        if (getDevice(deviceNumber, clientID).isAtPark(clientID)) {
+        if (getDevice(deviceNumber, clientID).isAtPark()) {
             throw new InvalidWhileParkedException("Mount parked");
         }
-        getDevice(deviceNumber, clientID).slewToTarget(clientID);
+        getDevice(deviceNumber, clientID).slewToTarget();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -734,10 +734,10 @@ public class TelescopeResource {
     public AlpacaResponse slewToTargetAsync(@PathParam("deviceNumber") int deviceNumber,
                                             @FormParam("ClientID") int clientID,
                                             @FormParam("ClientTransactionID") long clientTransactionID) {
-        if (getDevice(deviceNumber, clientID).isAtPark(clientID)) {
+        if (getDevice(deviceNumber, clientID).isAtPark()) {
             throw new InvalidWhileParkedException("Mount parked");
         }
-        getDevice(deviceNumber, clientID).slewToTargetAsync(clientID);
+        getDevice(deviceNumber, clientID).slewToTargetAsync();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -748,7 +748,7 @@ public class TelescopeResource {
                                       @FormParam("Altitude") double altitude,
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).slewToAltAz(direction, altitude, clientID);
+        getDevice(deviceNumber, clientID).slewToAltAz(direction, altitude);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -765,7 +765,7 @@ public class TelescopeResource {
         if (rightAscension < 0 || rightAscension > 24) {
             throw new InvalidValueException("The right ascension value of " + rightAscension + " is invalid");
         }
-        getDevice(deviceNumber, clientID).syncToCoordinates(rightAscension, declination, clientID);
+        getDevice(deviceNumber, clientID).syncToCoordinates(rightAscension, declination);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -774,7 +774,7 @@ public class TelescopeResource {
     public AlpacaResponse syncToTarget(@PathParam("deviceNumber") int deviceNumber,
                                        @FormParam("ClientID") int clientID,
                                        @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).syncToTarget(clientID);
+        getDevice(deviceNumber, clientID).syncToTarget();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -783,7 +783,7 @@ public class TelescopeResource {
     public AlpacaResponse unpark(@PathParam("deviceNumber") int deviceNumber,
                                  @FormParam("ClientID") int clientID,
                                  @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).unpark(clientID);
+        getDevice(deviceNumber, clientID).unpark();
         return new AlpacaResponse(clientTransactionID);
     }
 }

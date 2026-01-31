@@ -51,8 +51,9 @@ public class CommonDeviceResource {
                                         @FormParam("ClientTransactionID") long clientTransactionID,
                                         @FormParam("Action") String action,
                                         @FormParam("Parameters") String parameters) {
-        String response = getDevice(deviceNumber, deviceType).executeAction(clientID, action, parameters);
-        return new StringResponse(clientTransactionID, response);
+        Device device = getDevice(deviceNumber, deviceType);
+        device.checkConnectionStatus(clientID);
+        return new StringResponse(clientTransactionID, device.executeAction(action, parameters));
     }
 
     @PUT
@@ -123,7 +124,7 @@ public class CommonDeviceResource {
 
         Device device = getDevice(deviceNumber, deviceType);
         device.checkConnectionStatus(clientID);
-        return new StringResponse(clientTransactionID, device.getDescription(clientID));
+        return new StringResponse(clientTransactionID, device.getDescription());
     }
 
     @GET
@@ -133,7 +134,7 @@ public class CommonDeviceResource {
                                                    @QueryParam("ClientID") int clientID,
                                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
         Device device = getDevice(deviceNumber, deviceType);
-        return new ListResponse<>(clientTransactionID, device.getDeviceState(clientID));
+        return new ListResponse<>(clientTransactionID, device.getDeviceState());
     }
 
     @GET
@@ -144,7 +145,7 @@ public class CommonDeviceResource {
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
-        return new StringResponse(clientTransactionID, device.getDriverInfo(clientID));
+        return new StringResponse(clientTransactionID, device.getDriverInfo());
     }
 
     @GET
@@ -155,7 +156,7 @@ public class CommonDeviceResource {
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
-        return new StringResponse(clientTransactionID, device.getDriverVersion(clientID));
+        return new StringResponse(clientTransactionID, device.getDriverVersion());
     }
 
     @GET
@@ -166,7 +167,7 @@ public class CommonDeviceResource {
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
-        return new IntResponse(clientTransactionID, device.getInterfaceVersion(clientID));
+        return new IntResponse(clientTransactionID, device.getInterfaceVersion());
     }
 
     @GET
@@ -177,7 +178,7 @@ public class CommonDeviceResource {
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
-        return new StringResponse(clientTransactionID, device.getName(clientID));
+        return new StringResponse(clientTransactionID, device.getName());
     }
 
     @GET
@@ -188,6 +189,6 @@ public class CommonDeviceResource {
                                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
 
         Device device = getDevice(deviceNumber, deviceType);
-        return new ListResponse<>(clientTransactionID, device.getSupportedActions(clientID));
+        return new ListResponse<>(clientTransactionID, device.getSupportedActions());
     }
 }

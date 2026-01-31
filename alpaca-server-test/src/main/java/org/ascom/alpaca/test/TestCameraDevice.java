@@ -56,37 +56,37 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public int getBayerOffsetX(int clientID) {
+    public int getBayerOffsetX() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getBayerOffsetY(int clientID) {
+    public int getBayerOffsetY() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getBinX(int clientID) {
+    public int getBinX() {
         return binx;
     }
 
     @Override
-    public void setBinX(int clientID, int binX) {
+    public void setBinX(int binX) {
         binx = binX;
     }
 
     @Override
-    public int getBinY(int clientID) {
+    public int getBinY() {
         return biny;
     }
 
     @Override
-    public void setBinY(int clientID, int binY) {
+    public void setBinY(int binY) {
         biny = binY;
     }
 
     @Override
-    public CameraState getCameraState(int clientID) {
+    public CameraState getCameraState() {
         if (state == CameraState.CameraExposing && System.currentTimeMillis() > exposureStartTime + exposureDuration) {
             state = CameraState.CameraReading;
             return CameraState.CameraExposing;
@@ -108,143 +108,143 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public int getCameraXSize(int clientID) {
+    public int getCameraXSize() {
         return sensorWidth;
     }
 
     @Override
-    public int getCameraYSize(int clientID) {
+    public int getCameraYSize() {
         return sensorHeight;
     }
 
     @Override
-    public boolean canAbortExposure(int clientID) {
+    public boolean canAbortExposure() {
         return true;
     }
 
     @Override
-    public boolean canAsymmetricBin(int clientID) {
+    public boolean canAsymmetricBin() {
         return false;
     }
 
     @Override
-    public boolean canFastReadout(int clientID) {
+    public boolean canFastReadout() {
         return false;
     }
 
     @Override
-    public boolean canGetCoolerPower(int clientID) {
+    public boolean canGetCoolerPower() {
         return false;
     }
 
     @Override
-    public boolean canPulseGuide(int clientID) {
+    public boolean canPulseGuide() {
         return false;
     }
 
     @Override
-    public boolean canSetCCDTemperature(int clientID) {
+    public boolean canSetCCDTemperature() {
         return true;
     }
 
     @Override
-    public boolean canStopExposure(int clientID) {
+    public boolean canStopExposure() {
         return false;
     }
 
     @Override
-    public double getCCDTemperature(int clientID) {
+    public double getCCDTemperature() {
         return ccdTemp;
     }
 
     @Override
-    public boolean isCoolerOn(int clientID) {
+    public boolean isCoolerOn() {
         return coolerOn;
     }
 
     @Override
-    public void setCoolerOn(int clientID, boolean coolerOn) {
+    public void setCoolerOn(boolean coolerOn) {
         this.coolerOn = coolerOn;
     }
 
     @Override
-    public int getCoolerPower(int clientID) {
+    public int getCoolerPower() {
         return 0;
     }
 
     @Override
-    public double getElectronsPerADU(int clientID) {
+    public double getElectronsPerADU() {
         return 1.5;
     }
 
     @Override
-    public double getExposureMax(int clientID) {
+    public double getExposureMax() {
         return 600;
     }
 
     @Override
-    public double getExposureMin(int clientID) {
+    public double getExposureMin() {
         return 1;
     }
 
     @Override
-    public double getExposureResolution(int clientID) {
+    public double getExposureResolution() {
         return 1;
     }
 
     @Override
-    public boolean getFastReadout(int clientID) {
+    public boolean getFastReadout() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public void setFastReadout(int clientID, boolean fastReadout) {
+    public void setFastReadout(boolean fastReadout) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public double getFullWellCapacity(int clientID) {
+    public double getFullWellCapacity() {
         return 32000;
     }
 
     @Override
-    public int getGain(int clientID) {
+    public int getGain() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public void setGain(int clientID, int gain) {
+    public void setGain(int gain) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getGainMax(int clientID) {
+    public int getGainMax() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getGainMin(int clientID) {
+    public int getGainMin() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public List<String> getGains(int clientID) {
+    public List<String> getGains() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public boolean hasShutter(int clientID) {
+    public boolean hasShutter() {
         return false;
     }
 
     @Override
-    public double getHeatSinkTemperature(int clientID) {
+    public double getHeatSinkTemperature() {
         return 14.1;
     }
 
     @Override
-    public ImageArray getImageArray(int clientID) {
-        getCameraState(clientID);
+    public ImageArray getImageArray() {
+        getCameraState();
         if (!imageReady) {
             throw new InvalidOperationException("No image ready");
         }
@@ -253,23 +253,23 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public byte[] getImageBytes(int clientID) {
+    public byte[] getImageBytes() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public boolean isImageReady(int clientID) {
-        getCameraState(clientID);
+    public boolean isImageReady() {
+        getCameraState();
         return imageReady;
     }
 
     @Override
-    public boolean isPulseGuiding(int clientID) {
+    public boolean isPulseGuiding() {
         return false;
     }
 
     @Override
-    public double getLastExposureDuration(int clientID) {
+    public double getLastExposureDuration() {
         if (lastExposureDuration == 0) {
             throw new InvalidOperationException("No last exposure");
         }
@@ -277,7 +277,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public String getLastExposureStartTime(int clientID) {
+    public String getLastExposureStartTime() {
         if (lastExposureStartTime == 0) {
             throw new InvalidOperationException("No last exposure");
         }
@@ -288,67 +288,67 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public int getMaxADU(int clientID) {
+    public int getMaxADU() {
         return 40000;
     }
 
     @Override
-    public int getMaxBinX(int clientID) {
+    public int getMaxBinX() {
         return maxBinX;
     }
 
     @Override
-    public int getMaxBinY(int clientID) {
+    public int getMaxBinY() {
         return maxBinY;
     }
 
     @Override
-    public int getNumX(int clientID) {
+    public int getNumX() {
         return numX;
     }
 
     @Override
-    public void setNumX(int clientID, int numX) {
+    public void setNumX(int numX) {
         this.numX = numX;
     }
 
     @Override
-    public int getNumY(int clientID) {
+    public int getNumY() {
         return numY;
     }
 
     @Override
-    public void setNumY(int clientID, int numY) {
+    public void setNumY(int numY) {
         this.numY = numY;
     }
 
     @Override
-    public int getOffset(int clientID) {
+    public int getOffset() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public void setOffset(int clientID, int offset) {
+    public void setOffset(int offset) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getOffsetMax(int clientID) {
+    public int getOffsetMax() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getOffsetMin(int clientID) {
+    public int getOffsetMin() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public List<String> getOffsets(int clientID) {
+    public List<String> getOffsets() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public int getPercentCompleted(int clientID) {
+    public int getPercentCompleted() {
         if (exposureStartTime > 0) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - exposureStartTime;
@@ -361,47 +361,47 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public double getPixelSizeX(int clientID) {
+    public double getPixelSizeX() {
         return 5;
     }
 
     @Override
-    public double getPixelSizeY(int clientID) {
+    public double getPixelSizeY() {
         return 5;
     }
 
     @Override
-    public int getReadoutMode(int clientID) {
+    public int getReadoutMode() {
         return readoutMode;
     }
 
     @Override
-    public void setReadoutMode(int clientID, int readoutMode) {
+    public void setReadoutMode(int readoutMode) {
         this.readoutMode = readoutMode;
     }
 
     @Override
-    public List<String> getReadoutModes(int clientID) {
+    public List<String> getReadoutModes() {
         return List.of("Normal");
     }
 
     @Override
-    public String getSensorName(int clientID) {
+    public String getSensorName() {
         return "XYZ2000";
     }
 
     @Override
-    public SensorType getSensorType(int clientID) {
+    public SensorType getSensorType() {
         return SensorType.Monochrome;
     }
 
     @Override
-    public double getSetCCDTemperature(int clientID) {
+    public double getSetCCDTemperature() {
         return setCCDTemp;
     }
 
     @Override
-    public void setCCDTemperature(int clientID, double setCCDTemperature) {
+    public void setCCDTemperature(double setCCDTemperature) {
         if (setCCDTemperature < -20 || setCCDTemperature > 50) {
             throw new InvalidValueException("Invalid temperature");
         }
@@ -410,32 +410,32 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public int getStartX(int clientID) {
+    public int getStartX() {
         return startx;
     }
 
     @Override
-    public void setStartX(int clientID, int startX) {
+    public void setStartX(int startX) {
         this.startx = startX;
     }
 
     @Override
-    public int getStartY(int clientID) {
+    public int getStartY() {
         return starty;
     }
 
     @Override
-    public void setStartY(int clientID, int startY) {
+    public void setStartY(int startY) {
         this.starty = startY;
     }
 
     @Override
-    public double getSubExposureDuration(int clientID) {
+    public double getSubExposureDuration() {
         return subExposureDuration;
     }
 
     @Override
-    public void setSubExposureDuration(int clientID, double subExposureDuration) {
+    public void setSubExposureDuration(double subExposureDuration) {
         if (subExposureDuration <=0 || subExposureDuration > exposureDuration) {
             throw new InvalidValueException("Invalid duration");
         }
@@ -443,17 +443,17 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public void abortExposure(int clientID) {
+    public void abortExposure() {
         state = CameraState.CameraIdle;
     }
 
     @Override
-    public void pulseGuide(int clientID, int direction, int duration) {
+    public void pulseGuide(int direction, int duration) {
         throw new PropertyNotImplementedException("not implemented");
     }
 
     @Override
-    public void startExposure(int clientID, double duration, boolean light) {
+    public void startExposure(double duration, boolean light) {
         if (duration < 0 || duration > this.maxDuration) {
             throw new InvalidValueException("invalid duration");
         }
@@ -485,7 +485,7 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     }
 
     @Override
-    public void stopExposure(int clientID) {
+    public void stopExposure() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 }

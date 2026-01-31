@@ -34,7 +34,7 @@ public class TestSafetyMonitorDevice extends BaseDevice implements SafetyMonitor
     }
 
     @Override
-    public boolean isSafe(int clientID) {
+    public boolean isSafe() {
         return isSafe;
     }
 

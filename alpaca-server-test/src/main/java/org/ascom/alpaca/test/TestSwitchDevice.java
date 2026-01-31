@@ -52,80 +52,78 @@ public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
     }
 
     @Override
-    public int getMaxSwitch(int clientID) {
+    public int getMaxSwitch() {
         return switches.size();
     }
 
     @Override
-    public boolean canAsync(int switchID,
-                            int clientID) {
+    public boolean canAsync(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).canAsync;
     }
 
     @Override
-    public boolean canWrite(int switchID,
-                            int clientID) {
+    public boolean canWrite(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).canWrite;
     }
 
     @Override
-    public boolean getSwitchState(int switchID,int clientID) {
+    public boolean getSwitchState(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).state;
     }
 
     @Override
-    public String getSwitchDescription(int switchID, int clientID) {
+    public String getSwitchDescription(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).description;
     }
 
     @Override
-    public String getSwitchName(int switchID, int clientID) {
+    public String getSwitchName(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).name;
     }
 
     @Override
-    public double getSwitchValue(int switchID, int clientID) {
+    public double getSwitchValue(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).value;
     }
 
     @Override
-    public double getMinSwitchValue(int switchID, int clientID) {
+    public double getMinSwitchValue(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).minSwitchValue;
     }
 
     @Override
-    public double getMaxSwitchValue(int switchID, int clientID) {
+    public double getMaxSwitchValue(int switchID) {
         checkSwitch(switchID);
         return switches.get(switchID).maxSwitchValue;
     }
 
     @Override
-    public boolean isStateChangeComplete(int switchID, int clientID) {
+    public boolean isStateChangeComplete(int switchID) {
         checkSwitch(switchID);
         return true;
     }
 
     @Override
-    public void cancelAsync(int switchID, int clientID) {
+    public void cancelAsync(int switchID) {
         checkSwitch(switchID);
     }
 
     @Override
-    public void setAsync(int switchID, boolean state, int clientID) {
+    public void setAsync(int switchID, boolean state) {
         checkSwitch(switchID);
         switches.get(switchID).state = state;
         switches.get(switchID).value = state ? switches.get(switchID).maxSwitchValue: switches.get(switchID).minSwitchValue;
     }
 
     @Override
-    public void setAsyncValue(int switchID, int value, int clientID) {
+    public void setAsyncValue(int switchID, int value) {
         checkSwitch(switchID);
         Switch s = switches.get(switchID);
         if (value < s.minSwitchValue || value > s.maxSwitchValue) {
@@ -136,20 +134,20 @@ public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
     }
 
     @Override
-    public void setSwitchState(int switchID, boolean state, int clientID) {
+    public void setSwitchState(int switchID, boolean state) {
         checkSwitch(switchID);
         switches.get(switchID).state = state;
         switches.get(switchID).value = state ? switches.get(switchID).maxSwitchValue: switches.get(switchID).minSwitchValue;
     }
 
     @Override
-    public void setSwitchName(int switchID, String switchName, int clientID) {
+    public void setSwitchName(int switchID, String switchName) {
         checkSwitch(switchID);
         switches.get(switchID).name = switchName;
     }
 
     @Override
-    public void setSwitchValue(int switchID, double value, int clientID) {
+    public void setSwitchValue(int switchID, double value) {
         checkSwitch(switchID);
         Switch s = switches.get(switchID);
         if (value < s.minSwitchValue) {
@@ -163,7 +161,7 @@ public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
     }
 
     @Override
-    public double getSwitchStep(int switchID, int clientID) {
+    public double getSwitchStep(int switchID) {
         checkSwitch(switchID);
         return 1;
     }

@@ -55,102 +55,101 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
     }
 
     @Override
-    public List<StateValue> getDeviceState(int clientID) {
-        checkConnectionStatus(clientID);
+    public List<StateValue> getDeviceState() {
         List<StateValue> deviceState = new ArrayList<>();
-        deviceState.add(new StateValue("DewPoint", getDewPoint(clientID)));
-        deviceState.add(new StateValue("Humidity", getHumidity(clientID)));
-        deviceState.add(new StateValue("Pressure", getPressure(clientID)));
-        deviceState.add(new StateValue("RainRate", getRainRate(clientID)));
-        deviceState.add(new StateValue("Temperature", getTemperature(clientID)));
-        deviceState.add(new StateValue("WindDirection", getWindDirection(clientID)));
-        deviceState.add(new StateValue("WindGust", getWindGust(clientID)));
-        deviceState.add(new StateValue("WindSpeed", getWindSpeed(clientID)));
+        deviceState.add(new StateValue("DewPoint", getDewPoint()));
+        deviceState.add(new StateValue("Humidity", getHumidity()));
+        deviceState.add(new StateValue("Pressure", getPressure()));
+        deviceState.add(new StateValue("RainRate", getRainRate()));
+        deviceState.add(new StateValue("Temperature", getTemperature()));
+        deviceState.add(new StateValue("WindDirection", getWindDirection()));
+        deviceState.add(new StateValue("WindGust", getWindGust()));
+        deviceState.add(new StateValue("WindSpeed", getWindSpeed()));
         return deviceState;
     }
 
     @Override
-    public double getAveragePeriod(int clientID) {
+    public double getAveragePeriod() {
         return 300;
     }
 
     @Override
-    public void setAveragePeriod(int clientID, double averagePeriod) {
+    public void setAveragePeriod(double averagePeriod) {
         log.info("Setting average interval to {}", averagePeriod);
     }
 
     @Override
-    public double getCloudCover(int clientID) {
+    public double getCloudCover() {
         return cloudCoverage;
     }
 
     @Override
-    public double getDewPoint(int clientID) {
+    public double getDewPoint() {
         return dewPoint;
     }
 
     @Override
-    public double getHumidity(int clientID) {
+    public double getHumidity() {
         return humidity;
     }
 
     @Override
-    public double getPressure(int clientID) {
+    public double getPressure() {
         return pressure;
     }
 
     @Override
-    public double getRainRate(int clientID) {
+    public double getRainRate() {
         return rainRate;
     }
 
     @Override
-    public double getSkyBrightness(int clientID) {
+    public double getSkyBrightness() {
         return skyBrightness;
     }
 
     @Override
-    public double getSkyQuality(int clientID) {
+    public double getSkyQuality() {
         return skyQuality;
     }
 
     @Override
-    public double getSkyTemperature(int clientID) {
+    public double getSkyTemperature() {
         return skyTemperature;
     }
 
     @Override
-    public double getStarFWHM(int clientID) {
+    public double getStarFWHM() {
         return starFWHM;
     }
 
     @Override
-    public double getTemperature(int clientID) {
+    public double getTemperature() {
         return temperature;
     }
 
     @Override
-    public double getWindDirection(int clientID) {
+    public double getWindDirection() {
         return windDirection;
     }
 
     @Override
-    public double getWindGust(int clientID) {
+    public double getWindGust() {
         return windGust;
     }
 
     @Override
-    public double getWindSpeed(int clientID) {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
     @Override
-    public void refresh(int clientID) {
+    public void refresh() {
         lastUpdate = System.currentTimeMillis();
     }
 
     @Override
-    public String getSensorDescription(int clientID, String sensorName) {
+    public String getSensorDescription(String sensorName) {
         if (sensorName == null || sensorName.isEmpty()) {
             throw new InvalidValueException("A sensor name was not supplied");
         }
@@ -162,7 +161,7 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
     }
 
     @Override
-    public double getTimeSinceLastUpdate(int clientID, String sensorName) {
+    public double getTimeSinceLastUpdate(String sensorName) {
         long curTime = System.currentTimeMillis();
         long duration = (curTime - lastUpdate)/1000;
         if (duration > 300) {
@@ -172,16 +171,16 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
     }
 
     @Override
-    public String executeAction(int clientID, String action, String parameters) {
+    public String executeAction(String action, String parameters) {
         if (action.equalsIgnoreCase("testAction")) {
-            return testAction(clientID, parameters);
+            return testAction(parameters);
         } else {
             throw new ActionNotImplementedException("Unknown action: " + action);
         }
     }
 
-    public String testAction(int clientID, String parameters) {
-        log.info("Executing testAction from ClientID={} - {}", clientID, parameters);
+    public String testAction(String parameters) {
+        log.info("Executing testAction {}", parameters);
         return "Hi there " + parameters;
     }
 }

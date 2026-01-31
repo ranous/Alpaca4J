@@ -30,7 +30,7 @@ public class CoverCalibratorResource {
     public IntResponse getBrightness(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getBrightness(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getBrightness());
     }
 
     @GET
@@ -38,7 +38,7 @@ public class CoverCalibratorResource {
     public BooleanResponse isCalibratorChanging(@PathParam("deviceNumber") int deviceNumber,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isCalibratorChanging(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isCalibratorChanging());
     }
 
     @GET
@@ -46,7 +46,7 @@ public class CoverCalibratorResource {
     public ValueResponse<CalibratorState> getCalibratorState(@PathParam("deviceNumber") int deviceNumber,
                                                              @QueryParam("ClientID") int clientID,
                                                              @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ValueResponse<>(getDevice(deviceNumber, clientID).getCalibratorState(clientID));
+        return new ValueResponse<>(getDevice(deviceNumber, clientID).getCalibratorState());
     }
 
     @GET
@@ -54,7 +54,7 @@ public class CoverCalibratorResource {
     public BooleanResponse isCoverMoving(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isCoverMoving(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isCoverMoving());
     }
 
     @GET
@@ -62,7 +62,7 @@ public class CoverCalibratorResource {
     public ValueResponse<CoverState> getCoverState(@PathParam("deviceNumber") int deviceNumber,
                                                    @QueryParam("ClientID") int clientID,
                                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ValueResponse<>(getDevice(deviceNumber, clientID).getCoverState(clientID));
+        return new ValueResponse<>(getDevice(deviceNumber, clientID).getCoverState());
     }
 
     @GET
@@ -70,7 +70,7 @@ public class CoverCalibratorResource {
     public IntResponse getMaxBrightness(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getMaxBrightness(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getMaxBrightness());
     }
 
     @PUT
@@ -79,7 +79,7 @@ public class CoverCalibratorResource {
     public AlpacaResponse turnCalibratorOff(@PathParam("deviceNumber") int deviceNumber,
                                             @FormParam("ClientID") int clientID,
                                             @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).turnCalibratorOff(clientID);
+        getDevice(deviceNumber, clientID).turnCalibratorOff();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -93,7 +93,7 @@ public class CoverCalibratorResource {
         if (brightness < 0) {
             throw new InvalidValueException("Invalid altitude, must be no less than zero or greater than 90");
         }
-        getDevice(deviceNumber, clientID).turnCalibratorOn(clientID, brightness);
+        getDevice(deviceNumber, clientID).turnCalibratorOn(brightness);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -103,7 +103,7 @@ public class CoverCalibratorResource {
     public AlpacaResponse closeCover(@PathParam("deviceNumber") int deviceNumber,
                                      @FormParam("ClientID") int clientID,
                                      @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).closeCover(clientID);
+        getDevice(deviceNumber, clientID).closeCover();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -113,7 +113,7 @@ public class CoverCalibratorResource {
     public AlpacaResponse haltCover(@PathParam("deviceNumber") int deviceNumber,
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).haltCover(clientID);
+        getDevice(deviceNumber, clientID).haltCover();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -122,7 +122,7 @@ public class CoverCalibratorResource {
     public AlpacaResponse openCover(@PathParam("deviceNumber") int deviceNumber,
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).openCover(clientID);
+        getDevice(deviceNumber, clientID).openCover();
         return new AlpacaResponse(clientTransactionID);
     }
 }

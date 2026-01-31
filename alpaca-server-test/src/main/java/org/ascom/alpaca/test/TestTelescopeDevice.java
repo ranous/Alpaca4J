@@ -44,257 +44,257 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public AlignmentMode getAlignmentMode(int clientID) {
+    public AlignmentMode getAlignmentMode() {
         return AlignmentMode.GermanPolar;
     }
 
     @Override
-    public double getAltitude(int clientID) {
+    public double getAltitude() {
         return alt;
     }
 
     @Override
-    public double getApertureArea(int clientID) {
+    public double getApertureArea() {
         return .013266F;
     }
 
     @Override
-    public double getApertureDiameter(int clientID) {
+    public double getApertureDiameter() {
         return .130F;
     }
 
     @Override
-    public boolean isAtHome(int clientID) {
+    public boolean isAtHome() {
         return atHome;
     }
 
     @Override
-    public boolean isAtPark(int clientID) {
+    public boolean isAtPark() {
         return atPark;
     }
 
     @Override
-    public double getAzimuth(int clientID) {
+    public double getAzimuth() {
         return az;
     }
 
     @Override
-    public boolean canFindHome(int clientID) {
+    public boolean canFindHome() {
         return true;
     }
 
     @Override
-    public boolean canPark(int clientID) {
+    public boolean canPark() {
         return true;
     }
 
     @Override
-    public boolean canPulseGuide(int clientID) {
+    public boolean canPulseGuide() {
         return true;
     }
 
     @Override
-    public boolean canSetDeclinationRate(int clientID) {
+    public boolean canSetDeclinationRate() {
         return false;
     }
 
     @Override
-    public boolean canSetGuideRates(int clientID) {
+    public boolean canSetGuideRates() {
         return false;
     }
 
     @Override
-    public boolean canSetPark(int clientID) {
+    public boolean canSetPark() {
         return false;
     }
 
     @Override
-    public boolean canSetPierSide(int clientID) {
+    public boolean canSetPierSide() {
         return true;
     }
 
     @Override
-    public boolean canSetRightAscensionRate(int clientID) {
+    public boolean canSetRightAscensionRate() {
         return false;
     }
 
     @Override
-    public boolean canSetTracking(int clientID) {
+    public boolean canSetTracking() {
         return true;
     }
 
     @Override
-    public boolean canSlew(int clientID) {
+    public boolean canSlew() {
         return true;
     }
 
     @Override
-    public boolean canSlewAltAz(int clientID) {
+    public boolean canSlewAltAz() {
         return false;
     }
 
     @Override
-    public boolean canSlewAltAzAsync(int clientID) {
+    public boolean canSlewAltAzAsync() {
         return false;
     }
 
     @Override
-    public boolean canSlewAsync(int clientID) {
+    public boolean canSlewAsync() {
         return true;
     }
 
     @Override
-    public boolean canSync(int clientID) {
+    public boolean canSync() {
         return true;
     }
 
     @Override
-    public boolean canSyncAltAz(int clientID) {
+    public boolean canSyncAltAz() {
         return false;
     }
 
     @Override
-    public boolean canUnpark(int clientID) {
+    public boolean canUnpark() {
         return true;
     }
 
     @Override
-    public double getDeclination(int clientID) {
+    public double getDeclination() {
         return dec;
     }
 
     @Override
-    public double getDeclinationRate(int clientID) {
+    public double getDeclinationRate() {
         return 0.0F;
     }
 
     @Override
-    public void setDeclinationRate(double declinationRate, int clientID) {
+    public void setDeclinationRate(double declinationRate) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public boolean doesRefraction(int clientID) {
+    public boolean doesRefraction() {
         return doesRefraction;
     }
 
     @Override
-    public void setDoesRefraction(boolean doesRefraction, int clientID) {
+    public void setDoesRefraction(boolean doesRefraction) {
         this.doesRefraction = doesRefraction;
     }
 
     @Override
-    public EquatorialCoordinateType getEquatorialSystem(int clientID) {
+    public EquatorialCoordinateType getEquatorialSystem() {
         return EquatorialCoordinateType.J2000;
     }
 
     @Override
-    public double getFocalLength(int clientID) {
+    public double getFocalLength() {
         return .819F;
     }
 
     @Override
-    public double getGuideRateDeclination(int clientID) {
+    public double getGuideRateDeclination() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public void setGuideRateDeclination(double guideRate, int clientID) {
+    public void setGuideRateDeclination(double guideRate) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public double getGuideRateRightAscension(int clientID) {
+    public double getGuideRateRightAscension() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public void setGuideRateRightAscension(double guideRate, int clientID) {
+    public void setGuideRateRightAscension(double guideRate) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public boolean isPulseGuiding(int clientID) {
+    public boolean isPulseGuiding() {
         return false;
     }
 
     @Override
-    public double getRightAscension(int clientID) {
+    public double getRightAscension() {
         return ra;
     }
 
     @Override
-    public double getRightAscensionRate(int clientID) {
+    public double getRightAscensionRate() {
         return 0.0F;
     }
 
     @Override
-    public void setRightAscensionRate(double rightAscensionRate, int clientID) {
+    public void setRightAscensionRate(double rightAscensionRate) {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public PierSide getSideOfPier(int clientID) {
+    public PierSide getSideOfPier() {
         return pierSide;
     }
 
     @Override
-    public void setSideOfPier(PierSide sideOfPier, int clientID) {
+    public void setSideOfPier(PierSide sideOfPier) {
         pierSide = sideOfPier;
     }
 
     @Override
-    public double getSiderealTime(int clientID) {
+    public double getSiderealTime() {
         return meanSiderealTime(new Date(), longitude);
     }
 
     @Override
-    public double getSiteElevation(int clientID) {
+    public double getSiteElevation() {
         return siteElevation;
     }
 
     @Override
-    public void setSiteElevation(double siteElevation, int clientID) {
+    public void setSiteElevation(double siteElevation) {
         this.siteElevation = siteElevation;
     }
 
     @Override
-    public double getSiteLatitude(int clientID) {
+    public double getSiteLatitude() {
         return lat;
     }
 
     @Override
-    public void setSiteLatitude(double siteLatitude, int clientID) {
+    public void setSiteLatitude(double siteLatitude) {
         lat = siteLatitude;
     }
 
     @Override
-    public double getSiteLongitude(int clientID) {
+    public double getSiteLongitude() {
         return longitude;
     }
 
     @Override
-    public void setSiteLongitude(double siteLongitude, int clientID) {
+    public void setSiteLongitude(double siteLongitude) {
         longitude = siteLongitude;
     }
 
     @Override
-    public boolean isSlewing(int clientID) {
+    public boolean isSlewing() {
         return false;
     }
 
     @Override
-    public int getSlewSettleTime(int clientID) {
+    public int getSlewSettleTime() {
         return slewSettleTime;
     }
 
     @Override
-    public void setSlewSettleTime(int slewSettleTime, int clientID) {
+    public void setSlewSettleTime(int slewSettleTime) {
         this.slewSettleTime = slewSettleTime;
     }
 
     @Override
-    public double getTargetDeclination(int clientID) {
+    public double getTargetDeclination() {
         if (targetDec == null) {
             throw new InvalidOperationException("Target Declination not set");
         }
@@ -302,12 +302,12 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public void setTargetDeclination(double targetDeclination, int clientID) {
+    public void setTargetDeclination(double targetDeclination) {
         targetDec = targetDeclination;
     }
 
     @Override
-    public double getTargetRightAscension(int clientID) {
+    public double getTargetRightAscension() {
         if (targetRa == null) {
             throw new InvalidOperationException("Target Right Ascension not set");
         }
@@ -315,17 +315,17 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public void setTargetRightAscension(double targetRightAscension, int clientID) {
+    public void setTargetRightAscension(double targetRightAscension) {
         this.targetRa = targetRightAscension;
     }
 
     @Override
-    public boolean isTracking(int clientID) {
+    public boolean isTracking() {
         return isTracking;
     }
 
     @Override
-    public void setTracking(boolean tracking, int clientID) {
+    public void setTracking(boolean tracking) {
         if (atPark && tracking) {
             throw new InvalidWhileParkedException("Cannot set tracking while mount is parked");
         }
@@ -333,12 +333,12 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public DriveRate getTrackingRate(int clientID) {
+    public DriveRate getTrackingRate() {
         return currentDriveRate;
     }
 
     @Override
-    public void setTrackingRate(DriveRate trackingRate, int clientID) {
+    public void setTrackingRate(DriveRate trackingRate) {
         if (!supportedDriveRates.contains(trackingRate)) {
             throw new InvalidValueException("The tracking rate " + trackingRate + " is not supported");
         }
@@ -346,29 +346,29 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public List<DriveRate> getTrackingRates(int clientID) {
+    public List<DriveRate> getTrackingRates() {
         return supportedDriveRates;
     }
 
     @Override
-    public String getUTCDate(int clientID) {
+    public String getUTCDate() {
         return ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT);
     }
 
     @Override
-    public void setUTCDate(String utcDate, int clientID) {
+    public void setUTCDate(String utcDate) {
         // Ignore this
     }
 
     @Override
-    public void abortSlew(int clientID) {
+    public void abortSlew() {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot abort slew when parked");
         }
     }
 
     @Override
-    public List<AxisRate> getAxisRates(int axis, int clientID) {
+    public List<AxisRate> getAxisRates(int axis) {
         if (axis < 0 || axis > 1) {
             throw new InvalidValueException("The axis " + axis + " is not supported");
         }
@@ -376,17 +376,17 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public boolean canMoveAxis(int axis, int clientID) {
+    public boolean canMoveAxis(int axis) {
         return axis == 0 || axis == 1;
     }
 
     @Override
-    public PierSide getDestinationSideOfPier(double rightAscension, double declinatino, int clientID) {
+    public PierSide getDestinationSideOfPier(double rightAscension, double declinatino) {
         return PierSide.West;
     }
 
     @Override
-    public void findHome(int clientID) {
+    public void findHome() {
         if (atPark) {
             throw new InvalidWhileParkedException("Mount parked");
         }
@@ -394,7 +394,7 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public void moveAxis(int axis, double rate, int clientID) {
+    public void moveAxis(int axis, double rate) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot move mount axis while parked");
         }
@@ -416,89 +416,89 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public void park(int clientID) {
+    public void park() {
         atPark = true;
         atHome = true;
         isTracking = false;
     }
 
     @Override
-    public void pulseguide(int direction, int duration, int clientID) {
+    public void pulseguide(int direction, int duration) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot pulse guide while mount is parked");
         }
     }
 
     @Override
-    public void setPark(int clientID) {
+    public void setPark() {
         throw new PropertyNotImplementedException("Not implemented");
     }
 
     @Override
-    public void slewToAltAz(double direction, double altitude, int clientID) {
+    public void slewToAltAz(double direction, double altitude) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot slew AltAz while mount is parked");
         }
     }
 
     @Override
-    public void slewToAltAzAsync(double direction, double altitude, int clientID) {
+    public void slewToAltAzAsync(double direction, double altitude) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot slew AltAz while mount is parked");
         }
     }
 
     @Override
-    public void slewToCoordinates(double rightAscension, double declination, int clientID) {
+    public void slewToCoordinates(double rightAscension, double declination) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot slew to coordinates while mount is parked");
         }
     }
 
     @Override
-    public void slewToCoordinatesAsync(double rightAscension, double declination, int clientID) {
+    public void slewToCoordinatesAsync(double rightAscension, double declination) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot slew to coordinates while mount is parked");
         }
     }
 
     @Override
-    public void slewToTarget(int clientID) {
+    public void slewToTarget() {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot slew to target while mount is parked");
         }
     }
 
     @Override
-    public void slewToTargetAsync(int clientID) {
+    public void slewToTargetAsync() {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot slew to target while mount is parked");
         }
     }
 
     @Override
-    public void syncToAltAz(double direction, double altitude, int clientID) {
+    public void syncToAltAz(double direction, double altitude) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot sync to AltAz while mount is parked");
         }
     }
 
     @Override
-    public void syncToCoordinates(double rightAscension, double declination, int clientID) {
+    public void syncToCoordinates(double rightAscension, double declination) {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot sync to coordinates while mount is parked");
         }
     }
 
     @Override
-    public void syncToTarget(int clientID) {
+    public void syncToTarget() {
         if (atPark) {
             throw new InvalidWhileParkedException("Cannot sync to target while mount is parked");
         }
     }
 
     @Override
-    public void unpark(int clientID) {
+    public void unpark() {
         atPark = false;
         isTracking = true;
     }

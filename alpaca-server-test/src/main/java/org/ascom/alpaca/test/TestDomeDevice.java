@@ -47,142 +47,141 @@ public class TestDomeDevice extends BaseDevice implements DomeDevice {
     }
 
     @Override
-    public List<StateValue> getDeviceState(int clientID) {
-        checkConnectionStatus(clientID);
+    public List<StateValue> getDeviceState() {
         List<StateValue> deviceState = new ArrayList<>();
-        deviceState.add(new StateValue("Altitude", getAltitude(clientID)));
-        deviceState.add(new StateValue("AtHome", atHome(clientID)));
-        deviceState.add(new StateValue("AtPark", atPark(clientID)));
-        deviceState.add(new StateValue("Azimuth", getAzimuth(clientID)));
-        deviceState.add(new StateValue("ShutterStatus", getShutterStatus(clientID)));
-        deviceState.add(new StateValue("Slewing", isSlewing(clientID)));
+        deviceState.add(new StateValue("Altitude", getAltitude()));
+        deviceState.add(new StateValue("AtHome", atHome()));
+        deviceState.add(new StateValue("AtPark", atPark()));
+        deviceState.add(new StateValue("Azimuth", getAzimuth()));
+        deviceState.add(new StateValue("ShutterStatus", getShutterStatus()));
+        deviceState.add(new StateValue("Slewing", isSlewing()));
         return deviceState;
     }
 
     @Override
-    public double getAltitude(int clientID) {
+    public double getAltitude() {
         return altitude;
     }
 
     @Override
-    public boolean atHome(int clientID) {
+    public boolean atHome() {
         return atHome;
     }
 
     @Override
-    public boolean atPark(int clientID) {
+    public boolean atPark() {
         return atPark;
     }
 
     @Override
-    public double getAzimuth(int clientID) {
+    public double getAzimuth() {
         return azimuth;
     }
 
     @Override
-    public boolean canFindHome(int clientID) {
+    public boolean canFindHome() {
         return true;
     }
 
     @Override
-    public boolean canPark(int clientID) {
+    public boolean canPark() {
         return true;
     }
 
     @Override
-    public boolean canSetAltitude(int clientID) {
+    public boolean canSetAltitude() {
         return true;
     }
 
     @Override
-    public boolean canSetAzimuth(int clientID) {
+    public boolean canSetAzimuth() {
         return true;
     }
 
     @Override
-    public boolean canSetPark(int clientID) {
+    public boolean canSetPark() {
         return true;
     }
 
     @Override
-    public boolean canSetShutter(int clientID) {
+    public boolean canSetShutter() {
         return true;
     }
 
     @Override
-    public boolean canSlave(int clientID) {
+    public boolean canSlave() {
         return true;
     }
 
     @Override
-    public boolean canSyncAzimuth(int clientID) {
+    public boolean canSyncAzimuth() {
         return true;
     }
 
     @Override
-    public ShutterState getShutterStatus(int clientID) {
+    public ShutterState getShutterStatus() {
         return shutterState;
     }
 
     @Override
-    public boolean isSlaved(int clientID) {
+    public boolean isSlaved() {
         return isSlaved;
     }
 
     @Override
-    public void setSlaved(int clientID, boolean slaved) {
+    public void setSlaved(boolean slaved) {
         isSlaved = slaved;
     }
 
     @Override
-    public boolean isSlewing(int clientID) {
+    public boolean isSlewing() {
         return isSlewing;
     }
 
     @Override
-    public void abortSlew(int clientID) {
+    public void abortSlew() {
         isSlewing = false;
     }
 
     @Override
-    public void closeShutter(int clientID) {
+    public void closeShutter() {
         shutterState = ShutterState.Closed;
     }
 
     @Override
-    public void findHome(int clientID) {
+    public void findHome() {
         atHome = true;
     }
 
     @Override
-    public void openShutter(int clientID) {
+    public void openShutter() {
         shutterState = ShutterState.Open;
     }
 
     @Override
-    public void park(int clientID) {
+    public void park() {
         atPark = true;
     }
 
     @Override
-    public void setPark(int clientID) {
+    public void setPark() {
         atPark = true;
     }
 
     @Override
-    public void slewToAltitude(int clientID, double altitude) {
+    public void slewToAltitude(double altitude) {
         this.altitude = altitude;
         startSlewing(4);
     }
 
     @Override
-    public void slewToAzimuth(int clientID, double azimuth) {
+    public void slewToAzimuth(double azimuth) {
         this.azimuth = azimuth;
         startSlewing(5);
     }
 
     @Override
-    public void syncToAzimuth(int clientID, double azimuth) {
+    public void syncToAzimuth(double azimuth) {
         this.azimuth = azimuth;
     }
 }

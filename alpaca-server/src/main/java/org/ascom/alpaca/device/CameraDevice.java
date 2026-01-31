@@ -14,149 +14,149 @@ import java.util.List;
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface CameraDevice extends Device {
 
-    int getBayerOffsetX(int clientID);
+    int getBayerOffsetX();
 
-    int getBayerOffsetY(int clientID);
+    int getBayerOffsetY();
 
-    int getBinX(int clientID);
+    int getBinX();
 
-    void setBinX(int clientID, int binX);
+    void setBinX(int binX);
 
 
-    int getBinY(int clientID);
+    int getBinY();
 
-    void setBinY(int clientID, int binY);
+    void setBinY(int binY);
 
 
-    CameraState getCameraState(int clientID);
+    CameraState getCameraState();
 
-    int getCameraXSize(int clientID);
+    int getCameraXSize();
 
-    int getCameraYSize(int clientID);
+    int getCameraYSize();
 
-    boolean canAbortExposure(int clientID);
+    boolean canAbortExposure();
 
-    boolean canAsymmetricBin(int clientID);
+    boolean canAsymmetricBin();
 
-    boolean canFastReadout(int clientID);
+    boolean canFastReadout();
 
-    boolean canGetCoolerPower(int clientID);
+    boolean canGetCoolerPower();
 
-    boolean canPulseGuide(int clientID);
+    boolean canPulseGuide();
 
-    boolean canSetCCDTemperature(int clientID);
+    boolean canSetCCDTemperature();
 
-    boolean canStopExposure(int clientID);
+    boolean canStopExposure();
 
-    double getCCDTemperature(int clientID);
+    double getCCDTemperature();
 
-    boolean isCoolerOn(int clientID);
+    boolean isCoolerOn();
 
-    void setCoolerOn(int clientID, boolean coolerOn);
+    void setCoolerOn(boolean coolerOn);
 
-    int getCoolerPower(int clientID);
+    int getCoolerPower();
 
-    double getElectronsPerADU(int clientID);
+    double getElectronsPerADU();
 
-    double getExposureMax(int clientID);
+    double getExposureMax();
 
-    double getExposureMin(int clientID);
+    double getExposureMin();
 
-    double getExposureResolution(int clientID);
+    double getExposureResolution();
 
-    boolean getFastReadout(int clientID);
+    boolean getFastReadout();
 
-    void setFastReadout(int clientID, boolean fastReadout);
+    void setFastReadout(boolean fastReadout);
 
-    double getFullWellCapacity(int clientID);
+    double getFullWellCapacity();
 
-    int getGain(int clientID);
+    int getGain();
 
-    void setGain(int clientID, int gain);
+    void setGain(int gain);
 
-    int getGainMax(int clientID);
+    int getGainMax();
 
-    int getGainMin(int clientID);
+    int getGainMin();
 
-    List<String> getGains(int clientID);
+    List<String> getGains();
 
-    boolean hasShutter(int clientID);
+    boolean hasShutter();
 
-    double getHeatSinkTemperature(int clientID);
+    double getHeatSinkTemperature();
 
-    ImageArray getImageArray(int clientID);
+    ImageArray getImageArray();
 
-    byte[] getImageBytes(int clientID);
+    byte[] getImageBytes();
 
-    boolean isImageReady(int clientID);
+    boolean isImageReady();
 
-    boolean isPulseGuiding(int clientID);
+    boolean isPulseGuiding();
 
-    double getLastExposureDuration(int clientID);
+    double getLastExposureDuration();
 
-    String getLastExposureStartTime(int clientID);
+    String getLastExposureStartTime();
 
-    int getMaxADU(int clientID);
+    int getMaxADU();
 
-    int getMaxBinX(int clientID);
+    int getMaxBinX();
 
-    int getMaxBinY(int clientID);
+    int getMaxBinY();
 
-    int getNumX(int clientID);
+    int getNumX();
 
-    void setNumX(int clientID, int numX);
+    void setNumX(int numX);
 
-    int getNumY(int clientID);
+    int getNumY();
 
-    void setNumY(int clientID, int numY);
+    void setNumY(int numY);
 
-    int getOffset(int clientID);
+    int getOffset();
 
-    void setOffset(int clientID, int offset);
+    void setOffset(int offset);
 
-    int getOffsetMax(int clientID);
+    int getOffsetMax();
 
-    int getOffsetMin(int clientID);
+    int getOffsetMin();
 
-    List<String> getOffsets(int clientID);
+    List<String> getOffsets();
 
-    int getPercentCompleted(int clientID);
+    int getPercentCompleted();
 
-    double getPixelSizeX(int clientID);
+    double getPixelSizeX();
 
-    double getPixelSizeY(int clientID);
+    double getPixelSizeY();
 
-    int getReadoutMode(int clientID);
+    int getReadoutMode();
 
-    void setReadoutMode(int clientID, int readoutMode);
+    void setReadoutMode(int readoutMode);
 
-    List<String> getReadoutModes(int clientID);
+    List<String> getReadoutModes();
 
-    String getSensorName(int clientID);
+    String getSensorName();
 
-    SensorType getSensorType(int clientID);
+    SensorType getSensorType();
 
-    double getSetCCDTemperature(int clientID);
+    double getSetCCDTemperature();
 
-    void setCCDTemperature(int clientID, double setCCDTemperature);
+    void setCCDTemperature(double setCCDTemperature);
 
-    int getStartX(int clientID);
+    int getStartX();
 
-    void setStartX(int clientID, int startX);
+    void setStartX(int startX);
 
-    int getStartY(int clientID);
+    int getStartY();
 
-    void setStartY(int clientID, int startY);
+    void setStartY(int startY);
 
-    double getSubExposureDuration(int clientID);
+    double getSubExposureDuration();
 
-    void setSubExposureDuration(int clientID, double subExposureDuration);
+    void setSubExposureDuration(double subExposureDuration);
 
-    void abortExposure(int clientID);
+    void abortExposure();
 
-    void pulseGuide(int clientID, int direction, int duration);
+    void pulseGuide(int direction, int duration);
 
-    void startExposure(int clientID, double duration, boolean light);
+    void startExposure(double duration, boolean light);
 
-    void stopExposure(int clientID);
+    void stopExposure();
 }

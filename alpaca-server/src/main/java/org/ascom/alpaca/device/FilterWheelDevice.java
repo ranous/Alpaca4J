@@ -9,8 +9,8 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface FilterWheelDevice extends Device {
-    List<Integer> getFocusOffsets(int clientID);
-    List<String> getFilterNames(int clientID);
-    int getPosition(int clientID);
-    void setPosition(int clientID, int position);
+    List<Integer> getFocusOffsets();
+    List<String> getFilterNames();
+    int getPosition();
+    void setPosition(int position);
 }

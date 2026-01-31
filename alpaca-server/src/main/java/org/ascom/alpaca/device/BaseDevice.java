@@ -88,9 +88,9 @@ public class BaseDevice implements Device {
         deviceDescriptor.setDeviceNumber(deviceID);
     }
 
-    protected String getDescription() {
-        return description;
-    }
+//    protected String getDescription() {
+//        return description;
+//    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -275,11 +275,10 @@ public class BaseDevice implements Device {
      * Returns the description of the device.  This is a static property of the device and does not
      * change based on the client.  The description should be supplied by the implementing subclass device
      * by passing it in the constructor.
-     * @param clientID the id of the calling client
      * @return the description of the device.
      */
     @Override
-    public String getDescription(int clientID) {
+    public String getDescription() {
         return description;
     }
 
@@ -288,53 +287,48 @@ public class BaseDevice implements Device {
      * operation.  This implementation returns an empty list. The implementing device should override this and
      * provide the device's state.  The state values that should be returned are described in the Alpaca specification.
      * <a href="https://ascom-standards.org/api/#/ASCOM%20Methods%20Common%20To%20All%20Devices/get__device_type___device_number__devicestate">...</a>
-     * @param clientID the id of the calling client
      * @return a list of device state values.
      */
     @Override
-    public List<StateValue> getDeviceState(int clientID) {
+    public List<StateValue> getDeviceState() {
         return emptyDeviceState;
     }
 
     /**
      * Returns the driver information.  This is a description of the device and can include the version.
-     * @param clientID the id of the calling client
      * @return the driver information.
      */
     @Override
-    public String getDriverInfo(int clientID) {
+    public String getDriverInfo() {
         return driverInfo;
     }
 
     /**
      * The major and minor version numbers of the driver.
-     * @param clientID the id of the calling client
      * @return the driver version string.
      */
     @Override
-    public String getDriverVersion(int clientID) {
+    public String getDriverVersion() {
         return driverVersion;
     }
 
     /**
      * The ASCOM version of this device's interface.  These versions are defined in the ASCOM specifiations.
      * This should be supplied by the device subclass in the constructor.
-     * @param clientID the id of the calling client
      * @return the interface version number.
      */
     @Override
-    public int getInterfaceVersion(int clientID) {
+    public int getInterfaceVersion() {
         return interfaceVersion;
     }
 
     /**
      * Returns the short name of the driver for display purposes.  This should be supplied by the device subclass
      * via the constructor.
-     * @param clientID the id of the calling client
      * @return the name of the device.
      */
     @Override
-    public String getName(int clientID) {
+    public String getName() {
         return name;
     }
 
@@ -344,24 +338,22 @@ public class BaseDevice implements Device {
      * expose to a client, this operation lists all the non-standard actions that the device supports.
      * The client can invoke the Alpaa executeAction operation on the device, which in turn calls
      * {@link #executeAction(int, String, String)} to invoke the action.
-     * @param clientID the id of the calling client
      * @return a list of supported actions
      */
     @Override
-    public List<String> getSupportedActions(int clientID) {
+    public List<String> getSupportedActions() {
         return supportedActions.keySet().stream().toList();
     }
 
     /**
      * Calls the method associated with the given action name, passing the parameters to it.  This method
      * needs to be registered using {@link #addSupportedAction(String, Function)} before it can be called.
-     * @param clientID the id of the calling client
      * @param action the name of the action to execute
      * @param parameters the parameters to pass to the action function
      * @return the result of the action function
      */
     @Override
-    public String executeAction(int clientID, String action, String parameters) {
+    public String executeAction(String action, String parameters) {
         log.info("Executing action {} with parameters {}", action, parameters);
         return supportedActions.getOrDefault(action, (s) -> {throw new PropertyNotImplementedException("Action" + action + " not implemented");}).apply(parameters);
     }

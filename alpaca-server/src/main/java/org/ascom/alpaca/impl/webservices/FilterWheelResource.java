@@ -31,7 +31,7 @@ public class FilterWheelResource {
     public ListResponse<Integer> getFocusOffsets(@PathParam("deviceNumber") int deviceNumber,
                                                  @QueryParam("ClientID") int clientID,
                                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getFocusOffsets(clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getFocusOffsets());
     }
 
     @GET
@@ -39,7 +39,7 @@ public class FilterWheelResource {
     public ListResponse<String> getFilterNames(@PathParam("deviceNumber") int deviceNumber,
                                                @QueryParam("ClientID") int clientID,
                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getFilterNames(clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getFilterNames());
     }
 
     @GET
@@ -47,7 +47,7 @@ public class FilterWheelResource {
     public IntResponse getPosition(@PathParam("deviceNumber") int deviceNumber,
                                    @QueryParam("ClientID") int clientID,
                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getPosition(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getPosition());
     }
 
     @PUT
@@ -59,7 +59,7 @@ public class FilterWheelResource {
         if (position < 0) {
             throw new InvalidValueException("Filter positions cannot be less than zero");
         }
-        getDevice(deviceNumber, clientID).setPosition(clientID, position);
+        getDevice(deviceNumber, clientID).setPosition(position);
         return new AlpacaResponse(clientTransactionID);
     }
 }

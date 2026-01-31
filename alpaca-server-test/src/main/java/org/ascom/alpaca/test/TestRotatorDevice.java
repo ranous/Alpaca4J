@@ -25,52 +25,52 @@ public class TestRotatorDevice extends BaseDevice implements RotatorDevice {
     }
 
     @Override
-    public boolean canReverse(int clientID) {
+    public boolean canReverse() {
         return true;
     }
 
     @Override
-    public boolean isMoving(int clientID) {
+    public boolean isMoving() {
         return isMoving;
     }
 
     @Override
-    public double getMechanicalPosition(int clientID) {
+    public double getMechanicalPosition() {
         return mechanicalPosition;
     }
 
     @Override
-    public double getPosition(int clientID) {
+    public double getPosition() {
         return position;
     }
 
     @Override
-    public boolean isReversed(int clientID) {
+    public boolean isReversed() {
         return isReversed;
     }
 
     @Override
-    public void setReversed(int clientID, boolean reversed) {
+    public void setReversed(boolean reversed) {
         this.isReversed = reversed;
     }
 
     @Override
-    public double getStepSize(int clientID) {
+    public double getStepSize() {
         return .1;
     }
 
     @Override
-    public double getTargetPosition(int clientID) {
+    public double getTargetPosition() {
         return targetPosition;
     }
 
     @Override
-    public void halt(int clientID) {
+    public void halt() {
         isMoving = false;
     }
 
     @Override
-    public void move(int clientID, double position) {
+    public void move(double position) {
         this.position+=position;
         if (this.position > 360) {
             this.position = this.position % 360;
@@ -86,7 +86,7 @@ public class TestRotatorDevice extends BaseDevice implements RotatorDevice {
     }
 
     @Override
-    public void moveAbsolute(int clientID, double position) {
+    public void moveAbsolute(double position) {
         if (position < 0 || position > 360) {
             throw new InvalidValueException("Position must be between 0 and 360.");
         }
@@ -96,14 +96,14 @@ public class TestRotatorDevice extends BaseDevice implements RotatorDevice {
     }
 
     @Override
-    public void moveMechanical(int clientID, double position) {
+    public void moveMechanical(double position) {
         this.mechanicalPosition = position;
         this.position = this.mechanicalPosition + offset;
         this.targetPosition = this.position;
     }
 
     @Override
-    public void sync(int clientID, double position) {
+    public void sync(double position) {
         this.position = position;
         this.offset = this.position - this.mechanicalPosition;
     }

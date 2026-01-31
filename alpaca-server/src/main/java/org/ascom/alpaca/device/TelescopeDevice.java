@@ -12,163 +12,163 @@ import java.util.List;
 @SuppressWarnings({"unused", "SpellCheckingInspection", "SameReturnValue", "EmptyMethod"})
 public interface TelescopeDevice extends Device {
 
-    AlignmentMode getAlignmentMode(int clientID);
+    AlignmentMode getAlignmentMode();
 
-    double getAltitude(int clientID);
+    double getAltitude();
 
-    double getApertureArea(int clientID);
+    double getApertureArea();
 
-    double getApertureDiameter(int clientID);
+    double getApertureDiameter();
 
-    boolean isAtHome(int clientID);
+    boolean isAtHome();
 
-    boolean isAtPark(int clientID);
+    boolean isAtPark();
 
-    double getAzimuth(int clientID);
+    double getAzimuth();
 
-    boolean canFindHome(int clientID);
+    boolean canFindHome();
 
-    boolean canPark(int clientID);
+    boolean canPark();
 
-    boolean canPulseGuide(int clientID);
+    boolean canPulseGuide();
 
-    boolean canSetDeclinationRate(int clientID);
+    boolean canSetDeclinationRate();
 
-    boolean canSetGuideRates(int clientID);
+    boolean canSetGuideRates();
 
-    boolean canSetPark(int clientID);
+    boolean canSetPark();
 
-    boolean canSetPierSide(int clientID);
+    boolean canSetPierSide();
 
-    boolean canSetRightAscensionRate(int clientID);
+    boolean canSetRightAscensionRate();
 
-    boolean canSetTracking(int clientID);
+    boolean canSetTracking();
 
-    boolean canSlew(int clientID);
+    boolean canSlew();
 
-    boolean canSlewAltAz(int clientID);
+    boolean canSlewAltAz();
 
-    boolean canSlewAltAzAsync(int clientID);
+    boolean canSlewAltAzAsync();
 
-    boolean canSlewAsync(int clientID);
+    boolean canSlewAsync();
 
-    boolean canSync(int clientID);
+    boolean canSync();
 
-    boolean canSyncAltAz(int clientID);
+    boolean canSyncAltAz();
 
-    boolean canUnpark(int clientID);
+    boolean canUnpark();
 
-    double getDeclination(int clientID);
+    double getDeclination();
 
-    double getDeclinationRate(int clientID);
+    double getDeclinationRate();
 
-    void setDeclinationRate(double declinationRate, int clientID);
+    void setDeclinationRate(double declinationRate);
 
-    boolean doesRefraction(int clientID);
+    boolean doesRefraction();
 
-    void setDoesRefraction(boolean doesRefraction, int clientID);
+    void setDoesRefraction(boolean doesRefraction);
 
-    EquatorialCoordinateType getEquatorialSystem(int clientID);
+    EquatorialCoordinateType getEquatorialSystem();
 
-    double getFocalLength(int clientID);
+    double getFocalLength();
 
-    double getGuideRateDeclination(int clientID);
+    double getGuideRateDeclination();
 
-    void setGuideRateDeclination(double guideRate, int clientID);
+    void setGuideRateDeclination(double guideRate);
 
-    double getGuideRateRightAscension(int clientID);
+    double getGuideRateRightAscension();
 
-    void setGuideRateRightAscension(double guideRate, int clientID);
+    void setGuideRateRightAscension(double guideRate);
 
-    boolean isPulseGuiding(int clientID);
+    boolean isPulseGuiding();
 
-    double getRightAscension(int clientID);
+    double getRightAscension();
 
-    double getRightAscensionRate(int clientID);
+    double getRightAscensionRate();
 
-    void setRightAscensionRate(double rightAscensionRate, int clientID);
+    void setRightAscensionRate(double rightAscensionRate);
 
-    PierSide getSideOfPier(int clientID);
+    PierSide getSideOfPier();
 
-    void setSideOfPier(PierSide sideOfPier, int clientID);
+    void setSideOfPier(PierSide sideOfPier);
 
-    double getSiderealTime(int clientID);
+    double getSiderealTime();
 
-    double getSiteElevation(int clientID);
+    double getSiteElevation();
 
-    void setSiteElevation(double siteElevation, int clientID);
+    void setSiteElevation(double siteElevation);
 
-    double getSiteLatitude(int clientID);
+    double getSiteLatitude();
 
-    void setSiteLatitude(double siteLatitude, int clientID);
+    void setSiteLatitude(double siteLatitude);
 
-    double getSiteLongitude(int clientID);
+    double getSiteLongitude();
 
-    void setSiteLongitude(double siteLongitude, int clientID);
+    void setSiteLongitude(double siteLongitude);
 
-    boolean isSlewing(int clientID);
+    boolean isSlewing();
 
-    int getSlewSettleTime(int clientID);
+    int getSlewSettleTime();
 
-    void setSlewSettleTime(int slewSettleTime, int clientID);
+    void setSlewSettleTime(int slewSettleTime);
 
-    double getTargetDeclination(int clientID);
+    double getTargetDeclination();
 
-    void setTargetDeclination(double targetDeclination, int clientID);
+    void setTargetDeclination(double targetDeclination);
 
-    double getTargetRightAscension(int clientID);
+    double getTargetRightAscension();
 
-    void setTargetRightAscension(double targetRightAscension, int clientID);
+    void setTargetRightAscension(double targetRightAscension);
 
-    boolean isTracking(int clientID);
+    boolean isTracking();
 
-    void setTracking(boolean tracking, int clientID);
+    void setTracking(boolean tracking);
 
-    DriveRate getTrackingRate(int clientID);
+    DriveRate getTrackingRate();
 
-    void setTrackingRate(DriveRate trackingRate, int clientID);
+    void setTrackingRate(DriveRate trackingRate);
 
-    List<DriveRate> getTrackingRates(int clientID);
+    List<DriveRate> getTrackingRates();
 
-    String getUTCDate(int clientID);
+    String getUTCDate();
 
-    void setUTCDate(String utcDate, int clientID);
+    void setUTCDate(String utcDate);
 
-    void abortSlew(int clientID);
+    void abortSlew();
 
-    List<AxisRate> getAxisRates(int axis, int clientID);
+    List<AxisRate> getAxisRates(int axis);
 
-    boolean canMoveAxis(int axis, int clientID);
+    boolean canMoveAxis(int axis);
 
-    PierSide getDestinationSideOfPier(double rightAscension, double declination, int clientID);
+    PierSide getDestinationSideOfPier(double rightAscension, double declination);
 
-    void findHome(int clientID);
+    void findHome();
 
-    void moveAxis(int axis,double rate, int clientID);
+    void moveAxis(int axis,double rate);
 
-    void park(int clientID);
+    void park();
 
-    void pulseguide(int direction, int duration, int clientID);
+    void pulseguide(int direction, int duration);
 
-    void setPark(int clientID);
+    void setPark();
 
-    void slewToAltAz(double direction, double altitude, int clientID);
+    void slewToAltAz(double direction, double altitude);
 
-    void slewToAltAzAsync(double direction, double altitude, int clientID);
+    void slewToAltAzAsync(double direction, double altitude);
 
-    void slewToCoordinates(double rightAscension, double declination, int clientID);
+    void slewToCoordinates(double rightAscension, double declination);
 
-    void slewToCoordinatesAsync(double rightAscension, double declination, int clientID);
+    void slewToCoordinatesAsync(double rightAscension, double declination);
 
-    void slewToTarget(int clientID);
+    void slewToTarget();
 
-    void slewToTargetAsync(int clientID);
+    void slewToTargetAsync();
 
-    void syncToAltAz(double direction, double altitude, int clientID);
+    void syncToAltAz(double direction, double altitude);
 
-    void syncToCoordinates(double rightAscension, double declination, int clientID);
+    void syncToCoordinates(double rightAscension, double declination);
 
-    void syncToTarget(int clientID);
+    void syncToTarget();
 
-    void unpark(int clientID);
+    void unpark();
 }

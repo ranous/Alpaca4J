@@ -29,7 +29,7 @@ public class DomeResource {
     public DoubleResponse getAltitude(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getAltitude(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getAltitude());
     }
 
     @GET
@@ -37,7 +37,7 @@ public class DomeResource {
     public BooleanResponse atHome(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).atHome(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).atHome());
     }
 
     @GET
@@ -45,7 +45,7 @@ public class DomeResource {
     public BooleanResponse atPark(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).atPark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).atPark());
     }
 
     @GET
@@ -53,7 +53,7 @@ public class DomeResource {
     public DoubleResponse getAzimuth(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getAzimuth(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getAzimuth());
     }
 
     @GET
@@ -61,7 +61,7 @@ public class DomeResource {
     public BooleanResponse canFindHome(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canFindHome(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canFindHome());
     }
 
     @GET
@@ -69,7 +69,7 @@ public class DomeResource {
     public BooleanResponse canPark(@PathParam("deviceNumber") int deviceNumber,
                                    @QueryParam("ClientID") int clientID,
                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canPark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canPark());
     }
 
     @GET
@@ -77,7 +77,7 @@ public class DomeResource {
     public BooleanResponse canSetAltitude(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetAltitude(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetAltitude());
     }
 
     @GET
@@ -85,7 +85,7 @@ public class DomeResource {
     public BooleanResponse canSetAzimuth(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetAzimuth(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetAzimuth());
     }
 
     @GET
@@ -93,7 +93,7 @@ public class DomeResource {
     public BooleanResponse canSetPark(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetPark(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetPark());
     }
 
     @GET
@@ -101,7 +101,7 @@ public class DomeResource {
     public BooleanResponse canSetShutter(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetShutter(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetShutter());
     }
 
     @GET
@@ -109,7 +109,7 @@ public class DomeResource {
     public BooleanResponse canSlave(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlave(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSlave());
     }
 
     @GET
@@ -117,7 +117,7 @@ public class DomeResource {
     public BooleanResponse canSyncAzimuth(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSyncAzimuth(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSyncAzimuth());
     }
 
     @GET
@@ -125,7 +125,7 @@ public class DomeResource {
     public IntResponse getShutterStatus(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getShutterStatus(clientID).ordinal());
+        return new IntResponse(getDevice(deviceNumber, clientID).getShutterStatus().ordinal());
     }
 
     @GET
@@ -133,7 +133,7 @@ public class DomeResource {
     public BooleanResponse isSlaved(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isSlaved(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isSlaved());
     }
 
     @PUT
@@ -142,7 +142,7 @@ public class DomeResource {
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID,
                                     @FormParam("Slaved") boolean slaved) {
-        getDevice(deviceNumber, clientID).setSlaved(clientID, slaved);
+        getDevice(deviceNumber, clientID).setSlaved(slaved);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -151,7 +151,7 @@ public class DomeResource {
     public BooleanResponse isSlewing(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isSlewing(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isSlewing());
     }
 
     @PUT
@@ -159,7 +159,7 @@ public class DomeResource {
     public AlpacaResponse abortSlew(@PathParam("deviceNumber") int deviceNumber,
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).abortSlew(clientID);
+        getDevice(deviceNumber, clientID).abortSlew();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -168,7 +168,7 @@ public class DomeResource {
     public AlpacaResponse closeShutter(@PathParam("deviceNumber") int deviceNumber,
                                        @FormParam("ClientID") int clientID,
                                        @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).closeShutter(clientID);
+        getDevice(deviceNumber, clientID).closeShutter();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -177,7 +177,7 @@ public class DomeResource {
     public AlpacaResponse findHome(@PathParam("deviceNumber") int deviceNumber,
                                    @FormParam("ClientID") int clientID,
                                    @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).findHome(clientID);
+        getDevice(deviceNumber, clientID).findHome();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -186,7 +186,7 @@ public class DomeResource {
     public AlpacaResponse openShutter(@PathParam("deviceNumber") int deviceNumber,
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).openShutter(clientID);
+        getDevice(deviceNumber, clientID).openShutter();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -195,7 +195,7 @@ public class DomeResource {
     public AlpacaResponse park(@PathParam("deviceNumber") int deviceNumber,
                                @FormParam("ClientID") int clientID,
                                @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).park(clientID);
+        getDevice(deviceNumber, clientID).park();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -204,7 +204,7 @@ public class DomeResource {
     public AlpacaResponse setPark(@PathParam("deviceNumber") int deviceNumber,
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).setPark(clientID);
+        getDevice(deviceNumber, clientID).setPark();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -217,7 +217,7 @@ public class DomeResource {
         if (altitude < 0 || altitude > 90) {
             throw new InvalidValueException("Invalid altitude, must be no less than zero or greater than 90");
         }
-        getDevice(deviceNumber, clientID).slewToAltitude(clientID, altitude);
+        getDevice(deviceNumber, clientID).slewToAltitude(altitude);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -230,7 +230,7 @@ public class DomeResource {
         if (azimuth < 0 || azimuth > 360) {
             throw new InvalidValueException("Invalid azimuth, must be no less than zero or greater than 360");
         }
-        getDevice(deviceNumber, clientID).slewToAzimuth(clientID, azimuth);
+        getDevice(deviceNumber, clientID).slewToAzimuth(azimuth);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -243,7 +243,7 @@ public class DomeResource {
         if (azimuth < 0 || azimuth > 360) {
             throw new InvalidValueException("Invalid azimuth, must be no less than zero or greater than 360");
         }
-        getDevice(deviceNumber, clientID).syncToAzimuth(clientID, azimuth);
+        getDevice(deviceNumber, clientID).syncToAzimuth(azimuth);
         return new AlpacaResponse(clientTransactionID);
     }
 }

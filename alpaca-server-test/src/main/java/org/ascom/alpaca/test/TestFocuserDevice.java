@@ -27,22 +27,21 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
 
 
     @Override
-    public List<StateValue> getDeviceState(int clientID) {
-        checkConnectionStatus(clientID);
-        List<StateValue> deviceState = super.getDeviceState(clientID);
-        deviceState.add(new StateValue("IsMoving", isMoving(clientID)));
-        deviceState.add(new StateValue("Position", getPosition(clientID)));
-        deviceState.add(new StateValue("Temperature", getTemperature(clientID)));
+    public List<StateValue> getDeviceState() {
+        List<StateValue> deviceState = super.getDeviceState();
+        deviceState.add(new StateValue("IsMoving", isMoving()));
+        deviceState.add(new StateValue("Position", getPosition()));
+        deviceState.add(new StateValue("Temperature", getTemperature()));
         return deviceState;
     }
 
     @Override
-    public boolean canAbsoluteFocus(int clientID) {
+    public boolean canAbsoluteFocus() {
         return true;
     }
 
     @Override
-    public boolean isMoving(int clientID) {
+    public boolean isMoving() {
         if (isMoving && System.currentTimeMillis() - moveStartTime > 1000) {
             isMoving = false;
         }
@@ -50,52 +49,52 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
     }
 
     @Override
-    public int getMaxIncrement(int clientID) {
+    public int getMaxIncrement() {
         return 100;
     }
 
     @Override
-    public int getMaxStep(int clientID) {
+    public int getMaxStep() {
         return maxPosition;
     }
 
     @Override
-    public int getPosition(int clientID) {
+    public int getPosition() {
         return position;
     }
 
     @Override
-    public double getStepSize(int clientID) {
+    public double getStepSize() {
         return 100;
     }
 
     @Override
-    public boolean isTemperatureCompensating(int clientID) {
+    public boolean isTemperatureCompensating() {
         return isTemperatureCompensating;
     }
 
     @Override
-    public void setTemperatureCompensation(int clientID, boolean state) {
+    public void setTemperatureCompensation(boolean state) {
         isTemperatureCompensating = state;
     }
 
     @Override
-    public boolean hasTemperatureCompensation(int clientID) {
+    public boolean hasTemperatureCompensation() {
         return true;
     }
 
     @Override
-    public double getTemperature(int clientID) {
+    public double getTemperature() {
         return 19.5;
     }
 
     @Override
-    public void haltFocuser(int clientID) {
+    public void haltFocuser() {
         isMoving = false;
     }
 
     @Override
-    public void moveToPosition(int clientID, int position) {
+    public void moveToPosition(int position) {
         if (position < 0) {
             position = 0;
         } else if (position > maxPosition) {

@@ -23,22 +23,22 @@ public class TestFilterWheelDevice extends BaseDevice implements FilterWheelDevi
     }
 
     @Override
-    public List<Integer> getFocusOffsets(int clientID) {
+    public List<Integer> getFocusOffsets() {
         return focusOffsets;
     }
 
     @Override
-    public List<String> getFilterNames(int clientID) {
+    public List<String> getFilterNames() {
         return filterNames;
     }
 
     @Override
-    public int getPosition(int clientID) {
+    public int getPosition() {
         return position;
     }
 
     @Override
-    public void setPosition(int clientID, int position) {
+    public void setPosition(int position) {
         if (position > filterNames.size()-1) {
             throw new InvalidValueException("The filter position " + position + " exceeds the number of filters");
         }

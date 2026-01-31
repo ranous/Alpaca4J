@@ -29,14 +29,14 @@ public interface Device {
     void connect(int clientID);
     void disconnect(int clientID);
     void setConnectedState(int clientID, boolean state);
-    String getDescription(int clientID);
-    List<StateValue> getDeviceState(int clientID);
-    String getDriverInfo(int clientID);
-    String getDriverVersion(int clientID);
-    int getInterfaceVersion(int clientID);
-    String getName(int clientID);
-    List<String> getSupportedActions(int clientID);
-    String executeAction(int clientID, String action, String parameters);
+    String getDescription();
+    List<StateValue> getDeviceState();
+    String getDriverInfo();
+    String getDriverVersion();
+    int getInterfaceVersion();
+    String getName();
+    List<String> getSupportedActions();
+    String executeAction(String action, String parameters);
     String setup();
     void update(Map<String, String> updates);
 }

@@ -24,43 +24,43 @@ public class TestCoverCalibratorDevice extends BaseDevice implements CoverCalibr
     }
 
     @Override
-    public int getBrightness(int clientID) {
+    public int getBrightness() {
         return brightness;
     }
 
     @Override
-    public boolean isCalibratorChanging(int clientID) {
+    public boolean isCalibratorChanging() {
         return false;
     }
 
     @Override
-    public CalibratorState getCalibratorState(int clientID) {
+    public CalibratorState getCalibratorState() {
         return calibratorState;
     }
 
     @Override
-    public boolean isCoverMoving(int clientID) {
+    public boolean isCoverMoving() {
         return false;
     }
 
     @Override
-    public CoverState getCoverState(int clientID) {
+    public CoverState getCoverState() {
         return coverState;
     }
 
     @Override
-    public int getMaxBrightness(int clientID) {
+    public int getMaxBrightness() {
         return 255;
     }
 
     @Override
-    public void turnCalibratorOff(int clientID) {
+    public void turnCalibratorOff() {
         calibratorState = CalibratorState.Off;
         brightness = 0;
     }
 
     @Override
-    public void turnCalibratorOn(int clientID, int brightness) {
+    public void turnCalibratorOn(int brightness) {
         if (brightness > 255) {
             throw new InvalidValueException("Cannot exceed the max brightness of 255");
         }
@@ -69,17 +69,17 @@ public class TestCoverCalibratorDevice extends BaseDevice implements CoverCalibr
     }
 
     @Override
-    public void closeCover(int clientID) {
+    public void closeCover() {
         coverState = CoverState.Closed;
     }
 
     @Override
-    public void haltCover(int clientID) {
+    public void haltCover() {
         throw new PropertyNotImplementedException("The test cover can't be halted");
     }
 
     @Override
-    public void openCover(int clientID) {
+    public void openCover() {
         coverState = CoverState.Open;
     }
 }

@@ -29,7 +29,7 @@ public class CameraResource {
     public IntResponse getBayerOffsetX(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetX(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetX());
     }
 
     @GET
@@ -37,7 +37,7 @@ public class CameraResource {
     public IntResponse getBayerOffsetY(@PathParam("deviceNumber") int deviceNumber,
                                        @QueryParam("ClientID") int clientID,
                                        @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetY(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getBayerOffsetY());
     }
 
     @GET
@@ -45,7 +45,7 @@ public class CameraResource {
     public IntResponse getBinX(@PathParam("deviceNumber") int deviceNumber,
                                @QueryParam("ClientID") int clientID,
                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getBinX(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getBinX());
     }
 
     @PUT
@@ -54,10 +54,10 @@ public class CameraResource {
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID,
                                   @FormParam("BinX") int binX) {
-        if (binX < 1 || binX > getDevice(deviceNumber, clientID).getMaxBinX(clientID)) {
+        if (binX < 1 || binX > getDevice(deviceNumber, clientID).getMaxBinX()) {
             throw new InvalidValueException("The bin x value out of supported range");
         }
-        getDevice(deviceNumber, clientID).setBinX(clientID, binX);
+        getDevice(deviceNumber, clientID).setBinX(binX);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -66,7 +66,7 @@ public class CameraResource {
     public IntResponse getBinY(@PathParam("deviceNumber") int deviceNumber,
                                @QueryParam("ClientID") int clientID,
                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getBinY(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getBinY());
     }
 
     @PUT
@@ -75,10 +75,10 @@ public class CameraResource {
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID,
                                   @FormParam("BinY") int binY) {
-        if (binY < 1 || binY > getDevice(deviceNumber, clientID).getMaxBinX(clientID)) {
+        if (binY < 1 || binY > getDevice(deviceNumber, clientID).getMaxBinX()) {
             throw new InvalidValueException("The bin x value out of supported range");
         }
-        getDevice(deviceNumber, clientID).setBinY(clientID, binY);
+        getDevice(deviceNumber, clientID).setBinY(binY);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -87,7 +87,7 @@ public class CameraResource {
     public IntResponse getCameraState(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getCameraState(clientID).ordinal());
+        return new IntResponse(getDevice(deviceNumber, clientID).getCameraState().ordinal());
     }
 
     @GET
@@ -95,7 +95,7 @@ public class CameraResource {
     public IntResponse getCameraXSize(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getCameraXSize(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getCameraXSize());
     }
 
     @GET
@@ -103,7 +103,7 @@ public class CameraResource {
     public IntResponse getCameraYSize(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getCameraYSize(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getCameraYSize());
     }
 
     @GET
@@ -111,7 +111,7 @@ public class CameraResource {
     public BooleanResponse canAbortExposure(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canAbortExposure(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canAbortExposure());
     }
 
     @GET
@@ -119,7 +119,7 @@ public class CameraResource {
     public BooleanResponse canAsymmetricBin(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canAsymmetricBin(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canAsymmetricBin());
     }
 
     @GET
@@ -127,7 +127,7 @@ public class CameraResource {
     public BooleanResponse canFastReadout(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canFastReadout(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canFastReadout());
     }
 
     @GET
@@ -135,7 +135,7 @@ public class CameraResource {
     public BooleanResponse canGetCoolerPower(@PathParam("deviceNumber") int deviceNumber,
                                              @QueryParam("ClientID") int clientID,
                                              @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canGetCoolerPower(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canGetCoolerPower());
     }
 
     @GET
@@ -143,7 +143,7 @@ public class CameraResource {
     public BooleanResponse canPulseGuide(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canPulseGuide(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canPulseGuide());
     }
 
     @GET
@@ -151,7 +151,7 @@ public class CameraResource {
     public BooleanResponse canSetCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetCCDTemperature(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canSetCCDTemperature());
     }
 
     @GET
@@ -159,7 +159,7 @@ public class CameraResource {
     public BooleanResponse canStopExposure(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canStopExposure(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canStopExposure());
     }
 
     @GET
@@ -167,7 +167,7 @@ public class CameraResource {
     public DoubleResponse getCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getCCDTemperature(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getCCDTemperature());
     }
 
     @GET
@@ -175,7 +175,7 @@ public class CameraResource {
     public BooleanResponse isCoolerOn(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isCoolerOn(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isCoolerOn());
     }
 
     @PUT
@@ -184,7 +184,7 @@ public class CameraResource {
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID,
                                       @FormParam("CoolerOn") boolean coolerOn) {
-        getDevice(deviceNumber, clientID).setCoolerOn(clientID, coolerOn);
+        getDevice(deviceNumber, clientID).setCoolerOn(coolerOn);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -193,7 +193,7 @@ public class CameraResource {
     public IntResponse getCoolerPower(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getCoolerPower(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getCoolerPower());
     }
 
     @GET
@@ -201,7 +201,7 @@ public class CameraResource {
     public DoubleResponse getElectronsPerADU(@PathParam("deviceNumber") int deviceNumber,
                                              @QueryParam("ClientID") int clientID,
                                              @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getElectronsPerADU(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getElectronsPerADU());
     }
 
     @GET
@@ -209,7 +209,7 @@ public class CameraResource {
     public DoubleResponse getExposureMax(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMax(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMax());
     }
 
     @GET
@@ -217,7 +217,7 @@ public class CameraResource {
     public DoubleResponse getExposureMin(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMin(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureMin());
     }
 
     @GET
@@ -225,7 +225,7 @@ public class CameraResource {
     public DoubleResponse getExposureResolution(@PathParam("deviceNumber") int deviceNumber,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureResolution(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getExposureResolution());
     }
 
     @GET
@@ -233,7 +233,7 @@ public class CameraResource {
     public BooleanResponse getFastReadout(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).getFastReadout(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).getFastReadout());
     }
 
     @PUT
@@ -242,7 +242,7 @@ public class CameraResource {
                                          @FormParam("ClientID") int clientID,
                                          @FormParam("ClientTransactionID") long clientTransactionID,
                                          @FormParam("FastReadout") boolean fastReadout) {
-        getDevice(deviceNumber, clientID).setFastReadout(clientID, fastReadout);
+        getDevice(deviceNumber, clientID).setFastReadout(fastReadout);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -251,7 +251,7 @@ public class CameraResource {
     public DoubleResponse getFullWellCapacity(@PathParam("deviceNumber") int deviceNumber,
                                               @QueryParam("ClientID") int clientID,
                                               @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getFullWellCapacity(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getFullWellCapacity());
     }
 
     @GET
@@ -259,7 +259,7 @@ public class CameraResource {
     public IntResponse getGain(@PathParam("deviceNumber") int deviceNumber,
                                @QueryParam("ClientID") int clientID,
                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getGain(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getGain());
     }
 
     @PUT
@@ -268,7 +268,7 @@ public class CameraResource {
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID,
                                   @FormParam("Gain") int gain) {
-        getDevice(deviceNumber, clientID).setGain(clientID, gain);
+        getDevice(deviceNumber, clientID).setGain(gain);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -277,7 +277,7 @@ public class CameraResource {
     public IntResponse getGainMax(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getGainMax(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getGainMax());
     }
 
     @GET
@@ -285,7 +285,7 @@ public class CameraResource {
     public IntResponse getGainMin(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getGainMin(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getGainMin());
     }
 
     @GET
@@ -293,7 +293,7 @@ public class CameraResource {
     public ListResponse<String> getGains(@PathParam("deviceNumber") int deviceNumber,
                                          @QueryParam("ClientID") int clientID,
                                          @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getGains(clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getGains());
     }
 
     @GET
@@ -301,7 +301,7 @@ public class CameraResource {
     public BooleanResponse hasShutter(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).hasShutter(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).hasShutter());
     }
 
     @GET
@@ -309,7 +309,7 @@ public class CameraResource {
     public DoubleResponse getHeatSinkTemperature(@PathParam("deviceNumber") int deviceNumber,
                                                  @QueryParam("ClientID") int clientID,
                                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getHeatSinkTemperature(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getHeatSinkTemperature());
     }
 
     @GET
@@ -317,7 +317,7 @@ public class CameraResource {
     public ImageArrayResponse getImageArray(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        ImageArray image = getDevice(deviceNumber, clientID).getImageArray(clientID);
+        ImageArray image = getDevice(deviceNumber, clientID).getImageArray();
         return new ImageArrayResponse(clientTransactionID, image);
     }
 
@@ -327,7 +327,7 @@ public class CameraResource {
     public ByteArrayResponse getImageBytes(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        byte[] image = getDevice(deviceNumber, clientID).getImageBytes(clientID);
+        byte[] image = getDevice(deviceNumber, clientID).getImageBytes();
         return new ByteArrayResponse(clientTransactionID, image);
     }
 
@@ -345,7 +345,7 @@ public class CameraResource {
     public BooleanResponse isImageReady(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isImageReady(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isImageReady());
     }
 
     @GET
@@ -353,7 +353,7 @@ public class CameraResource {
     public BooleanResponse isPulseGuiding(@PathParam("deviceNumber") int deviceNumber,
                                           @QueryParam("ClientID") int clientID,
                                           @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isPulseGuiding(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isPulseGuiding());
     }
 
     @GET
@@ -361,7 +361,7 @@ public class CameraResource {
     public DoubleResponse getLastExposureDuration(@PathParam("deviceNumber") int deviceNumber,
                                                   @QueryParam("ClientID") int clientID,
                                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getLastExposureDuration(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getLastExposureDuration());
     }
 
     @GET
@@ -369,7 +369,7 @@ public class CameraResource {
     public StringResponse getLastExposureStartTime(@PathParam("deviceNumber") int deviceNumber,
                                                    @QueryParam("ClientID") int clientID,
                                                    @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new StringResponse(getDevice(deviceNumber, clientID).getLastExposureStartTime(clientID));
+        return new StringResponse(getDevice(deviceNumber, clientID).getLastExposureStartTime());
     }
 
     @GET
@@ -377,7 +377,7 @@ public class CameraResource {
     public IntResponse getMaxADU(@PathParam("deviceNumber") int deviceNumber,
                                  @QueryParam("ClientID") int clientID,
                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getMaxADU(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getMaxADU());
     }
 
     @GET
@@ -385,7 +385,7 @@ public class CameraResource {
     public IntResponse getMaxBinX(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinX(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinX());
     }
 
     @GET
@@ -393,7 +393,7 @@ public class CameraResource {
     public IntResponse getMaxBinY(@PathParam("deviceNumber") int deviceNumber,
                                   @QueryParam("ClientID") int clientID,
                                   @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinY(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getMaxBinY());
     }
 
     @GET
@@ -401,7 +401,7 @@ public class CameraResource {
     public IntResponse getNumX(@PathParam("deviceNumber") int deviceNumber,
                                @QueryParam("ClientID") int clientID,
                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getNumX(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getNumX());
     }
 
     @PUT
@@ -410,7 +410,7 @@ public class CameraResource {
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID,
                                   @FormParam("NumX") int numX) {
-        getDevice(deviceNumber, clientID).setNumX(clientID, numX);
+        getDevice(deviceNumber, clientID).setNumX(numX);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -419,7 +419,7 @@ public class CameraResource {
     public IntResponse getNumY(@PathParam("deviceNumber") int deviceNumber,
                                @QueryParam("ClientID") int clientID,
                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getNumY(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getNumY());
     }
 
     @PUT
@@ -428,7 +428,7 @@ public class CameraResource {
                                   @FormParam("ClientID") int clientID,
                                   @FormParam("ClientTransactionID") long clientTransactionID,
                                   @FormParam("NumY") int numY) {
-        getDevice(deviceNumber, clientID).setNumY(clientID, numY);
+        getDevice(deviceNumber, clientID).setNumY(numY);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -437,7 +437,7 @@ public class CameraResource {
     public IntResponse getOffset(@PathParam("deviceNumber") int deviceNumber,
                                  @QueryParam("ClientID") int clientID,
                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getOffset(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getOffset());
     }
 
     @PUT
@@ -446,7 +446,7 @@ public class CameraResource {
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID,
                                     @FormParam("offset") int offset) {
-        getDevice(deviceNumber, clientID).setOffset(clientID, offset);
+        getDevice(deviceNumber, clientID).setOffset(offset);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -455,7 +455,7 @@ public class CameraResource {
     public IntResponse getOffsetMax(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMax(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMax());
     }
 
     @GET
@@ -463,7 +463,7 @@ public class CameraResource {
     public IntResponse getOffsetMin(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMin(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getOffsetMin());
     }
 
     @GET
@@ -471,7 +471,7 @@ public class CameraResource {
     public ListResponse<String> getOffsets(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getOffsets(clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getOffsets());
     }
 
     @GET
@@ -479,7 +479,7 @@ public class CameraResource {
     public IntResponse getPercentCompleted(@PathParam("deviceNumber") int deviceNumber,
                                            @QueryParam("ClientID") int clientID,
                                            @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getPercentCompleted(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getPercentCompleted());
     }
 
     @GET
@@ -487,7 +487,7 @@ public class CameraResource {
     public DoubleResponse getPixelSizeX(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeX(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeX());
     }
 
     @GET
@@ -495,7 +495,7 @@ public class CameraResource {
     public DoubleResponse getPixelSizeY(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeY(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getPixelSizeY());
     }
 
     @GET
@@ -503,7 +503,7 @@ public class CameraResource {
     public IntResponse getReadoutMode(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getReadoutMode(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getReadoutMode());
     }
 
     @PUT
@@ -512,7 +512,7 @@ public class CameraResource {
                                          @FormParam("ClientID") int clientID,
                                          @FormParam("ClientTransactionID") long clientTransactionID,
                                          @FormParam("ReadoutMode") int readoutMode) {
-        getDevice(deviceNumber, clientID).setReadoutMode(clientID, readoutMode);
+        getDevice(deviceNumber, clientID).setReadoutMode(readoutMode);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -521,7 +521,7 @@ public class CameraResource {
     public ListResponse<String> getReadoutModes(@PathParam("deviceNumber") int deviceNumber,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new ListResponse<>(getDevice(deviceNumber, clientID).getReadoutModes(clientID));
+        return new ListResponse<>(getDevice(deviceNumber, clientID).getReadoutModes());
     }
 
     @GET
@@ -529,7 +529,7 @@ public class CameraResource {
     public StringResponse getSensorName(@PathParam("deviceNumber") int deviceNumber,
                                         @QueryParam("ClientID") int clientID,
                                         @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new StringResponse(getDevice(deviceNumber, clientID).getSensorName(clientID));
+        return new StringResponse(getDevice(deviceNumber, clientID).getSensorName());
     }
 
     @GET
@@ -537,7 +537,7 @@ public class CameraResource {
     public IntResponse getSensorType(@PathParam("deviceNumber") int deviceNumber,
                                      @QueryParam("ClientID") int clientID,
                                      @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getSensorType(clientID).getType());
+        return new IntResponse(getDevice(deviceNumber, clientID).getSensorType().getType());
     }
 
     @GET
@@ -545,7 +545,7 @@ public class CameraResource {
     public DoubleResponse getSetCCDTemperature(@PathParam("deviceNumber") int deviceNumber,
                                                @QueryParam("ClientID") int clientID,
                                                @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSetCCDTemperature(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSetCCDTemperature());
     }
 
     @PUT
@@ -554,7 +554,7 @@ public class CameraResource {
                                             @FormParam("ClientID") int clientID,
                                             @FormParam("ClientTransactionID") long clientTransactionID,
                                             @FormParam("SetCCDTemperature") double setCCDTemperature) {
-        getDevice(deviceNumber, clientID).setCCDTemperature(clientID, setCCDTemperature);
+        getDevice(deviceNumber, clientID).setCCDTemperature(setCCDTemperature);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -563,7 +563,7 @@ public class CameraResource {
     public IntResponse getStartX(@PathParam("deviceNumber") int deviceNumber,
                                  @QueryParam("ClientID") int clientID,
                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getStartX(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getStartX());
     }
 
     @PUT
@@ -572,7 +572,7 @@ public class CameraResource {
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID,
                                     @FormParam("StartX") int startX) {
-        getDevice(deviceNumber, clientID).setStartX(clientID, startX);
+        getDevice(deviceNumber, clientID).setStartX(startX);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -581,7 +581,7 @@ public class CameraResource {
     public IntResponse getStartY(@PathParam("deviceNumber") int deviceNumber,
                                  @QueryParam("ClientID") int clientID,
                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getStartY(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getStartY());
     }
 
     @PUT
@@ -590,7 +590,7 @@ public class CameraResource {
                                     @FormParam("ClientID") int clientID,
                                     @FormParam("ClientTransactionID") long clientTransactionID,
                                     @FormParam("StartY") int startY) {
-        getDevice(deviceNumber, clientID).setStartY(clientID, startY);
+        getDevice(deviceNumber, clientID).setStartY(startY);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -599,7 +599,7 @@ public class CameraResource {
     public DoubleResponse getSubExposureDuration(@PathParam("deviceNumber") int deviceNumber,
                                                  @QueryParam("ClientID") int clientID,
                                                  @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getSubExposureDuration(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getSubExposureDuration());
     }
 
     @PUT
@@ -608,7 +608,7 @@ public class CameraResource {
                                                  @FormParam("ClientID") int clientID,
                                                  @FormParam("ClientTransactionID") long clientTransactionID,
                                                  @FormParam("SubExposureDuration") double subExposureDuration) {
-        getDevice(deviceNumber, clientID).setSubExposureDuration(clientID, subExposureDuration);
+        getDevice(deviceNumber, clientID).setSubExposureDuration(subExposureDuration);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -617,7 +617,7 @@ public class CameraResource {
     public AlpacaResponse abortExposure(@PathParam("deviceNumber") int deviceNumber,
                                         @FormParam("ClientID") int clientID,
                                         @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).abortExposure(clientID);
+        getDevice(deviceNumber, clientID).abortExposure();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -628,7 +628,7 @@ public class CameraResource {
                                      @FormParam("ClientTransactionID") long clientTransactionID,
                                      @FormParam("Direction") int direction,
                                      @FormParam("Duration") int duration) {
-        getDevice(deviceNumber, clientID).pulseGuide(clientID, direction, duration);
+        getDevice(deviceNumber, clientID).pulseGuide(direction, duration);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -639,7 +639,7 @@ public class CameraResource {
                                         @FormParam("ClientTransactionID") long clientTransactionID,
                                         @FormParam("Duration") double duration,
                                         @FormParam("Light") boolean light) {
-        getDevice(deviceNumber, clientID).startExposure(clientID, duration, light);
+        getDevice(deviceNumber, clientID).startExposure(duration, light);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -648,7 +648,7 @@ public class CameraResource {
     public AlpacaResponse stopExposure(@PathParam("deviceNumber") int deviceNumber,
                                        @FormParam("ClientID") int clientID,
                                        @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).stopExposure(clientID);
+        getDevice(deviceNumber, clientID).stopExposure();
         return new AlpacaResponse(clientTransactionID);
     }
 }

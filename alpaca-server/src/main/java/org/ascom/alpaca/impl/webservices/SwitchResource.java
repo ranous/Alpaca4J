@@ -31,7 +31,7 @@ public class SwitchResource {
     private void checkSwitchID(int id,
                                int deviceNumber,
                                int clientID) {
-        if (id < 0 || id > getDevice(deviceNumber, clientID).getMaxSwitch(clientID) - 1) {
+        if (id < 0 || id > getDevice(deviceNumber, clientID).getMaxSwitch() - 1) {
             throw new InvalidValueException("The switch id value of " + id + " is invalid");
         }
     }
@@ -43,7 +43,7 @@ public class SwitchResource {
                                     @QueryParam("ClientID") Integer clientID,
                                     @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).canAsync(id, clientID));
+        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).canAsync(id));
     }
 
     @GET
@@ -53,7 +53,7 @@ public class SwitchResource {
                                     @QueryParam("ClientID") Integer clientID,
                                     @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).canWrite(id, clientID));
+        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).canWrite(id));
     }
 
     @GET
@@ -63,7 +63,7 @@ public class SwitchResource {
                                                @QueryParam("ClientID") Integer clientID,
                                                @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new StringResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchDescription(id, clientID));
+        return new StringResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchDescription(id));
     }
 
     @GET
@@ -73,7 +73,7 @@ public class SwitchResource {
                                           @QueryParam("ClientID") Integer clientID,
                                           @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchState(id, clientID));
+        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchState(id));
     }
 
     @GET
@@ -83,7 +83,7 @@ public class SwitchResource {
                                         @QueryParam("ClientID") Integer clientID,
                                         @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new StringResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchName(id, clientID));
+        return new StringResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchName(id));
     }
 
     @GET
@@ -91,7 +91,7 @@ public class SwitchResource {
     public IntResponse getMaxSwitch(@PathParam("deviceNumber") Integer deviceNumber,
                                     @QueryParam("ClientID") Integer clientID,
                                     @QueryParam("ClientTransactionID") Integer clientTransactionID) {
-        return new IntResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMaxSwitch(clientID));
+        return new IntResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMaxSwitch());
     }
 
     @GET
@@ -101,7 +101,7 @@ public class SwitchResource {
                                          @QueryParam("ClientID") Integer clientID,
                                          @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchValue(id, clientID));
+        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchValue(id));
     }
 
     @GET
@@ -111,7 +111,7 @@ public class SwitchResource {
                                             @QueryParam("ClientID") Integer clientID,
                                             @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMinSwitchValue(id, clientID));
+        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMinSwitchValue(id));
     }
 
     @GET
@@ -121,7 +121,7 @@ public class SwitchResource {
                                             @QueryParam("ClientID") Integer clientID,
                                             @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMaxSwitchValue(id, clientID));
+        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getMaxSwitchValue(id));
 
     }
 
@@ -132,7 +132,7 @@ public class SwitchResource {
                                                  @QueryParam("ClientID") Integer clientID,
                                                  @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).isStateChangeComplete(id, clientID));
+        return new BooleanResponse(clientTransactionID, getDevice(deviceNumber, clientID).isStateChangeComplete(id));
     }
 
     @PUT
@@ -142,7 +142,7 @@ public class SwitchResource {
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        getDevice(deviceNumber, clientID).cancelAsync(id, clientID);
+        getDevice(deviceNumber, clientID).cancelAsync(id);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -154,7 +154,7 @@ public class SwitchResource {
                                    @FormParam("ClientID") int clientID,
                                    @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        getDevice(deviceNumber, clientID).setAsync(id, state, clientID);
+        getDevice(deviceNumber, clientID).setAsync(id, state);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -166,7 +166,7 @@ public class SwitchResource {
                                         @FormParam("ClientID") int clientID,
                                         @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        getDevice(deviceNumber, clientID).setAsyncValue(id, value, clientID);
+        getDevice(deviceNumber, clientID).setAsyncValue(id, value);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -178,7 +178,7 @@ public class SwitchResource {
                                         @FormParam("ClientID") Integer clientID,
                                         @FormParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        getDevice(deviceNumber, clientID).setSwitchName(id, name, clientID);
+        getDevice(deviceNumber, clientID).setSwitchName(id, name);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -190,7 +190,7 @@ public class SwitchResource {
                                          @FormParam("ClientID") int clientID,
                                          @FormParam("ClientTransactionID") long clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        getDevice(deviceNumber, clientID).setSwitchState(id, state, clientID);
+        getDevice(deviceNumber, clientID).setSwitchState(id, state);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -203,10 +203,10 @@ public class SwitchResource {
                                          @FormParam("ClientTransactionID") long clientTransactionID) {
         log.info("Setting switch value for device {}, id {} to {}", deviceNumber, id, value);
         checkSwitchID(id, deviceNumber, clientID);
-        if (value < getDevice(deviceNumber, clientID).getMinSwitchValue(id, clientID) || value > getDevice(deviceNumber, clientID).getMaxSwitchValue(id, clientID)) {
+        if (value < getDevice(deviceNumber, clientID).getMinSwitchValue(id) || value > getDevice(deviceNumber, clientID).getMaxSwitchValue(id)) {
             throw new InvalidValueException("The switch value is outside the switches range");
         }
-        getDevice(deviceNumber, clientID).setSwitchValue(id, value, clientID);
+        getDevice(deviceNumber, clientID).setSwitchValue(id, value);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -217,6 +217,6 @@ public class SwitchResource {
                                         @QueryParam("ClientID") Integer clientID,
                                         @QueryParam("ClientTransactionID") Integer clientTransactionID) {
         checkSwitchID(id, deviceNumber, clientID);
-        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchStep(id, clientID));
+        return new DoubleResponse(clientTransactionID, getDevice(deviceNumber, clientID).getSwitchStep(id));
     }
 }

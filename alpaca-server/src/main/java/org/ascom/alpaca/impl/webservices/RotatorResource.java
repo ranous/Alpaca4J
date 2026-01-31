@@ -32,7 +32,7 @@ public class RotatorResource {
     public BooleanResponse canReverse(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).canReverse(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).canReverse());
     }
 
     @GET
@@ -40,7 +40,7 @@ public class RotatorResource {
     public BooleanResponse isMoving(@PathParam("deviceNumber") int deviceNumber,
                                     @QueryParam("ClientID") int clientID,
                                     @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isMoving(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isMoving());
     }
 
     @GET
@@ -48,7 +48,7 @@ public class RotatorResource {
     public DoubleResponse getMechanicalPosition(@PathParam("deviceNumber") int deviceNumber,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getMechanicalPosition(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getMechanicalPosition());
     }
 
     @GET
@@ -56,7 +56,7 @@ public class RotatorResource {
     public DoubleResponse getPosition(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getPosition(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getPosition());
     }
 
     @GET
@@ -64,7 +64,7 @@ public class RotatorResource {
     public BooleanResponse isReversed(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new BooleanResponse(getDevice(deviceNumber, clientID).isReversed(clientID));
+        return new BooleanResponse(getDevice(deviceNumber, clientID).isReversed());
     }
 
     @PUT
@@ -73,7 +73,7 @@ public class RotatorResource {
                                       @FormParam("ClientID") int clientID,
                                       @FormParam("ClientTransactionID") long clientTransactionID,
                                       @FormParam("Slaved") boolean reversed) {
-        getDevice(deviceNumber, clientID).setReversed(clientID, reversed);
+        getDevice(deviceNumber, clientID).setReversed(reversed);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -82,7 +82,7 @@ public class RotatorResource {
     public DoubleResponse getStepSize(@PathParam("deviceNumber") int deviceNumber,
                                       @QueryParam("ClientID") int clientID,
                                       @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getStepSize(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getStepSize());
     }
 
     @GET
@@ -90,7 +90,7 @@ public class RotatorResource {
     public DoubleResponse getTargetPosition(@PathParam("deviceNumber") int deviceNumber,
                                             @QueryParam("ClientID") int clientID,
                                             @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new DoubleResponse(getDevice(deviceNumber, clientID).getTargetPosition(clientID));
+        return new DoubleResponse(getDevice(deviceNumber, clientID).getTargetPosition());
     }
 
     @PUT
@@ -98,7 +98,7 @@ public class RotatorResource {
     public AlpacaResponse halt(@PathParam("deviceNumber") int deviceNumber,
                                @FormParam("ClientID") int clientID,
                                @FormParam("ClientTransactionID") long clientTransactionID) {
-        getDevice(deviceNumber, clientID).halt(clientID);
+        getDevice(deviceNumber, clientID).halt();
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -111,7 +111,7 @@ public class RotatorResource {
         if (position > 360) {
             throw new InvalidValueException("The position cannot be moved more than 360 degrees");
         }
-        getDevice(deviceNumber, clientID).move(clientID, position);
+        getDevice(deviceNumber, clientID).move(position);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -125,7 +125,7 @@ public class RotatorResource {
             throw new InvalidValueException("Invalid position, must be no less than zero or greater than 360");
         }
 
-        getDevice(deviceNumber, clientID).moveAbsolute(clientID, position);
+        getDevice(deviceNumber, clientID).moveAbsolute(position);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -138,7 +138,7 @@ public class RotatorResource {
         if (position < 0 || position > 360) {
             throw new InvalidValueException("Invalid position, must be no less than zero or greater than 360");
         }
-        getDevice(deviceNumber, clientID).moveMechanical(clientID, position);
+        getDevice(deviceNumber, clientID).moveMechanical(position);
         return new AlpacaResponse(clientTransactionID);
     }
 
@@ -151,7 +151,7 @@ public class RotatorResource {
         if (position < 0 || position > 360) {
             throw new InvalidValueException("Invalid position, must be no less than zero or greater than 360");
         }
-        getDevice(deviceNumber, clientID).sync(clientID, position);
+        getDevice(deviceNumber, clientID).sync(position);
         return new AlpacaResponse(clientTransactionID);
     }
 }
