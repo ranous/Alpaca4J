@@ -1,7 +1,7 @@
 package org.ascom.alpaca.response;
 
 @SuppressWarnings("unused")
-public class AlpacaException extends RuntimeException {
+public abstract class AlpacaException extends RuntimeException {
     private final int errorNumber;
     private long clientTransactionID;
 
