@@ -592,9 +592,11 @@ public class TelescopeResource {
     @GET
     @Path("telescope/{deviceNumber}/destinationsideofpier")
     public IntResponse getDestinationSideOfPier(@PathParam("deviceNumber") int deviceNumber,
+                                                @QueryParam("RightAscension") double rightAscension,
+                                                @QueryParam("Declination") double declination,
                                                 @QueryParam("ClientID") int clientID,
                                                 @QueryParam("ClientTransactionID") long clientTransactionID) {
-        return new IntResponse(getDevice(deviceNumber, clientID).getDestinationSideOfPier(clientID));
+        return new IntResponse(getDevice(deviceNumber, clientID).getDestinationSideOfPier(rightAscension, declination, clientID).getSide());
     }
 
     @PUT

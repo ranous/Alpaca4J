@@ -2354,13 +2354,14 @@ public class TelescopeClient extends CommonClient {
     /**
      * Moves a telescope axis at the given rate (degrees / second).
      *
-     * @param
+     * @param axis The axis to move
+     * @param rate The rate of movement (degrees / second)
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/telescope.html#Telescope.MoveAxis">A full description of this member's behavior is provided here</a>
      */
-    public void moveAxis(int axis, double rate) {
-        AlpacaResponse response = call(getClient().moveAxis(getDeviceID(), axis, rate, getClientID(), getTransactionID()), "moveAxis", axis, rate);
+    public void moveAxis(TelescopeAxes axis, double rate) {
+        AlpacaResponse response = call(getClient().moveAxis(getDeviceID(), axis.getAxis(), rate, getClientID(), getTransactionID()), "moveAxis", axis, rate);
     }
 
     /**
@@ -2371,8 +2372,8 @@ public class TelescopeClient extends CommonClient {
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/telescope.html#Telescope.MoveAxis">A full description of this member's behavior is provided here</a>
      */
-    public void moveAxis(int axis, double rate, AlpacaCallback<Void> callback) {
-        callAsync(getClient().moveAxis(getDeviceID(), axis, rate, getClientID(), getTransactionID()), new AlpacaCallback<>() {
+    public void moveAxis(TelescopeAxes axis, double rate, AlpacaCallback<Void> callback) {
+        callAsync(getClient().moveAxis(getDeviceID(), axis.getAxis(), rate, getClientID(), getTransactionID()), new AlpacaCallback<>() {
             @Override
             public void success(AlpacaResponse result) {
                 callback.success(null);
@@ -2421,14 +2422,14 @@ public class TelescopeClient extends CommonClient {
     /**
      * Moves the scope in the given direction for the given time.
      *
-     * @param direction
-     * @param duration
+     * @param direction the direction of movement
+     * @param duration duration of movement (milliseconds)
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/telescope.html#Telescope.PulseGuide">A full description of this member's behavior is provided here</a>
      */
-    public void pulseguide(int direction, int duration) {
-        AlpacaResponse response = call(getClient().pulseguide(getDeviceID(), getClientID(), getTransactionID(), direction, duration), "pulseguide", direction, duration);
+    public void pulseguide(GuideDirections direction, int duration) {
+        AlpacaResponse response = call(getClient().pulseguide(getDeviceID(), getClientID(), getTransactionID(), direction.getDirection(), duration), "pulseguide", direction, duration);
     }
 
     /**
@@ -2441,8 +2442,8 @@ public class TelescopeClient extends CommonClient {
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/telescope.html#Telescope.PulseGuide">A full description of this member's behavior is provided here</a>
      */
-    public void pulseguide(int direction, int duration, AlpacaCallback<Void> callback) {
-        callAsync(getClient().pulseguide(getDeviceID(), getClientID(), getTransactionID(), direction, duration), new AlpacaCallback<>() {
+    public void pulseguide(GuideDirections direction, int duration, AlpacaCallback<Void> callback) {
+        callAsync(getClient().pulseguide(getDeviceID(), getClientID(), getTransactionID(), direction.getDirection(), duration), new AlpacaCallback<>() {
             @Override
             public void success(AlpacaResponse result) {
                 callback.success(null);
