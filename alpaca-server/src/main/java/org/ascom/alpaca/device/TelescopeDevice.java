@@ -140,7 +140,7 @@ public interface TelescopeDevice extends Device {
 
     boolean canMoveAxis(int axis, int clientID);
 
-    int getDestinationSideOfPier(int clientID);
+    int getDestinationSideOfPier(double rightAscension, double declination, int clientID);
 
     void findHome(int clientID);
 

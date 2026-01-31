@@ -381,7 +381,7 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     }
 
     @Override
-    public int getDestinationSideOfPier(int clientID) {
+    public int getDestinationSideOfPier(double rightAscension, double declinatino, int clientID) {
         return 0;
     }
 
