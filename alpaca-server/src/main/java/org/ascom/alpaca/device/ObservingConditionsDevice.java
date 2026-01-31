@@ -9,7 +9,6 @@ package org.ascom.alpaca.device;
 public interface ObservingConditionsDevice extends Device {
     /**
      * Returns the time period over which observations will be averaged.
-     * @param clientID the client ID
      * @return the average period
      * @throws org.ascom.alpaca.response.NotConnectedException if the client is not connected
      */
@@ -17,14 +16,12 @@ public interface ObservingConditionsDevice extends Device {
 
     /**
      * Sets the time period over which observations will be averaged.
-     * @param clientID the client ID
      * @param averagePeriod the average period specified, in hours.
      */
     void setAveragePeriod(double averagePeriod);
 
     /**
      * Returns the cloud cover percentage.
-     * @param clientID the client ID
      * @return the cloud cover percentage
      * @throws org.ascom.alpaca.response.InvalidValueException if clientID is negative
      * @throws org.ascom.alpaca.response.NotConnectedException if the client is not connected
