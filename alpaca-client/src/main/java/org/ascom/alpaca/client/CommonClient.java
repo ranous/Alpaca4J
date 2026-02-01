@@ -223,6 +223,23 @@ public class CommonClient {
         return deviceDescriptor;
     }
 
+    /**
+     * This convenience method waits for the sync connection to complete.  If
+     * completion hasn't happened before the timeout (in milliseconds), an
+     * InterruptedException is thrown.
+     *
+     * @param timeout the maximum time to wait (in milliseconds)
+     * @throws InterruptedException
+     */
+    public void awaitConnectionCompletion(long timeout) throws InterruptedException {
+        long start = System.currentTimeMillis();
+        while (isConnecting()) {
+            Thread.sleep(200);
+            if (System.currentTimeMillis() - start > timeout) {
+                throw new InterruptedException("Timed out waiting for connection completion");
+            }
+        }
+    }
 
     // The following methods are the actual Alpaca API methods that are implemented in the CommonClient class.
 

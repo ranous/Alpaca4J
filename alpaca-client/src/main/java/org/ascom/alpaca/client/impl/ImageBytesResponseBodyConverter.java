@@ -63,7 +63,7 @@ public class ImageBytesResponseBodyConverter<T> implements Converter<ResponseBod
             for (int i = 0; i < dimension1; i++) {
                 switch (transmissionElementType) {
                     case 1 -> { // short encoded result
-                        byte[] rowBuf = new byte[dimension2 * 4];
+                        byte[] rowBuf = new byte[dimension2 * 2];
                         is.readFully(rowBuf);
                         ByteBuffer rowBuffer = ByteBuffer.wrap(rowBuf).order(ByteOrder.LITTLE_ENDIAN);
                         for (int j = 0; j < dimension2; j++) {
@@ -85,7 +85,17 @@ public class ImageBytesResponseBodyConverter<T> implements Converter<ResponseBod
                             imageArray[i][j] = rowBuf[j] & 0xFF;
                         }
                     }
-                    default -> throw new IOException("Unknown or unsupported transmissionElementType: " + transmissionElementType);
+                    case 8 -> { // unsigned short encoded result
+                        byte[] rowBuf = new byte[dimension2 * 2];
+                        is.readFully(rowBuf);
+                        ByteBuffer rowBuffer = ByteBuffer.wrap(rowBuf).order(ByteOrder.LITTLE_ENDIAN);
+                        for (int j = 0; j < dimension2; j++) {
+                            // getShort reads a signed short, but we want unsigned so mask it
+                            imageArray[i][j] = rowBuffer.getShort() & 0xFFFF;
+                        }
+                    }
+
+                    default -> throw new IOException("Received an unknown or unsupported transmissionElementType: " + transmissionElementType);
                 }
             }
             return (T) new ImageArrayResponse(ImageArray.Type.Integer, ImageArray.Rank.SinglePlane, imageArray);
