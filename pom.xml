@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.ranous.ascom</groupId>
     <artifactId>alpaca</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Alpaca4J Framework</name>
     <description>Alpaca4J Parent POM</description>
@@ -110,7 +110,7 @@
     <scm>
         <connection>scm:git:https://github.com/ranous/Alpaca4J.git</connection>
         <developerConnection>scm:git:https://github.com/ranous/Alpaca4J.git</developerConnection>
-        <tag>1.0.0</tag>
+        <tag>v1.0.0</tag>
         <url>https://github.com/ranous/Alpaca4J</url>
     </scm>
 

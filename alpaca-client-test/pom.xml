@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.ranous.ascom</groupId>
     <artifactId>alpaca-client-test</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Alpaca Client Tests</name>
     <packaging>jar</packaging>
 
     <properties>
         <alpaca.example>true</alpaca.example>
         <alpaca.platform.group-id>io.github.ranous.ascom</alpaca.platform.group-id>
-        <alpaca.platform.version>1.0.0</alpaca.platform.version>
+        <alpaca.platform.version>1.0.1-SNAPSHOT</alpaca.platform.version>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <maven.compiler.release>17</maven.compiler.release>
         <maven.install.skip>true</maven.install.skip>
