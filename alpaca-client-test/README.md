@@ -28,9 +28,10 @@ you'll still need to poll the appropriate Alpaca methods to check on completion.
 
 ## Requirements
 
-To run or develop the Alpaca client test module, you need the following:
+To run or develop the Alpaca client tespwd
+t module, you need the following:
 
-- **Java 11 or higher** (Java 21 is recommended for optimal performance).
+- **Java 17 or higher** (Java 21 is recommended for optimal performance).
 - **Maven** or **Gradle** for dependency management.
 - A running instance of an **Alpaca-compatible device** for testing.
 
@@ -40,12 +41,12 @@ Follow these steps to use the `alpaca-client-test` module:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-repository/alpaca4j.git
-   cd alpaca4j/alpaca-client-test
+   git clone https://github.com/ranous/Alpaca4J.git
+   cd Alpaca4J/alpaca-client-test
    ```
 
 2. **Build the Module**:
-   Ensure that your environment has Maven or Gradle installed, and then run:
+   Ensure that your environment has Maven or Gradle installed and then run:
    ```bash
    mvn clean install
    ```
@@ -56,11 +57,8 @@ Follow these steps to use the `alpaca-client-test` module:
    java -jar target/alpaca-client-test.jar
    ```
 
-4. **Device Configuration**:
-   Configure the Alpaca device details such as host, port, and available capabilities in the application.
-
-5. **Testing**:
-   The module includes basic test implementations to verify client-to-device communication. 
+4. **Testing**:
+   The module includes a basic test client implementation that demonstrates client-to-device communication. 
 Extend these tests to match your specific use cases.
 
 ## Key Components

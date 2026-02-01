@@ -1,6 +1,6 @@
 # **Alpaca Server Test Module**
 ## Overview
-The `alpaca-server-test` module is designed for testing Alpaca-compliant devices in the server 
+The `alpaca-server-test` module demonstrates how to implement Alpaca-compliant devices in the server 
 implementation. It provides tools and frameworks to simulate devices and validate their behavior 
 as per the specifications defined by the Alpaca protocol. At its core, this module leverages 
 the concept of device abstraction and interfaces to facilitate the creation of new devices for 
