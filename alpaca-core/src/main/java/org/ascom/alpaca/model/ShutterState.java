@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The ShutterState enum represents the state of the shutter.
+ */
 public enum ShutterState {
     Open(0), Closed(1), Opening(2), Closing(3), Error(4);
 

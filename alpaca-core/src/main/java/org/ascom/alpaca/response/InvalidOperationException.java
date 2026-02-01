@@ -1,5 +1,8 @@
 package org.ascom.alpaca.response;
 
+/**
+ * Exception thrown when an invalid operation is attempted on a device.
+ */
 @SuppressWarnings("unused")
 public class InvalidOperationException extends AlpacaException {
     public static final int ERROR_CODE = ErrorCode.InvalidOperation.getCode();

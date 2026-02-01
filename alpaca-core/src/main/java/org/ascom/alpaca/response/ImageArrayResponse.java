@@ -3,6 +3,10 @@ package org.ascom.alpaca.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ascom.alpaca.model.ImageArray;
 
+/**
+ * The Alpaca response for an image array.  This response is returned for either the standard
+ * ImageArray requests or ImageArray requests which get mapped into this type.
+ */
 @SuppressWarnings("unused")
 public class ImageArrayResponse extends AlpacaResponse {
     private ImageArray.Type type;

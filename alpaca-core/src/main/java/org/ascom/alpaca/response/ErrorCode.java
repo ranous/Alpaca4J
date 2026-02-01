@@ -3,6 +3,10 @@ package org.ascom.alpaca.response;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The Alpaca error codes. The error codes are defined in the Alpaca specification and correspond to
+ * the native ASCOM error codes.
+ */
 public enum ErrorCode {
     Success(0),
     PropertyNotImplemented(1024),

@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * Indicates the state of the of a cover calibrator device.
+ */
 @SuppressWarnings("unused")
 public enum CoverState {
     NotPresent(0),

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * The axis about which rate information is desired.
+ * The mechanicl axis of the mount.
+ * @see <a href="https://ascom-standards.org/newdocs/telescope-axes.html">A full description of the mechanical axes is provided here</a>
  */
 public enum TelescopeAxes {
     Primary(0),

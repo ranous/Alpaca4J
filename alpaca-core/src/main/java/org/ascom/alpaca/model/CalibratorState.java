@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The CalibratorState enum represents the operational state of a calibrator device.
+ */
 @SuppressWarnings("unused")
 public enum CalibratorState {
     NotPresent(0),

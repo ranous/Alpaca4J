@@ -1,5 +1,8 @@
 package org.ascom.alpaca.response;
 
+/**
+ * The Alpaca response to a request for an integer.
+ */
 public class IntResponse extends ValueResponse<Integer> {
     @SuppressWarnings("unused")
     IntResponse() {

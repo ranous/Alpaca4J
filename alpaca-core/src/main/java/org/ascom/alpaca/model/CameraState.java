@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The CameraState enum represents the operational state of the camera.
+ */
 @SuppressWarnings("unused")
 public enum CameraState {
     CameraIdle(0),

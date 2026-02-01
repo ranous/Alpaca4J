@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Alpaca response to a request for a list of values.
+ */
 @SuppressWarnings("unused")
 public class ListResponse<V> extends AlpacaResponse {
     private List<V> value;

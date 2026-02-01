@@ -1,5 +1,8 @@
 package org.ascom.alpaca.response;
 
+/**
+ * An Alpaca response that contains a boolean value.
+ */
 public class BooleanResponse extends ValueResponse<Boolean> {
     @SuppressWarnings("unused")
     BooleanResponse() {

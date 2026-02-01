@@ -1,5 +1,8 @@
 package org.ascom.alpaca.response;
 
+/**
+ * The ServerException is thrown when there is an internal error on the server side.
+ */
 public class ServerException extends AlpacaException {
     public static final int ERROR_CODE = ErrorCode.ServerError.getCode();
 

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
+/**
+ * The DeviceDescriptor class represents a device on the Alpaca server.
+ */
 @SuppressWarnings("unused")
 public class DeviceDescriptor {
     private String deviceName;

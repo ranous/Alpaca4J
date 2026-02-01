@@ -3,6 +3,10 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The PierSide enum represents the pointing state of the mount.
+ * @see <a href="https://ascom-standards.org/newdocs/ptgstate-faq.html#ptgstate-faq">A full description of is provided here</a>
+ */
 public enum PierSide {
     East(0),
     West(1),

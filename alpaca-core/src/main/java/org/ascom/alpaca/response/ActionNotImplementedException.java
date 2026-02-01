@@ -1,5 +1,8 @@
 package org.ascom.alpaca.response;
 
+/**
+ * Exception thrown when trying to invoke a device custom action that is not implemented by the device.
+ */
 @SuppressWarnings("unused")
 public class ActionNotImplementedException extends AlpacaException {
     public static final int ERROR_CODE = ErrorCode.ActionNotImplemented.getCode();

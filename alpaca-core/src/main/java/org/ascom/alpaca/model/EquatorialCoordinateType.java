@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The EquatorialCoordinateType enum represents the possible coordinate types for equatorial coordinates by the mount.
+ */
 @SuppressWarnings("SpellCheckingInspection")
 public enum EquatorialCoordinateType {
     Other(0),

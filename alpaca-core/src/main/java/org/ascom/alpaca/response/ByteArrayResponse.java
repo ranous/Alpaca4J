@@ -2,6 +2,9 @@ package org.ascom.alpaca.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The Alpaca response to a request for a byte array.
+ */
 @SuppressWarnings("unused")
 public class ByteArrayResponse extends AlpacaResponse {
     private byte[] value;

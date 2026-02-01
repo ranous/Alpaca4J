@@ -3,6 +3,11 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The GuideDirections enum represents the possible directions in which a pulse-rate motion is to be made.
+ * These are not mechanical axes, these are the direction in the equatorial coordinate system.
+ * @see <a href=https://ascom-standards.org/newdocs/telescope.html#Telescope.GuideDirections">A full description of is provided here</a>
+ */
 @SuppressWarnings("unused")
 public enum GuideDirections {
     North(0),

@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The AlignmentMode enum represents the possible alignment modes of a mount.
+ */
 @SuppressWarnings("unused")
 public enum AlignmentMode {
     AltAz(0),

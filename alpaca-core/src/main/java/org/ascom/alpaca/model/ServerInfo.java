@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
+/**
+ * The ServerInfo class represents information about the Alpaca server hosting the devices.
+ */
 @SuppressWarnings("unused")
 public class ServerInfo {
     private String serverName;

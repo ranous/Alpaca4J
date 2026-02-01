@@ -2,6 +2,9 @@ package org.ascom.alpaca.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The type of sensor the camera is using.
+ */
 @SuppressWarnings("SpellCheckingInspection")
 public enum SensorType {
     Monochrome(0), Color(1), RGGB(2), CMYG(3), CMYG2(4), LRGB(5);

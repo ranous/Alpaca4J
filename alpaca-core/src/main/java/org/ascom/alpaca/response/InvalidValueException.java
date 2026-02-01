@@ -1,5 +1,8 @@
 package org.ascom.alpaca.response;
 
+/**
+ * Exception thrown when an invalid value is provided to a device.
+ */
 @SuppressWarnings("unused")
 public class InvalidValueException extends AlpacaException {
     public static final int ERROR_CODE = ErrorCode.InvalidValue.getCode();

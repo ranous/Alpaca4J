@@ -3,6 +3,9 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The type of Alpca device.
+ */
 @SuppressWarnings("SpellCheckingInspection")
 public enum DeviceType {
     Camera("camera"),

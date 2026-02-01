@@ -3,7 +3,7 @@ package org.ascom.alpaca.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Axis rate limits.
+ * The movement rate limits of an axis of the mount.
  */
 @SuppressWarnings("unused")
 public class AxisRate {
