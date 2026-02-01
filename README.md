@@ -48,7 +48,7 @@ client and server development.
 ## Getting Started
 ### Prerequisites
 Make sure you have the following tools installed:
-- Java Development Kit (JDK 21 or higher)
+- Java Development Kit (JDK 17 or higher)
 - Maven or Gradle as your build tool
 - A MicroProfile-compliant web service framework (e.g., Quarkus for rapid development). This
   is not necessary if only using the client library to interact with Alpaca devices.
