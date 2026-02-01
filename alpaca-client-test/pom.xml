@@ -10,7 +10,7 @@
     <properties>
         <alpaca.example>true</alpaca.example>
         <alpaca.platform.group-id>io.github.ranous.ascom</alpaca.platform.group-id>
-        <alpaca.platform.version>1.0.0</alpaca.platform.version>
+        <alpaca.platform.version>0.9.1-SNAPSHOT</alpaca.platform.version>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <maven.compiler.release>17</maven.compiler.release>
         <maven.install.skip>true</maven.install.skip>
