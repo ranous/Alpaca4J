@@ -30,7 +30,7 @@ public enum DeviceType {
 
     @JsonCreator
     public static DeviceType fromType(String name) {
-        return switch (name) {
+        return switch (name.toLowerCase()) {
             case "camera" -> Camera;
             case "covercalibrator" -> CoverCalibrator;
             case "dome" -> Dome;
