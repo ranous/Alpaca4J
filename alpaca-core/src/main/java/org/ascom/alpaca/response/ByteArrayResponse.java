@@ -1,7 +1,6 @@
 package org.ascom.alpaca.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.ascom.alpaca.model.ImageArray;
 
 @SuppressWarnings("unused")
 public class ByteArrayResponse extends AlpacaResponse {
