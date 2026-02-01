@@ -162,7 +162,7 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
     }
 
     /**
-     * The peak 3 second wind gust in m/s ove the last 2 minutes.
+     * The peak 3-second wind gust in m/s over the last 2 minutes.
      * @return the wind gust
      */
     @Override

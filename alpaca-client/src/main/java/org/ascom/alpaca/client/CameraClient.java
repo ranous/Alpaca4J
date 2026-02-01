@@ -1241,8 +1241,8 @@ public class CameraClient extends CommonClient {
     /**
      * Internal implementation of getImageArray that takes a media type that is relayed to the service.
      * If the mediaType is set to application/imagebytes and the camera device supports the ImageBytes
-     * mechansim, then the image array is returned as a byte array, otherwise it is returned as an
-     * json ImageArray.
+     * mechansim, then the image is transmitted as a byte array, otherwise it is returned as a
+     * JSON ImageArray.
      *
      * @param mediaType the type of array to return
      * @return the image array
@@ -2498,7 +2498,7 @@ public class CameraClient extends CommonClient {
      * Pulse guide in the specified direction for the specified time.
      *
      * @param direction
-     * @param duration Duration of movement in milli-seconds
+     * @param duration Duration of movement in milliseconds
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.PulseGuide">A full description of this member's behavior is provided here</a>
@@ -2511,7 +2511,7 @@ public class CameraClient extends CommonClient {
      * Pulse guide in the specified direction for the specified time.
      *
      * @param direction
-     * @param duration Duration of movement in milli-seconds
+     * @param duration Duration of movement in milliseconds
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device

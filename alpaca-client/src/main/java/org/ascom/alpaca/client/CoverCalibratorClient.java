@@ -190,7 +190,7 @@ public class CoverCalibratorClient extends CommonClient {
     }
 
     /**
-     * Returns the state of the device cover"
+     * Returns the state of the device cover.
      *
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
@@ -202,7 +202,7 @@ public class CoverCalibratorClient extends CommonClient {
     }
 
     /**
-     * Returns the state of the device cover"
+     * Returns the state of the device cover.
      *
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device

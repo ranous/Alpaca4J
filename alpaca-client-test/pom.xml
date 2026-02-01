@@ -30,7 +30,7 @@
     <build>
         <plugins>
             <plugin>
-                <!-- Makes an uber-jar with all dependencies -->
+                <!-- Makes an uber jar with all dependencies -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.4.1</version>

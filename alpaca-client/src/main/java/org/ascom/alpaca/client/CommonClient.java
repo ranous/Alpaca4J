@@ -379,7 +379,7 @@ public class CommonClient {
 
     /**
      * Retrieves the connected state of the device
-     * @return is the client connected to the device
+     * @return true if the client is connected
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.Connected">A full description of this member's behavior is provided here</a>
@@ -662,7 +662,7 @@ public class CommonClient {
     /**
      * Invokes the named device-specific action.
      *
-     * @param action One of the recognised device actions
+     * @param action One of the recognized device actions
      * @param parameters A string containing the parameters for the action
      * @return An action-specific string containing the result of the action
      * @throws ClientException If there is a problem communicating with the device
@@ -678,7 +678,7 @@ public class CommonClient {
     /**
      * Invokes the named device-specific action.
      *
-     * @param action One of the recognised device actions
+     * @param action One of the recognized device actions
      * @param parameters A string containing the parameters for the action
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device

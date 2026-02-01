@@ -379,7 +379,7 @@ public class BaseDevice implements Device {
      * Returns an HTML page that lets the client change configuration attributes supported by the device.
      * The generated HTML can then call PUT on the Alpaca endpoint '/setup/v1/{deviceType}/{deviceID}/setup'.
      * This resource will then call the device's {@link #update(Map)} method.
-     * @return a HTML page that lets the client edit device configuration attributes.
+     * @return an HTML page that lets the client edit device configuration attributes.
      */
     @Override
     public String setup() {

@@ -61,7 +61,7 @@ public class ClientTest {
         }
     }
 
-    // This test does the same thing as the sync test, instead using the asynchronous versions of the Alpaca APIs.
+    // This test does the same thing as the sync test, instead it uses the asynchronous versions of the Alpaca APIs.
     // These APIs use the AlpacaCallback interface to provide a callback mechanism for the client.
     static void asyncTest() {
         manager = ClientManager.getInstance();

@@ -493,7 +493,7 @@ public class ObservingConditionsClient extends CommonClient {
     }
 
     /**
-     * Returns the peak 3 second wind gust at the observatory over the last 2 minutes
+     * Returns the peak 3-second wind gust at the observatory over the last 2 minutes
      *
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
@@ -505,7 +505,7 @@ public class ObservingConditionsClient extends CommonClient {
     }
 
     /**
-     * Returns the peak 3 second wind gust at the observatory over the last 2 minutes
+     * Returns the peak 3-second wind gust at the observatory over the last 2 minutes
      *
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device
