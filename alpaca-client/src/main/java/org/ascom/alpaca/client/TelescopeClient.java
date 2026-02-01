@@ -1419,7 +1419,6 @@ public class TelescopeClient extends CommonClient {
     /**
      * Sets the mount's pointing state.
      *
-     * @return The mount's pointing state.
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
      * @see <a href="https://ascom-standards.org/newdocs/telescope.html#Telescope.SideOfPier">A full description of this member's behavior is provided here</a>

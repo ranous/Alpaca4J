@@ -76,7 +76,6 @@ public class ManagementClient {
     /**
      * Returns an integer array of supported Alpaca API version numbers.
      *
-     * @return the supported API versions
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
@@ -112,7 +111,6 @@ public class ManagementClient {
      * Returns an array of device description objects, providing unique information for each served device,
      * enabling them to be accessed through the Alpaca Device API.
      *
-     * @return a list of devices
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
@@ -144,7 +142,6 @@ public class ManagementClient {
     /**
      * Returns cross-cutting information that applies to all devices available at this URL:Port.
      *
-     * @return service description
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device
      * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
