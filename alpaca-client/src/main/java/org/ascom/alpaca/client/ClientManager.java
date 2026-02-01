@@ -178,7 +178,7 @@ public class ClientManager {
                     AlpacaDiscoveryResponse response = mapper.readValue(receiveBuf, AlpacaDiscoveryResponse.class);
 
                     log.info("Received a discovery response from " + address.getHostAddress() + ", port " + response.alpacaPort);
-                    int port = 11111;
+                    int port = response.alpacaPort;
                     // let's interogate the server in a separate thread as to not delay hearing from other servers
                     executor.submit(() -> interrogateAlpacaServer(address, port));
                 }
