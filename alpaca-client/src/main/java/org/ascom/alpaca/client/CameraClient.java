@@ -1239,8 +1239,11 @@ public class CameraClient extends CommonClient {
     }
 
     /**
-     * Returns an array of integers containing the exposure pixel values. If the media
-     * type is
+     * Internal implementation of getImageArray that takes a media type that is relayed to the service.
+     * If the mediaType is set to application/imagebytes and the camera device supports the ImageBytes
+     * mechansim, then the image array is returned as a byte array, otherwise it is returned as an
+     * json ImageArray.
+     *
      * @param mediaType the type of array to return
      * @return the image array
      * @throws ClientException If there is a problem communicating with the device
@@ -1248,9 +1251,36 @@ public class CameraClient extends CommonClient {
      * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.ImageArray">A full description of this member's behavior is provided here</a>
      * // TODO:  figure out this mediaType stuff
      */
-    ImageArray getImageArray(String mediaType) {
+    private ImageArray getImageArray(String mediaType) {
         ImageArrayResponse response = call(getClient().getImageArray(mediaType, getDeviceID(), getClientID(), getTransactionID()), "getImageArray");
         return new ImageArray(response.getType(), response.getRank(), response.getValue());
+    }
+
+    /**
+     * Internal implementation of getImageArray that takes a media type that is relayed to the service.
+     * If the mediaType is set to application/imagebytes and the camera device supports the ImageBytes
+     * mechansim, then the image array is returned as a byte array, otherwise it is returned as an
+     * json ImageArray.
+     *
+     * @param mediaType The media type to use for the request
+     * @param callback Callback to invoke when the operation completes
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.ImageArray">A full description of this member's behavior is provided here</a>
+     * @see <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods/get_camera__device_number__imagearray">Alpaca specific details is provided here</a>
+     */
+    private void getImageArray(String mediaType, AlpacaCallback<ImageArray> callback) {
+        callAsync(getClient().getImageArray(mediaType, getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
+            @Override
+            public void success(ImageArrayResponse result) {
+                callback.success(new ImageArray(result.getType(), result.getRank(), result.getValue()));
+            }
+
+            @Override
+            public void error(AlpacaClientError error) {
+                callback.error(error);
+            }
+        }, "getImageArray");
     }
 
     /**
@@ -1274,22 +1304,32 @@ public class CameraClient extends CommonClient {
      * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.ImageArray">A full description of this member's behavior is provided here</a>
      * @see <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods/get_camera__device_number__imagearray">Alpaca specific details is provided here</a>
      */
-    void getImageArray(String mediaType, AlpacaCallback<ImageArray> callback) {
-        callAsync(getClient().getImageArray(mediaType, getDeviceID(), getClientID(), getTransactionID()), new AlpacaCallback<>() {
-            @Override
-            public void success(ImageArrayResponse result) {
-                callback.success(new ImageArray(result.getType(), result.getRank(), result.getValue()));
-            }
-
-            @Override
-            public void error(AlpacaClientError error) {
-                callback.error(error);
-            }
-        }, "getImageArray");
+    public void getImageArray(AlpacaCallback<ImageArray> callback) {
+        getImageArray("application/json", callback);
     }
 
     /**
-     * Returns an array of integers containing the exposure pixel values
+     * Returns an array of integers containing the exposure pixel values. It requests the Camera device
+     * to use the ImageBytes mechanism if supported by the device, which is a more efficient binary format than
+     * the normal JSON encoded data.  If the device does not support the ImageBytes mechanism, then the
+     * response is returned as a JSON encoded ImageArray.  In either case, the response is returned as an
+     * ImageArray object.
+     *
+     * @throws ClientException If there is a problem communicating with the device
+     * @throws org.ascom.alpaca.response.ServerException If there is an error returned by the device
+     * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.ImageArray">A full description of this member's behavior is provided here</a>
+     * @see <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods/get_camera__device_number__imagearray">Alpaca specific details is provided here</a>
+     */
+    public ImageArray getImageBytes() {
+        return getImageArray("application/imagebytes");
+    }
+
+    /**
+     * Returns an array of integers containing the exposure pixel values. It requests the Camera device
+     * to use the ImageBytes mechanism if supported by the device, which is a more efficient binary format than
+     * the normal JSON encoded data.  If the device does not support the ImageBytes mechanism, then the
+     * response is returned as a JSON encoded ImageArray.  In either case, the response is returned as an
+     * ImageArray object.
      *
      * @param callback Callback to invoke when the operation completes
      * @throws ClientException If there is a problem communicating with the device
@@ -1297,15 +1337,6 @@ public class CameraClient extends CommonClient {
      * @see <a href="https://ascom-standards.org/newdocs/camera.html#Camera.ImageArray">A full description of this member's behavior is provided here</a>
      * @see <a href="https://ascom-standards.org/api/#/Camera%20Specific%20Methods/get_camera__device_number__imagearray">Alpaca specific details is provided here</a>
      */
-    public void getImageArray(AlpacaCallback<ImageArray> callback) {
-        getImageArray("application/json", callback);
-    }
-
-    // TODO:  flesh this out
-    public ImageArray getImageBytes() {
-        return getImageArray("application/imagebytes");
-    }
-
     public void getImageBytes(AlpacaCallback<ImageArray> callback) {
         getImageArray("application/imagebytes", callback);
     }
