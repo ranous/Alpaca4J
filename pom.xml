@@ -115,7 +115,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.2</version>
                     <configuration>
                         <tagNameFormat>@{project.version}</tagNameFormat>
                         <pushChanges>true</pushChanges>
@@ -132,19 +132,13 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.6.3</version>
-
+                    <version>3.11.2</version>
                     <configuration>
                         <quiet>true</quiet>
-                        <show>protected</show>
-
                         <additionalJOptions>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
                         </additionalJOptions>
-
-                        <excludePackageNames>
-                            *.internal.*:*.impl.*
-                        </excludePackageNames>
+                        <excludePackageNames>*.internal.*:*.impl.*</excludePackageNames>
                     </configuration>
                 </plugin>
             </plugins>
@@ -156,6 +150,14 @@
                 <version>${compiler-plugin.version}</version>
                 <configuration>
                     <parameters>true</parameters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <deployAtEnd>true</deployAtEnd>
                 </configuration>
             </plugin>
             <plugin>
@@ -189,21 +191,15 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.7</version>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.2</version>
                 <executions>
                     <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
+                        <id>aggregate-javadoc</id>
                         <goals>
-                            <goal>sign</goal>
+                            <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <gpgArguments>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
-                        </configuration>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -221,28 +217,34 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <additionalJOptions>
-                        <additionalJOption>-Xdoclint:none</additionalJOption>
-                    </additionalJOptions>
-                    <doctitle>ASCOM Alpaca Java Framework</doctitle>
-                    <windowtitle>ASCOM Alpaca Java API</windowtitle>
-                    <excludePackageNames>
-                        *.internal.*:*.impl.*:*.impl
-                    </excludePackageNames>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
                 </configuration>
-                <!-- executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.7</version>
+                <executions>
                     <execution>
-                        <id>aggregate-javadoc</id>
-                        <goals>
-                            <goal>aggregate</goal>
-                        </goals>
+                        <id>sign-artifacts</id>
                         <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </execution>
-                </executions-->
+                </executions>
             </plugin>
         </plugins>
     </build>
