@@ -8,6 +8,12 @@ package org.ascom.alpaca.device;
 @SuppressWarnings("unused")
 public interface SafetyMonitorDevice extends Device {
     /**
+     * The version of the Alpaca SafteyMonitor interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 3;
+
+    /**
      * Returns true if the monitored state is safe for use.
      * @return true if the monitored service is safe, false otherwise
      * @throws org.ascom.alpaca.response.NotConnectedException if the client is not connected

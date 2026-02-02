@@ -13,6 +13,11 @@ import java.util.List;
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface CameraDevice extends Device {
+    /**
+     * The version of the Alpaca Camera interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 4;
 
     int getBayerOffsetX();
 

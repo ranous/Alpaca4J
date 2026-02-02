@@ -7,6 +7,12 @@ package org.ascom.alpaca.device;
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface RotatorDevice extends Device {
+    /**
+     * The version of the Alpaca Rotator interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 4;
+
     boolean canReverse();
     boolean isMoving();
     double getMechanicalPosition();

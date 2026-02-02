@@ -6,6 +6,12 @@ package org.ascom.alpaca.device;
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface SwitchDevice extends Device {
+    /**
+     * The version of the Alpaca Switch interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 3;
+
     int getMaxSwitch();
     boolean canAsync(int switchID);
     boolean canWrite(int switchID);

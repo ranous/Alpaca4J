@@ -8,6 +8,12 @@ package org.ascom.alpaca.device;
 @SuppressWarnings("unused")
 public interface ObservingConditionsDevice extends Device {
     /**
+     * The version of the Alpaca ObservingConditions interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 2;
+
+    /**
      * Returns the time period in hours over which observations will be averaged.
      * @return the average period
      * @throws org.ascom.alpaca.response.NotConnectedException if the client is not connected

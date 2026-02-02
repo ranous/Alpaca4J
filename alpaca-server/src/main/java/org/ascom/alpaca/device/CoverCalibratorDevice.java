@@ -10,6 +10,12 @@ import org.ascom.alpaca.model.CoverState;
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface CoverCalibratorDevice extends Device {
+    /**
+     * The version of the Alpaca CoverCalibrator interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 2;
+
     int getBrightness();
     boolean isCalibratorChanging();
     CalibratorState getCalibratorState();

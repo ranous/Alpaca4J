@@ -8,6 +8,11 @@ import org.ascom.alpaca.model.ShutterState;
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface DomeDevice extends Device {
+    /**
+     * The version of the Alpaca Dome interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 3;
 
     double getAltitude();
     boolean atHome();

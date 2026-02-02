@@ -7,6 +7,12 @@ package org.ascom.alpaca.device;
  */
 @SuppressWarnings({"unused", "SameReturnValue"})
 public interface FocuserDevice extends Device {
+    /**
+     * The version of the Alpaca Focuser interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 4;
+
     boolean canAbsoluteFocus();
     boolean isMoving();
     int getMaxIncrement();

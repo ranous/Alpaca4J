@@ -9,6 +9,12 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface FilterWheelDevice extends Device {
+    /**
+     * The version of the Alpaca FilterWheel interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 3;
+
     List<Integer> getFocusOffsets();
     List<String> getFilterNames();
     int getPosition();

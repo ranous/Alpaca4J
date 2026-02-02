@@ -11,6 +11,11 @@ import java.util.List;
  */
 @SuppressWarnings({"unused", "SpellCheckingInspection", "SameReturnValue", "EmptyMethod"})
 public interface TelescopeDevice extends Device {
+    /**
+     * The version of the Alpaca Switch interface. Classes implementing this interface
+     * should return this from the {@link #getInterfaceVersion}.
+     */
+    int interfaceVersion = 4;
 
     AlignmentMode getAlignmentMode();
 
