@@ -5,6 +5,7 @@ import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.RotatorDevice;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.response.InvalidValueException;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @SuppressWarnings("unused")
 @Singleton
@@ -16,12 +17,11 @@ public class TestRotatorDevice extends BaseDevice implements RotatorDevice {
     private boolean isMoving = false;
     private boolean isReversed = false;
 
-
-    public TestRotatorDevice() {
-        super(DeviceType.Rotator, "Test Rotator", 4);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestRotatorDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.Rotator, "Test Rotator", RotatorDevice.interfaceVersion, deviceVersion);
         setDescription("Test Rotator Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
     @Override

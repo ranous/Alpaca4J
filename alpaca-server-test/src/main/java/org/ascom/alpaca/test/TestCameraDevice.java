@@ -9,6 +9,7 @@ import org.ascom.alpaca.model.SensorType;
 import org.ascom.alpaca.response.InvalidOperationException;
 import org.ascom.alpaca.response.InvalidValueException;
 import org.ascom.alpaca.response.PropertyNotImplementedException;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,11 +49,11 @@ public class TestCameraDevice extends BaseDevice implements CameraDevice {
     double subExposureDuration = 0;
     int readoutMode = 0;
 
-    public TestCameraDevice() {
-        super(DeviceType.Camera, "Test Camera Driver", 4);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestCameraDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.Camera, "Test Camera Driver", CameraDevice.interfaceVersion, deviceVersion);
         setDescription("Test Camera Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
     @Override

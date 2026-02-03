@@ -9,6 +9,8 @@ import org.ascom.alpaca.response.InvalidWhileParkedException;
 import org.ascom.alpaca.response.PropertyNotImplementedException;
 
 import jakarta.inject.Singleton;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,11 +38,11 @@ public class TestTelescopeDevice extends BaseDevice implements TelescopeDevice {
     private DriveRate currentDriveRate = DriveRate.Sidereal;
     private final List<DriveRate> supportedDriveRates = Arrays.asList(DriveRate.Sidereal, DriveRate.Lunar);
 
-    public TestTelescopeDevice() {
-        super(DeviceType.Telescope, "Test Telescope Driver", 4);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestTelescopeDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.Telescope, "Test Telescope Driver", TelescopeDevice.interfaceVersion, deviceVersion);
         setDescription("Test Telescope Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
     @Override

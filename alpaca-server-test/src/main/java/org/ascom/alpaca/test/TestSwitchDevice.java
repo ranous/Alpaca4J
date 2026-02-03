@@ -1,11 +1,11 @@
 package org.ascom.alpaca.test;
 
+import jakarta.inject.Singleton;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.SwitchDevice;
 import org.ascom.alpaca.model.DeviceType;
-
-import jakarta.inject.Singleton;
 import org.ascom.alpaca.response.InvalidValueException;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.List;
 
@@ -38,11 +38,11 @@ public class TestSwitchDevice extends BaseDevice implements SwitchDevice {
         }
     }
 
-    public TestSwitchDevice() {
-        super(DeviceType.Switch, "Test Switch Driver", 3);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestSwitchDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.Switch, "Test Switch Driver", SwitchDevice.interfaceVersion, deviceVersion);
         setDescription("Test Switch Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
     private void checkSwitch(int switchID) {

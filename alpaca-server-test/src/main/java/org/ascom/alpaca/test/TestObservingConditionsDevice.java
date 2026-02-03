@@ -40,18 +40,12 @@ public class TestObservingConditionsDevice extends BaseDevice implements Observi
     private final List<String> supportedMethods = List.of("averageperiod", "cloudcover", "dewpoint", "humidity", "pressure", "rainrate",
             "skybrightness", "skyquality", "skytemperature", "starfwhm", "temperature", "winddirection", "windgust", "windspeed");
 
-    public TestObservingConditionsDevice() {
-        super(DeviceType.ObservingConditions, "Test Observing Conditions", 2);
-        setDescription("Test Observing Conditions Device");
-        setDriverInfo(getDescription() + ". Version " + VERSION);
-    }
-
     // The version of the driver is injected from the microprofile-config.properties file and can be overridden
     // by the system property test.driver.version
     @Inject
     public TestObservingConditionsDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
-        this();
-        setDriverVersion(deviceVersion);
+        super(DeviceType.ObservingConditions, "Test Observing Conditions", ObservingConditionsDevice.interfaceVersion, deviceVersion);
+        setDescription("Test Observing Conditions Device");
     }
 
     @Override

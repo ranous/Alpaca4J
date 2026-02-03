@@ -6,6 +6,7 @@ import org.ascom.alpaca.model.DeviceType;
 
 import jakarta.inject.Singleton;
 import org.ascom.alpaca.model.StateValue;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.List;
 
@@ -18,11 +19,11 @@ public class TestFocuserDevice extends BaseDevice implements FocuserDevice {
     private boolean isMoving = false;
     private long moveStartTime = 0;
 
-    public TestFocuserDevice() {
-        super(DeviceType.Focuser, "Test Focuser Driver", 4);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestFocuserDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.Focuser, "Test Focuser Driver", FocuserDevice.interfaceVersion, deviceVersion);
         setDescription("Test Focuser Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
 

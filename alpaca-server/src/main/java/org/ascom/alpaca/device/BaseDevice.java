@@ -43,13 +43,12 @@ public class BaseDevice implements Device {
     private final Map<Integer, Boolean> clientConnectedStates = new HashMap<>();
     private final List<StateValue> emptyDeviceState = new ArrayList<>();
     private SetupPageRenderer pageRenderer = new DefaultSetupPageRenderer();
+    private Class<?> pageRendererConfigClass = null;
 
     @Inject
     ConfigManager configManager;
 
-    BaseDevice() {
-
-    }
+    protected BaseDevice() {}
 
     /**
      * Constructs a new BaseDevice instance with the provided device type, device name, and interface version number.
@@ -60,8 +59,26 @@ public class BaseDevice implements Device {
     public BaseDevice(DeviceType deviceType, String deviceName, int interfaceVersion) {
         this.deviceType = deviceType;
         this.name = deviceName;
+        // Note that we use an initial value of 0 for the device number.  If there are more than one
+        // of this device type in the Alpaca server, the DeviceManger will assign unique device numbers during startup.
         this.deviceDescriptor = new DeviceDescriptor(deviceName, deviceType, 0);
         this.interfaceVersion = interfaceVersion;
+    }
+
+    /**
+     * Constructs a new BaseDevice instance with the provided device type, device name, and interface version number.
+     * @param deviceType the type of the device, represented by an instance of {@link DeviceType}
+     * @param deviceName the name of the device
+     * @param interfaceVersion the interface version number of the device
+     * @param driverVersion the driver version number of the device.  This is optional and defaults to "1.0" if not provided.
+     */
+    public BaseDevice(DeviceType deviceType, String deviceName, int interfaceVersion, String driverVersion) {
+        this(deviceType, deviceName, interfaceVersion);
+        this.driverVersion = driverVersion;
+    }
+
+    protected void setPageRendererConfig(Class config) {
+        this.pageRendererConfigClass = config;
     }
 
     public DeviceType getDeviceType() {
@@ -292,10 +309,14 @@ public class BaseDevice implements Device {
 
     /**
      * Returns the driver information.  This is a description of the device and can include the version.
+     * If the driverInfo has not been set, it will be generated from the description and version.
      * @return the driver information.
      */
     @Override
     public String getDriverInfo() {
+        if (driverInfo == null) {
+            driverInfo = getDescription() + ". Version " + getDriverVersion();
+        }
         return driverInfo;
     }
 
@@ -383,7 +404,11 @@ public class BaseDevice implements Device {
      */
     @Override
     public String setup() {
-        return pageRenderer.renderSetupPage(name, deviceType, deviceID, this);
+        Object config = null;
+        if (pageRendererConfigClass != null) {
+            config = configManager.getConfig(pageRendererConfigClass);
+        }
+        return pageRenderer.renderSetupPage(name, deviceType, deviceID, config);
     }
 
     /**

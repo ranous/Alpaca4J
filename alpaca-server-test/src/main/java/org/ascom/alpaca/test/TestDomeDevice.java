@@ -7,6 +7,7 @@ import org.ascom.alpaca.model.ShutterState;
 
 import jakarta.inject.Singleton;
 import org.ascom.alpaca.model.StateValue;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +25,11 @@ public class TestDomeDevice extends BaseDevice implements DomeDevice {
     private boolean isSlewing = false;
     private ShutterState shutterState = ShutterState.Closed;
 
-    public TestDomeDevice() {
-        super(DeviceType.Dome, "Test Dome Driver", 3);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestDomeDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.Dome, "Test Dome Driver", DomeDevice.interfaceVersion, deviceVersion);
         setDescription("Test Dome Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
     private void startSlewing(int seconds) {

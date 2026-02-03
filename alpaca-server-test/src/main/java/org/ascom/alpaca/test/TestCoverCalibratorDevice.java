@@ -8,6 +8,7 @@ import org.ascom.alpaca.model.CoverState;
 import org.ascom.alpaca.model.DeviceType;
 import org.ascom.alpaca.response.InvalidValueException;
 import org.ascom.alpaca.response.PropertyNotImplementedException;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @SuppressWarnings("unused")
 @Singleton
@@ -16,11 +17,11 @@ public class TestCoverCalibratorDevice extends BaseDevice implements CoverCalibr
     private CoverState coverState = CoverState.Closed;
     private CalibratorState calibratorState = CalibratorState.Ready;
 
-    public TestCoverCalibratorDevice() {
-        super(DeviceType.CoverCalibrator, "Test Cover Calibrator Driver", 2);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestCoverCalibratorDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.CoverCalibrator, "Test Cover Calibrator Driver", CoverCalibratorDevice.interfaceVersion, deviceVersion);
         setDescription("Test Cover Calibrator Device");
-        // TODO: figure out a version number system
-        setDriverInfo(getDescription() + ". Version 1.0");
     }
 
     @Override

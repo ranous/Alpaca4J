@@ -14,28 +14,21 @@ public class TestSafetyMonitorDevice extends BaseDevice implements SafetyMonitor
     private static final Logger log = LoggerFactory.getLogger(TestSafetyMonitorDevice.class);
     private boolean isSafe = true;
 
-    public TestSafetyMonitorDevice() {
-        super(DeviceType.SafetyMonitor, "Test Safety Monitor Driver", 3);
+    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
+    // by the system property test.driver.version
+    public TestSafetyMonitorDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
+        super(DeviceType.SafetyMonitor, "Test Safety Monitor Driver", SafetyMonitorDevice.interfaceVersion, deviceVersion);
         setDescription("Test Safety Monitor Device");
-        setDriverInfo(getDescription());
-        setEnforceConnection(false);
+        setEnforceConnection(false);  // Don't need to enforce connection for this device
+        // Add a custom action that lets the client explicitly set the safety state
         super.addSupportedAction("setSafety", (parameters) -> {
             isSafe = Boolean.parseBoolean(parameters);
             return "Safety set to " + isSafe;
         });
     }
 
-    // The version of the driver is injected from the microprofile-config.properties file and can be overridden
-    // by the system property test.driver.version
-    @Inject
-    public TestSafetyMonitorDevice(@ConfigProperty(name="test.driver.version", defaultValue = "1.0") String deviceVersion) {
-        this();
-        setDriverVersion(deviceVersion);
-    }
-
     @Override
     public boolean isSafe() {
         return isSafe;
     }
-
 }
