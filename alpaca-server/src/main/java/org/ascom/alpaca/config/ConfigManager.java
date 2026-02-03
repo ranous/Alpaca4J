@@ -117,7 +117,7 @@ public class ConfigManager {
             }
         }
         try {
-            overrideProps.store(Files.newOutputStream(Paths.get(overrideFile)), "Updated overidden setup configuration");
+            overrideProps.store(Files.newOutputStream(Paths.get(overrideFile)), "Updated overridden setup configuration");
         } catch (IOException e) {
             log.warn("Could not write config file {}: {}", configFile, e.getMessage());
         }
