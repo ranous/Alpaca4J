@@ -1,7 +1,6 @@
 package org.ascom.alpaca.test;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.ascom.alpaca.device.BaseDevice;
 import org.ascom.alpaca.device.SafetyMonitorDevice;
 import org.ascom.alpaca.model.DeviceType;

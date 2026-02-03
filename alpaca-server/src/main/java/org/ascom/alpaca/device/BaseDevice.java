@@ -77,7 +77,7 @@ public class BaseDevice implements Device {
         this.driverVersion = driverVersion;
     }
 
-    protected void setPageRendererConfig(Class config) {
+    protected void setPageRendererConfig(Class<?> config) {
         this.pageRendererConfigClass = config;
     }
 
