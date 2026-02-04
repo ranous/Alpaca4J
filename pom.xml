@@ -46,6 +46,7 @@
         <module>alpaca-server</module>
         <module>alpaca-client-test</module>
         <module>alpaca-server-test</module>
+        <module>alpaca-example</module>
     </modules>
 
     <distributionManagement>
