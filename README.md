@@ -28,10 +28,20 @@ module is an excellent starting point for developers who want to build their own
 applications.
 
 2. **`alpaca-server-test`**:  
-   This module includes an example of implementing devices using the Alpaca protocol. 
-It is designed to help developers get started with building their own Alpaca-compatible device 
-drivers. The `alpaca-server-test` module provides a foundational implementation of test 
-devices within a server framework.
+   This module includes an example of implementing devices using the Alpaca protocol.
+   It is designed to help developers get started with building their own Alpaca-compatible device
+   drivers. The `alpaca-server-test` module provides a foundational implementation of test
+   devices within a server framework.
+
+3. **`alpaca-example`**:  
+   This module has a non-trivial example of an ObservingConditions and SafetyMonitor devices.
+   Both devices read from a memory-based database of weather measurments, which is populated
+   by a background thread which polls the contents of a Boltwood Weather Station file. 
+   The boltwood file format is used by a number of astro related devices.  The SafetyMononitor
+   behavior can be tuned by a configurable parameter that can be updated by a client via 
+   the Alpaca setup mechanism. It also demonstrates how to structure the device configuration
+   and how it might be deployed on a system.
+
 
 These submodules are great tools for experimentation and learning. Developers can use them 
 as references or templates to accelerate their implementation process.
