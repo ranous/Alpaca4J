@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>{title}</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; line-height: 1.6; }
+    .config-row { margin-bottom: 1.5em; border-bottom: 1px solid #ccc; padding-bottom: 1em; }
+    .label { font-weight: bold; display: block; }
+    .desc { font-size: 0.9em; color: #666; display: block; margin-bottom: 0.5em; }
+    input[type="text"], input[type="number"] { width: 100%; padding: 5px; }
+  </style>
+</head>
+<body>
+<h1>{title}</h1>
+<h4>{description}</h4>
+<br>
+<form id="configForm">
+  {#for item in items}
+  <div class="config-row">
+    <label class="label" for="{item.key}">{item.key}</label>
+    <span class="desc">{item.description}</span>
+    {#if item.type == 'boolean'}
+    <input type="checkbox" id="{item.key}" name="{item.key}" {item.value ? 'checked' : ''}>
+    {#else if item.type == 'int' or item.type == 'integer'}
+    <input type="number" id="{item.key}" name="{item.key}" value="{item.value}">
+    {#else}
+    <input type="text" id="{item.key}" name="{item.key}" value="{item.value}">
+    {/if}
+  </div>
+  {/for}
+  <button type="button" onclick="saveConfig()">Save Configuration</button>
+</form>
+
+<script>
+  function saveConfig() {
+    const form = document.getElementById('configForm');
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      // Handle checkboxes specifically
+      const el = form.elements[key];
+      data[key] = el.type === 'checkbox' ? el.checked.toString() : value;
+    });
+
+    // Construct the Alpaca standard setup URL
+    const url = `/setup/v1/{deviceType}/{deviceNumber}/setup`;
+
+    fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(res => {
+        if (res.ok) alert('Config saved successfully!');
+        else alert('Error saving config: ' + res.statusText);
+    }).catch(err => {
+        alert('Network error: ' + err.message);
+    });
+  }
+</script>
+</body>
+</html>
