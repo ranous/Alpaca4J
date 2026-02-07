@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.ranous.ascom</groupId>
     <artifactId>alpaca-server-test</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>Alpaca Server Tests</name>
 
     <properties>
         <alpaca.example>true</alpaca.example>
         <alpaca.platform.group-id>io.github.ranous.ascom</alpaca.platform.group-id>
-        <alpaca.platform.version>1.0.1-SNAPSHOT</alpaca.platform.version>
+        <alpaca.platform.version>1.0.1</alpaca.platform.version>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
         <maven.compiler.release>17</maven.compiler.release>
         <maven.install.skip>true</maven.install.skip>
